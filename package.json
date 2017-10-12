@@ -1,0 +1,24 @@
+{
+  "name": "helpme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KahunaCode/HelpMe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KahunaCode/HelpMe/issues"
+  },
+  "homepage": "https://github.com/KahunaCode/HelpMe#readme",
+  "dependencies": {
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.13.8"
+  }
+}
