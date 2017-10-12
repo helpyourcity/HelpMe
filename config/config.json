@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
+    "username": "basic_user",
     "password": null,
-    "database": "database_development",
+    "database": "helpme",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "test": {
     "username": "root",
