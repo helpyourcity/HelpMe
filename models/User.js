@@ -11,8 +11,8 @@ module.export = function(sequelize, DataTypes) {
       values: ['user', 'helper', 'helpee']
       },
     phone: DataTypes.STRING
-    }
-
+    })
+  
     User.associate = function(models) {
       User.hasMany(models.Location, {
         foreignKey: {
@@ -20,8 +20,11 @@ module.export = function(sequelize, DataTypes) {
           allowNull: false
         }
       });
-    }
+    };
+      return User;
+    };
+
+  
+  
 
 
-  })
-}
