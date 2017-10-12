@@ -1,0 +1,7 @@
+
+
+DROP DATABASE IF EXISTS helpme;
+DROP USER IF EXISTS basic_user;
+
+CREATE USER basic_user;
+CREATE DATABASE helpme WITH OWNER basic_user;
