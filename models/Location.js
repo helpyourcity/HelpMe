@@ -3,13 +3,13 @@ module.exports = function(sequelize, DataTypes) {
       house_number: DataTypes.INTEGER,
       street: DataTypes.STRING,
       unit: DataTypes.STRING,
-      apt_num: DataTypes.STRING, 
+      apt_num: DataTypes.STRING,
       city: DataTypes.STRING,
       state: DataTypes.STRING,
       zip_code: DataTypes.INTEGER,
-      geo_point: DataTypes.GEOMETRY('POINT'),  
+      geo_point: DataTypes.STRING,
 });
-    
+
         Location.associate = function(models) {
             Location.belongsTo(models.User, {
                 foreignKey: {
@@ -18,6 +18,6 @@ module.exports = function(sequelize, DataTypes) {
                 }
             });
         };
-      
+
     return Location;
   };

@@ -1,4 +1,4 @@
-module.export = function(sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   let Message = sequelize.define("Message", {
     body: DataTypes.TEXT,
     sender: DataTypes.INTEGER

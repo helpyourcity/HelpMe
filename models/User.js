@@ -1,18 +1,23 @@
-module.export = function(sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   let User = sequelize.define("User", {
-    name: {
+    first_name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+      },
+    last_name: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false
       },
     password: DataTypes.STRING,
     status: {
-      type: Sequelize.ENUM,
+      type: DataTypes.ENUM,
       values: ['user', 'helper', 'helpee']
       },
     phone: DataTypes.STRING
     })
-  
+
     User.associate = function(models) {
       User.hasMany(models.Location, {
         foreignKey: {
@@ -24,7 +29,7 @@ module.export = function(sequelize, DataTypes) {
       return User;
     };
 
-  
-  
+
+
 
 
