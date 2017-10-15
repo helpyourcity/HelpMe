@@ -44,8 +44,12 @@ router.put('/help_requests/:id', function (req, res) {
         id: req.params.id
       }
     })
-    .then(() =>{
+    .then((data) =>{
       console.log('success');
+      return Rescue.findById(data.id)
+        .then((rescue) =>{
+          res.json(rescue);
+        });
     })
     .catch(() =>{
       console.log('fail');
