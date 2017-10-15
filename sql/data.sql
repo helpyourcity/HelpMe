@@ -1,3 +1,5 @@
+\c helpme helpme basic_user
+
 INSERT INTO "Users" VALUES
 (default, 'james', 'moore','hunter12', '1234567890', true, NOW(), NOW()),
 (default, 'joshi', 'vallejo', 'hunter12', '4567890123', true, NOW(), NOW()),

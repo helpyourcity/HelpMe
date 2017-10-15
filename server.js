@@ -15,7 +15,7 @@ const rescue = require('./routes/rescue.js');
 const user = require('./routes/user.js');
 
 app.use(bp.urlencoded());
-
+app.use(express.static('public'));
 
 app.use('/api/location', location);
 app.use('/api/message', message);
@@ -27,9 +27,9 @@ app.use('/api/user', user);
 
 
 // I dont think we need this, make a case for that
-// this is for getting help requests. 
+// this is for getting help requests.
 // app.get('/api/help_requests', function (req, res) {
-  
+
 // })
 
 
