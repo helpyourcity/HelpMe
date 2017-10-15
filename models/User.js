@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.Location, {
         foreignKey: {
           name: 'user_id',
-          allowNull: true
+          allowNull: false
         }
       });
     };
