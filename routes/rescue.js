@@ -35,22 +35,41 @@ router.post('/help_requests', function (req, res) {
 
 router.put('/help_requests/:id', function (req, res) {
     //this is to connect the helper to the helpee by rescue id
-    var rescueId = parseInt(req.params.id);
-    Rescue.findById(rescueId)
-        .then((user) => {
-            Rescue.update({
-                    helpee_id: req.body.helpee_id
-                })
-                .then(() => {
-                    return Rescue.findAll()
-                        .then((rescue) => {
-                            res.json(rescue);
-                        });
-                });
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-});
+    console.log("console logging", req.body)
+    var rescueId = parseInt(parseInt(req.params.id));
+    Rescue.update({
+      helper_id: req.body.helper_id,
+    }, {
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(() =>{
+      console.log('success');
+    })
+    .catch(() =>{
+      console.log('fail');
+    });
+    });
+
+
+
+//     Rescue.findById(req.params.id)
+//         .then((user) => {
+//             Rescue.update({
+//                     where:
+//                         {helper_id: req.body.helper_id}
+//                 })
+//                 .then(() => {
+//                     return Rescue.findAll()
+//                         .then((rescue) => {
+//                             res.json(rescue);
+//                         });
+//                 });
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+// });
 
 module.exports = router;
