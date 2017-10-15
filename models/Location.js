@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       city: DataTypes.STRING,
       state: DataTypes.STRING,
       zip_code: DataTypes.INTEGER,
-      geo_point: DataTypes.STRING,
+      geo_point: DataTypes.STRING
 });
 
         Location.associate = function(models) {

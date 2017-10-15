@@ -13,7 +13,7 @@ router.post('/map', function (req, res) {
             city: req.body.city,
             state: req.body.state,
             zip_code: req.body.zip_code,
-            geo_point: req.body.geo_point
+            geo_point: req.body.geo_point,
         })
         .then(location => {
             res.end()
