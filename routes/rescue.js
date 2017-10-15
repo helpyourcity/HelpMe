@@ -33,14 +33,15 @@ app.post('/api/help_requests', function (req, res) {
 });
 
 
-router.put('/help_requests/:id', function (req, res) {
+router.put('/help_requests/:id/edit', function (req, res) {
+    console.log("xxx",req.body)
+    console.log("yyy", req.params.id)
     //this is to connect the helper to the helpee by rescue id
-    var rescueId = parseInt(req.params.id);
-    Rescue.findById(rescueId)
+    // var rescueId = parseInt(req.params.id);
+    Rescue.findById(req.params.id)
         .then((user) => {
-            Rescue.update({
-                    helpee_id: req.body.helpee_id
-                })
+            console.log("ddd", req.body)
+            Rescue.update(req.body )
                 .then(() => {
                     return Rescue.findAll()
                         .then((rescue) => {

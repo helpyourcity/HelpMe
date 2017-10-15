@@ -2,12 +2,10 @@ module.exports = function(sequelize, DataTypes) {
   let User = sequelize.define("User", {
     first_name: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
       },
     last_name: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
       },
     password: DataTypes.STRING,
@@ -19,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       User.hasMany(models.Location, {
         foreignKey: {
           name: 'user_id',
-          allowNull: false
+          allowNull: true
         }
       });
     };
