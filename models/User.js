@@ -11,10 +11,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
       },
     password: DataTypes.STRING,
-    status: {
-      type: DataTypes.ENUM,
-      values: ['user', 'helper', 'helpee']
-      },
     phone: DataTypes.STRING,
     active: DataTypes.BOOLEAN
     });
