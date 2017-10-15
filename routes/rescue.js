@@ -4,17 +4,17 @@ const app = express();
 
 const Rescue = require('../models').Rescue
 
-app.post('/api/help_requests', function (req, res) {
+router.post('/help_requests', function (req, res) {
     console.log('are we posting resque??', req.body)
     Rescue.create({
             helper_id: req.body.helper_id,
             helpee_id: req.body.helpee_id,
-            time_start: req.body.time_start,
-            time_closed: req.body.time_closed,
-            reason_ended: req.body.reason_ended,
+            // time_start: req.body.time_start,
+            // time_closed: req.body.time_closed,
+            // reason_ended: req.body.reason_ended,
         })
         .then((rescue) => {
-            return Message.findAll({
+            return Rescue.findAll({
                     'order': [
                         ['time_start', 'DESC']
                     ],
