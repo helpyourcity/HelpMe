@@ -9,9 +9,9 @@ router.post('/help_requests', function (req, res) {
     Rescue.create({
             helper_id: req.body.helper_id,
             helpee_id: req.body.helpee_id,
-            // time_start: req.body.time_start,
-            // time_closed: req.body.time_closed,
-            // reason_ended: req.body.reason_ended,
+            time_start: req.body.time_start,
+            time_closed: req.body.time_closed,
+            reason_ended: req.body.reason_ended,
         })
         .then((rescue) => {
             return Rescue.findAll({
