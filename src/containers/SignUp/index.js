@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import {signIn, userLocation} from '../../actions/Users.js';
+import {addUser, userLocation} from '../../actions/Users.js';
 import PasswordMask from 'react-password-mask';
 import NumberFormat from 'react-number-format';
-import axios from 'axios';
+
 
 
 
@@ -105,47 +105,20 @@ class SignUp extends Component{
 	}
 
 // kfladsjfkldsajflkdjfldasjldjdfklsjflasjflsdjlkf
-	submitUser(){
-		axios.post({
-			method: 'post',
-			url: '/api/user/new',
-			body:{
+	submitUser(evt){
+		evt.preventDefault();
+		console.log('userInput:',this.state)
+			let newUser = {
 				first_name: 'this.state.first_name',
 				last_name: 'this.state.last_name',
 				password: 'this.state.password',
 				phone: '8081234567',
 				active: 'true',
 			}
-		}) // maybe put location input here? 
-		.then(function (response) {
-			
-		})
-		.catch(function (error) {
-			console.log(error);
-		}) // this is post to the server
-
-		axios.post({
-			method: 'post',
-			url: '/api/location/map',
-			body : {
-				house_number: 1234,
-				street: 'req.body.street',
-				unit: 'req.body.unit',
-				apt_num: 345,
-				city: 'req.body.city',
-				state: 'req.body.state',
-				zip_code: 96818,
-				geo_point: 123.32,
-				user_id: '1'
-			}
-		}) // not sure if this works or not. need to ask 
-		.then(function (response) {
-			console.log(response);
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
-	}
+			console.log('newcard:',newUser)
+			this.props.addUser(newUser);
+		}
+		
 ///klfadsjlkfjdfjalkfjlfjsakl
 
 	render (){
@@ -243,9 +216,10 @@ class SignUp extends Component{
 const mapDispatchToProps = (dispatch) =>{
 	return {
 		//whatever the action is 
-		signIn: (user) =>{
-			dispatch(signIn(user));
-		}
+		addUser: (text) => {
+			dispatch(addUser(text))
+		  }
+		
 	}
 }
 

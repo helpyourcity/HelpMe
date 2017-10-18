@@ -57,23 +57,4 @@ router.put('/help_requests/:id', function (req, res) {
     });
 
 
-
-//     Rescue.findById(req.params.id)
-//         .then((user) => {
-//             Rescue.update({
-//                     where:
-//                         {helper_id: req.body.helper_id}
-//                 })
-//                 .then(() => {
-//                     return Rescue.findAll()
-//                         .then((rescue) => {
-//                             res.json(rescue);
-//                         });
-//                 });
-//         })
-//         .catch((err) => {
-//             console.log(err)
-//         })
-// });
-
 module.exports = router;
