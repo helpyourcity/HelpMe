@@ -14,6 +14,7 @@ router.post('/map', function (req, res) {
             state: req.body.state,
             zip_code: req.body.zip_code,
             geo_point: req.body.geo_point,
+            user_id: req.body.user_id
         })
         .then(location => {
             res.end()
