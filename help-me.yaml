@@ -1,0 +1,269 @@
+swagger: '2.0'
+info:
+  description: ""
+  version: 1.0.0
+  title: Help-Me
+  contact:
+    email: joshua.a.vallejo@gmail.com
+tags:
+- name: user
+  description: User bases routes
+- name: location
+  description: Location based routes
+- name: message
+  description: Message Based Routes
+- name: rescue
+  description: Rescue Based Routes
+  externalDocs:
+    description: Find out more about our store
+    url: http://swagger.io
+# schemes:
+# - http
+paths:
+  /api/user/new:
+    post:
+      tags: 
+      - user
+      summary: Add new user
+      consumes: 
+      - application/json
+      produces: 
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: User that will be added to data base.
+        required: true
+      responses:
+        200:
+          description: Successful 
+  /api/user/login:
+    get:
+      tags: 
+      - user
+      summary: Login User
+      operationId: loginUser
+      produces: 
+      - application/json
+      responses:
+        200:
+          description: Successful 
+      
+  /api/user/users/{id}:
+    get:
+      tags: 
+      - user
+      summary: Get user by id 
+      operationId: getUserById 
+      produces: 
+      - application/json
+      parameters: 
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Successful 
+  /api/user/users/{id}/edit:  
+    put:
+      tags: 
+      - user
+      summary: Edit user for profiles by ID
+      operationId: editUserById 
+      consumes: 
+      - application/json
+      produces: 
+      - application/json
+      parameters: 
+      - name: id
+        in: body
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Successful  
+  /api/location/map:
+    post:
+      tags: 
+      - location
+      summary: Add new location 
+      consumes: 
+      - application/json
+      produces: 
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Location that will be added to data base.
+        required: true
+      responses:
+        200:
+          description: Successful 
+  /api/message/chat:
+    post:
+      tags: 
+      - message
+      summary: Add new message for the chat feature
+      consumes: 
+      - application/json
+      produces: 
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Messages that will be added to database.
+        required: true
+      responses:
+        200:
+          description: Successful 
+  /api/rescue/help_request:
+    post:
+      tags:
+      - rescue
+      consumes: 
+      - application/json
+      produces: 
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Start sending out initial information that start rescue
+        required: true
+      responses:
+        200:
+          description: Successful 
+  /api/rescue/help_requests/:id: 
+    put:
+      tags: 
+      - rescue
+      summary: This is to connect the helper to the helpee by rescue id
+      operationId: connectHelperToHelpee 
+      consumes: 
+      - application/json
+      produces: 
+      - application/json
+      parameters: 
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Successful    
+definitions:
+  User:
+    type: object
+    required:
+    - id
+    - first_name
+    - last_name
+    - password
+    - phone
+    - active 
+    properties:
+      id:
+        type: integer
+        format: int64
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      active:
+        type: boolean
+  Location:
+    type: object
+    required:
+    - id
+    - user_id
+    - house_number
+    - street
+    - city
+    - state
+    - zip_code
+    properties:
+      id:
+        type: integer
+        format: int64
+      user_id:
+        type: integer
+        format: int64
+      house_number:
+        type: string
+      unit: 
+        type: string
+      apt_num:
+        type: string
+      city: 
+        type: string
+      state:
+        type: string
+      zip_code: 
+        type: integer
+        format: int64
+      geo_point:
+        type: string    
+  Message:
+    type: object
+    required:
+    - id
+    - body
+    - sender
+    - rescue_id
+    properties:
+      id:
+        type: integer
+        format: int64
+      body:
+        type: string
+      sender:
+        type: integer
+        format: int64
+      rescue_id:
+        type: integer
+        format: int64
+  Rescue:
+    type: object
+    required:
+    - id
+    - helper_id
+    - time_start
+    properties:
+      id:
+        type: integer
+        format: int64
+      helper_id:
+        type: integer
+        format: int64
+      time_start:
+        type: date
+      time_closed:
+        type: date
+      reason_ended:
+        type: string
+        description: Why rescue has ended
+        enum:
+        - sucess
+        - fail
+        - other
+      rescue_id:
+        type: integer
+        format: int64      
+        
+   
+      
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /api
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+basePath: /JJAR/Help_Me1.0.0

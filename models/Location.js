@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
       apt_num: DataTypes.STRING,
       city: DataTypes.STRING,
       state: DataTypes.STRING,
-      zip_code: DataTypes.INTEGER,
+      zip_code: DataTypes.STRING,
       geo_point: DataTypes.STRING
 });
 
