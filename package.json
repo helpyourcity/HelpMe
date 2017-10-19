@@ -6,6 +6,7 @@
     "axios": "^0.16.2",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "google-map-react": "^0.24.0",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "react": "^16.0.0",
