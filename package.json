@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "jwt-simple": "^0.5.1",
+    "morgan": "^1.9.0",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "react": "^16.0.0",
@@ -27,5 +30,4 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8080/"
-    
 }

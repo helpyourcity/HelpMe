@@ -1,10 +1,10 @@
 \c helpme helpme basic_user
 
 INSERT INTO "Users" VALUES
-(default, 'james', 'moore','hunter12', '1234567890', true, NOW(), NOW()),
-(default, 'joshi', 'vallejo', 'hunter12', '4567890123', true, NOW(), NOW()),
-(default, 'ross', 'wu', 'hunter12', '3126540987', true, NOW(), NOW()),
-(default, 'alexis', 'okamura', 'hunter12', '9876541230', true, NOW(), NOW());
+(default, 'james', 'moore','james@gmail.com', 'hunter12', '1234567890', true, NOW(), NOW()),
+(default, 'joshi', 'vallejo', 'joshi@gmail.com', 'hunter12',  '4567890123', true, NOW(), NOW()),
+(default, 'ross', 'wu', 'ross@gmail.com', 'hunter12', '3126540987', true, NOW(), NOW()),
+(default, 'alexis', 'okamura', 'alexis@gmail.com', 'hunter12', '9876541230', true, NOW(), NOW());
 
 INSERT INTO "Locations" VALUES
 (default, '123', 'Abcde St', null, null, 'Kapolei', 'HI', '96707', null, NOW(), NOW(), 2),
