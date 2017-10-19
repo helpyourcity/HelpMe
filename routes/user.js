@@ -20,13 +20,16 @@ router.post('/new', function (req, res) {
       phone: req.body.phone,
       active: req.body.active
     })
-    .then(users => {
-      res.end()
-    })
-    .catch(err => {
+    .then((user) => {
+            console.log('server user to send +++', user.id)
+              res.json(user.id);
+          })
+  .catch((err) => {
       console.log(err)
-    });
-});
+  })
+})
+
+
 
 
 //gettin user by id for checking your profile
