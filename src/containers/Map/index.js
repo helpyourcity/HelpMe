@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
+
 import Marker from '../Marker';
 import './Map.css';
+
+// ACTIONS
+import { addMarker } from '../../actions/Markers.js';
+
+// REDUCER
+import reducers from '../../reducers';
 
 // const Marker = ({ text }) => <div>{text}</div>;
 
@@ -22,7 +30,9 @@ class Map extends Component {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
-        // Add lat, lng states
+        this.props.addMarker({lat: lat, lng: lng});
+        this.props.addMarker({lat: 21, lng: -157});
+        // gets center points for map
         this.setState({
           lat,
           lng
@@ -32,6 +42,14 @@ class Map extends Component {
   }
 
   render() {
+    const bunchOfMarkers = this.props.markers &&
+    this.props.markers.map((marker) => (
+      <Marker
+        lat={marker.lat}
+        lng={marker.lng}
+      />
+    ));
+    console.log(this.props.markers);
     return (
       <div className="map">
         <GoogleMapReact
@@ -39,14 +57,30 @@ class Map extends Component {
           center={[this.state.lat, this.state.lng]}
           defaultZoom={this.state.zoom}
         >
-          <Marker
-            lat={this.state.lat}
-            lng={this.state.lng}
-          />
+          {bunchOfMarkers}
         </GoogleMapReact>
       </div>
     );
   }
 }
 
-export default Map;
+const mapStateToProps = (state) => {
+  return {
+    markers: state.markers
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addMarker: (marker) => {
+      dispatch(addMarker(marker))
+    }
+  }
+}
+
+const ConnectedMap = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Map);
+
+export default ConnectedMap;
