@@ -1,17 +1,23 @@
-import { ADD_USER } from '../actions/Users.js';
+import { CREATE_USER, LOCATION } from '../actions/Users.js';
 
 const initialState = [];
 
 const users = (state = initialState, action) => {
   switch(action.type) {
-    case ADD_USER:
-    console.log("action time!!!",action)
-      return [
 
-        ...action.users
-      ]
-    default:
-      return state;
+    case CREATE_USER:
+    console.log("action time!!!",action._id)
+      return [
+        ...action.users, action.id
+      ];
+
+      case LOCATION:
+      console.log("location", action)
+        return [
+          ...state, action.users
+        ];
+        default:
+        return state;
   }
 };
 
