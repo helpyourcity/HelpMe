@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-const PORT = process.env.PORT || 3000;
-
+const PORT = process.env.PORT || 8080;
+const morgan = require('morgan');
 const db = require('./models');
 const bp = require('body-parser');
 
@@ -14,9 +14,12 @@ const message = require('./routes/message.js');
 const rescue = require('./routes/rescue.js');
 const user = require('./routes/user.js');
 
-app.use(bp.urlencoded());
+app.use(morgan('combined')) // this is middleware that is a logging framework, it logs when we get requests good for debuggin
+app.use(bp.json({type:'*/*'}))
+// app.use(bp.urlencoded());
 app.use(express.static('public'));
-
+ 
+// routes
 app.use('/api/location', location);
 app.use('/api/message', message);
 app.use('/api/rescue', rescue);
@@ -38,13 +41,3 @@ const server = app.listen(PORT, () => {
   db.sequelize.sync()
   console.log(`helpme running on ${PORT}`)
 })
-
-
-
-
-
-
-
-
-
-
