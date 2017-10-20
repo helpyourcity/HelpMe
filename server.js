@@ -15,10 +15,12 @@ const rescue = require('./routes/rescue.js');
 const user = require('./routes/user.js');
 
 app.use(morgan('combined')) // this is middleware that is a logging framework, it logs when we get requests good for debuggin
-app.use(bp.json({type:'*/*'}))
+app.use(bp.json({
+  type: '*/*'
+}))
 // app.use(bp.urlencoded());
 app.use(express.static('public'));
- 
+
 // routes
 app.use('/api/location', location);
 app.use('/api/message', message);
