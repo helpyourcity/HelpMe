@@ -1,3 +1,4 @@
+
 module.exports = function(sequelize, DataTypes) {
   let User = sequelize.define("User", {
     first_name: {
@@ -8,10 +9,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
       },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+        },
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
     active: DataTypes.BOOLEAN
     });
+    
 
     User.associate = function(models) {
       User.hasMany(models.Location, {
