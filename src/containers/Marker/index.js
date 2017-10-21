@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import GoogleMapReact from 'google-map-react';
-
+import ReactToolTip from 'react-tooltip';
 import { markerStyle, markerStyleHover} from './marker_styles.js';
 
 class Marker extends Component {
@@ -12,7 +11,12 @@ class Marker extends Component {
     const style = this.props.$hover ? markerStyleHover : markerStyle;
 
     return (
-      <div style={style}></div>
+      <div>
+        <div data-tip data-for="marker" style={style}></div>
+        <ReactToolTip id="marker" effect="solid">
+          <span>ur location</span>
+        </ReactToolTip>
+      </div>
     );
   }
 }

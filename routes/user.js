@@ -1,22 +1,54 @@
 const express = require('express');
+
+
 const router = express.Router();
 const app = express();
 const bcrypt = require('bcrypt');
 const User = require('../models').User
 const jwt = require('jwt-simple');
-const config = require('../config/config.json')
+const config = require('../config/config.json');
 const saltRounds = 10;
 
+const passportService = require('../services/passport.js');
+const passport = require('passport');
+
+const requireAuth = passport.authenticate('jwt', {session:false});
+const requireSignIn = passport.authenticate('local', {session: false});
+//helper functions
+// signup = function(req, res, next){ 
+//   const email = req.body.email;
+//   const password = req.body.password
+
+//   if(!email || !password){
+//     return res.status(422).send({error: 'Please provide email and passt wowrd'})
+//   }
+// }
+    
+ 
 function tokenForUser(user) { 
   const timestamp = new Date().getTime();
-  return jwt.encode({sub: user.idm, iat: timestamp}, config.secret)
+  return jwt.encode({sub: user.id, iat: timestamp}, config.secret)
 }// jwt have a sub property meaning subject is user id. 
 
 
+ function signin(req, res, next){
+    console.log("SIGNIN USER REQ:", req.user)
+    res.send({ token: tokenForUser(req.user)})
+}
+
+
+
 //login
-router.get('/login', function (req, res) {
+router.get('/',  requireAuth,  function (req, res) {
+  console.log('we gettin anything?')
+  res.send({hi:'there'})
   //this is to login this will be what sends token to API through OAuth
+
 });
+
+router.post('/signin', requireSignIn, signin);
+
+
 
 //sign up
 router.post('/new', function (req, res) {
@@ -40,10 +72,10 @@ router.post('/new', function (req, res) {
           })
   .catch((err) => {
       console.log(err)
-  })
-})
-})
-})
+  });
+});
+});
+});
 
 
 
@@ -76,3 +108,4 @@ router.put('/users/:id/edit', function (req, res) {
 });
 
 module.exports = router;
+
