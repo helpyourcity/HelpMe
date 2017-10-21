@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {signIn} from '../../actions/Users.js';
 
 // COMPONENTS
+import Router from '../../components/Router'
 
 // CONTAINERS
 import Map from '../Map';
@@ -17,8 +18,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
-        <Map/>
+        <Router />>
       </div>
     );
   }
