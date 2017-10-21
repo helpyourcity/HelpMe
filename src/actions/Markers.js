@@ -6,6 +6,6 @@ export const addMarker = (marker) => {
   console.log("ADDMARKER", marker);
   return {
     type: ADD_MARKER,
-    marker: {lat: marker.lat, lng: marker.lng }
+    marker: {lat: marker.lat, lng: marker.lng, text: marker.text }
   };
 };

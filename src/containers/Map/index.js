@@ -31,8 +31,8 @@ class Map extends Component {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
-        this.props.addMarker({lat: lat, lng: lng});
-        this.props.addMarker({lat: 21, lng: -157});
+        this.props.addMarker({lat: lat, lng: lng, text: 'your location'});
+        this.props.addMarker({lat: 21, lng: -157, text: 'helper'}); // dummy data, delete later
         // gets center points for map
         this.setState({
           lat,
@@ -48,6 +48,7 @@ class Map extends Component {
       <Marker
         lat={marker.lat}
         lng={marker.lng}
+        text={marker.text}
       />
     ));
     console.log(this.props.markers);

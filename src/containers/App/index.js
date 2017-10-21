@@ -9,6 +9,7 @@ import {signIn} from '../../actions/Users.js';
 import Map from '../Map';
 import Header from '../Header';
 import SignUp from '../SignUp';
+import Footer from '../Footer';
 
 import './App.css';
 
@@ -18,7 +19,8 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Map/>
+        <Map />
+        <Footer />
       </div>
     );
   }
