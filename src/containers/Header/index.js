@@ -8,13 +8,13 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="header">
-        <div className="header-title">Help Me!</div>
-        <div className="header-nav">
-          <a href="#">Login</a> /
-          <a href="#">Logout</a>
-        </div>
-      </div>
+     <nav className=" navbar navbar-light">
+     <ul className="nav navbar-nav">
+     <li className="nav-item">
+     Sign In
+     </li>
+     </ul>
+     </nav>
     );
   }
 }

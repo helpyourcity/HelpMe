@@ -91,7 +91,7 @@ class UserLocation extends Component{
 			<div>
 			<h1>Create Account</h1>
 			 <form>
-			 	<ConnectedSignUp />
+		
 				
 				<h3>House Number</h3>
 					<input
