@@ -7,13 +7,12 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "google-map-react": "^0.24.0",
     "jwt-simple": "^0.5.1",
     "morgan": "^1.9.0",
-
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.0",
     "passport-local": "^1.0.0",
-    "google-map-react": "^0.24.0",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "react": "^16.0.0",
@@ -24,6 +23,7 @@
     "react-scripts": "1.0.14",
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
+    "redux-form": "^7.1.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.13.8",
     "sequelize-cli": "^3.0.0"
