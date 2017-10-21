@@ -9,21 +9,11 @@ import ConnectedUserLocation from '.././containers/SignUp/location'
 import ConnectedMap from '.././containers/Map/index'
 import Header from '../containers/Header'
 
-const ReactRouter = ()=>(   //fdasaf fidsjalkfjaldkj
+const ReactRouter = ()=>(
   <Router> 
     <div>
-      <ul>   
-        <li>
-          <Link to="/create/account">Create Account</Link>
-        </li>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <Link to="/location/map"></Link>
-      </ul>
-      <br/>
-
       <Route exact path ="/" component = {Header}/>
+      <Route exact path = "/" component = {ConnectedMap}/>
       <Route path = "/create/account" component = {ConnectedUserLocation}/>
     </div>
   </Router>

@@ -104,8 +104,7 @@ class SignUp extends Component{
 		})
 	}
 
-// kfladsjfkldsajflkdjfldasjldjdfklsjflasjflsdjlkf
-	submitUser(evt){
+	submitUser(evt){ //maybe take away submit function? 
 		evt.preventDefault();
 		console.log('userInput:',this.state)
 			let newUser = {
@@ -118,8 +117,6 @@ class SignUp extends Component{
 			console.log('newcard:',newUser)
 			this.props.addUser(newUser);
 		}
-		
-///klfadsjlkfjdfjalkfjlfjsakl
 
 	render (){
 		console.log("render: ", this.state);
