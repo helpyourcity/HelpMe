@@ -12,6 +12,7 @@ import ConnectedSignUp from '.././containers/SignUp/index';
 import ConnectedMap from '.././containers/Map/index';
 import Header from '../containers/Header';
 
+
 const ReactRouter = ()=>(   //fdasaf fidsjalkfjaldkj
   <Router > 
     <div>
@@ -29,6 +30,14 @@ const ReactRouter = ()=>(   //fdasaf fidsjalkfjaldkj
 
       <Route exact path ="/" component = {Signin}/>
       <Route path = "/create/account" component = {ConnectedSignUp}/>
+
+const ReactRouter = ()=>(
+  <Router> 
+    <div>
+      <Route exact path ="/" component = {Header}/>
+      <Route exact path = "/" component = {ConnectedMap}/>
+      <Route path = "/create/account" component = {ConnectedUserLocation}/>
+
     </div>
   </Router>
 )

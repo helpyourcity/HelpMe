@@ -1,9 +1,11 @@
+// need to make changes on this file read comment below
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {userLocation} from '../../actions/Users';
 import user from './index';
 import NumberFormat from 'react-number-format';
 import ConnectedSignUp from './index';
+import Header from '../Header/index';
 
 class UserLocation extends Component{
 	constructor (props){
@@ -85,14 +87,17 @@ class UserLocation extends Component{
 
 	}
 
-	render (){
+	render (){ // need to change header from this file
 		console.log("render location: ", this.state);
 		return(
 			<div>
+				<Header />
 			<h1>Create Account</h1>
+        front-end-auth
 			 <form>
 		
-				
+			 	<ConnectedSignUp />
+
 				<h3>House Number</h3>
 					<input
 					type ="text"
@@ -144,7 +149,6 @@ class UserLocation extends Component{
 					<br />
 					<button onClick = {this.submitLocation.bind(this)
 					}>Create Account</button>
-				</form> 
 			</div>
 		)
 	}
