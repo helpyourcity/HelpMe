@@ -1,9 +1,13 @@
-import React from 'react';
+//main display
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Link,
   IndexRoute
+
+} from "react-router-dom";
+
 } from 'react-router-dom';  
 
 // import ConnectedSignUp from '.././containers/SignUp/index'
@@ -31,16 +35,26 @@ const ReactRouter = ()=>(   //fdasaf fidsjalkfjaldkj
       <Route exact path ="/" component = {Signin}/>
       <Route path = "/create/account" component = {ConnectedSignUp}/>
 
-const ReactRouter = ()=>(
-  <Router> 
+
+// import ConnectedSignUp from '.././containers/SignUp/index'
+import SignUp from ".././containers/SignUp/index";
+import ConnectedMap from ".././containers/Map/index";
+import Header from "../containers/Header";
+import UserLocation from "../containers/SignUp/location";
+
+const ReactRouter = () => (
+  <Router>
     <div>
+      <Route exact path="/" component={Header} />
+      <Route exact path="/" component={ConnectedMap} />
+      <Route path="/create/account" component={SignUp} />
+      <Route path="/create/address" component={UserLocation} />
       <Route exact path ="/" component = {Header}/>
       <Route exact path = "/" component = {ConnectedMap}/>
       <Route path = "/create/account" component = {ConnectedUserLocation}/>
 
     </div>
   </Router>
-)
+);
 
-
-export default ReactRouter; 
+export default ReactRouter;
