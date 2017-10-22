@@ -6,13 +6,11 @@ import './Modal.css';
 class Modal extends Component {
   constructor(props) {
     super(props);
-    console.log("modal constructor", this.props);
   }
 
   render() {
-    console.log("render modal", this.props);
     // if modal is open render
-    if(this.props.id === this.props.activeModal) {
+    if(this.props.id === parseInt(this.props.activeModal)) {
       return (
         <div className="backdrop">
           <div className="modal">
