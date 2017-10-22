@@ -5,7 +5,6 @@ import {
 const initialState = [];
 
 const markers = (state = initialState, action) => {
-  console.log("REDUCER", action);
   switch(action.type) {
     case ADD_MARKER:
       return [

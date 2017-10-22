@@ -9,14 +9,12 @@ class Marker extends Component {
 
   render() {
     const style = this.props.$hover ? markerStyleHover : markerStyle;
-    console.log(this.props);
     return (
       <div>
-        <div data-tip data-for="marker" style={style}>
-        <ReactToolTip id="marker" effect="solid">
+        <div data-tip data-for={this.props.id} style={style}></div>
+        <ReactToolTip id={this.props.id} effect="solid">
           {this.props.text}
         </ReactToolTip>
-        </div>
       </div>
     );
   }

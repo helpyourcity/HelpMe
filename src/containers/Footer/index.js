@@ -9,39 +9,40 @@ class Footer extends Component {
 
     // initial state
     this.state = {
-      isModalOpen: false
+      activeModal: null
     };
 
     // functions
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.setActiveModal = this.setActiveModal.bind(this);
   }
 
-  openModal() {
+  setActiveModal(e) {
     this.setState({
-      isModalOpen: true
-    });
-  }
-
-  closeModal() {
-    this.setState({
-      isModalOpen: false
+      activeModal: e.target.value
     });
   }
 
   render() {
+    console.log("render", this.state.activeModal);
     return (
-      <div>
       <footer>
-        <button onClick={this.openModal}>Help Requests</button>
-        <Modal isModalOpen={this.state.isModalOpen}>
-          <h1>BLAH</h1>
-          <button onClick={this.closeModal}>Close</button>
+        <button value={1} onClick={this.setActiveModal}>Help Requests</button>
+        <button value={2} onClick={this.setActiveModal}>Help Me!</button>
+        <button value={3} onClick={this.setActiveModal}>Your Profile</button>
+
+        <Modal id={1} activeModal={this.state.activeModal}>
+          <h1>Modal #1</h1>
+          <button value={null} onClick={this.setActiveModal}>Close</button>
         </Modal>
-        <button>Help Me!</button>
-        <button>Your Profile</button>
+        <Modal id={2} activeModal={this.state.activeModal}>
+          <h1>Modal #2</h1>
+          <button value={null} onClick={this.setActiveModal}>Close</button>
+        </Modal>
+        <Modal id={3} activeModal={this.state.activeModal}>
+          <h1>Modal #3</h1>
+          <button value={null} onClick={this.setActiveModal}>Close</button>
+        </Modal>
       </footer>
-      </div>
     );
   }
 }

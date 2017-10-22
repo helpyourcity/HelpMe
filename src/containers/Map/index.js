@@ -31,8 +31,9 @@ class Map extends Component {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
-        this.props.addMarker({lat: lat, lng: lng, text: 'your location'});
-        this.props.addMarker({lat: 21, lng: -157, text: 'helper'}); // dummy data, delete later
+        this.props.addMarker({id: '1', lat: lat, lng: lng, text: 'your location'});
+        this.props.addMarker({id: '2', lat: 21, lng: -157.5, text: 'helper'});
+        this.props.addMarker({id: '3', lat: 21, lng: lng, text: 'ur mom'});
         // gets center points for map
         this.setState({
           lat,
@@ -46,12 +47,12 @@ class Map extends Component {
     const bunchOfMarkers = this.props.markers &&
     this.props.markers.map((marker) => (
       <Marker
+        id={marker.id}
         lat={marker.lat}
         lng={marker.lng}
         text={marker.text}
       />
     ));
-    console.log(this.props.markers);
     return (
       <div className="map">
         <GoogleMapReact
