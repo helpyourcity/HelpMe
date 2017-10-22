@@ -1,0 +1,8 @@
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  height: 35px; /*temp value*/
+  text-align: center;
+}
