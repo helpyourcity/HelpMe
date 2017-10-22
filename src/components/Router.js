@@ -1,11 +1,17 @@
-//main display
 import React from "react";
 import {
+<<<<<<< HEAD
+	BrowserRouter as Router,
+	Route,
+	Link,
+	IndexRoute
+=======
   BrowserRouter as Router,
   Route,
   Link,
   IndexRoute
 
+>>>>>>> 4ad9fd8988ee512aec801e1454bf078e0a18fce5
 } from "react-router-dom";
 
 } from 'react-router-dom';  
@@ -43,6 +49,16 @@ import Header from "../containers/Header";
 import UserLocation from "../containers/SignUp/location";
 
 const ReactRouter = () => (
+<<<<<<< HEAD
+	<Router>
+		<div>
+			<Route exact path="/" component={Header} />
+			<Route exact path="/" component={ConnectedMap} />
+			<Route path="/create/account" component={SignUp} />
+			<Route path="/create/address" component={UserLocation} />
+		</div>
+	</Router>
+=======
   <Router>
     <div>
       <Route exact path="/" component={Header} />
@@ -55,6 +71,7 @@ const ReactRouter = () => (
 
     </div>
   </Router>
+>>>>>>> 4ad9fd8988ee512aec801e1454bf078e0a18fce5
 );
 
 export default ReactRouter;
