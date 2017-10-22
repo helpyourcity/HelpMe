@@ -1,19 +1,35 @@
-import React from 'react';
+import React from "react";
 import {
+	BrowserRouter as Router,
+	Route,
+	Link,
+	IndexRoute
   BrowserRouter as Router,
   Route,
-  Link
-} from 'react-router-dom'        
-import ConnectedSignUp from '.././containers/SignUp/index'
-import ConnectedUserLocation from '.././containers/SignUp/location'
-import ConnectedMap from '.././containers/Map/index'
-import Header from '../containers/Header'
+  Link,
+  IndexRoute
+} from "react-router-dom";
+
+// import ConnectedSignUp from '.././containers/SignUp/index'
+import SignUp from ".././containers/SignUp/index";
+import Signin from ".././containers/Signin/index";
+} from "react-router-dom";
+
+} from 'react-router-dom';  
+
+// import ConnectedSignUp from '.././containers/SignUp/index'
+import Signin from '../containers/Signin';
+import ConnectedSignUp from '.././containers/SignUp/index';
+import ConnectedMap from '.././containers/Map/index';
+import Header from '../containers/Header';
+
 
 const ReactRouter = ()=>(   //fdasaf fidsjalkfjaldkj
-  <Router> 
+  <Router > 
     <div>
       <ul>   
         <li>
+
           <Link to="/create/account">Create Account</Link>
         </li>
         <li>
@@ -23,11 +39,47 @@ const ReactRouter = ()=>(   //fdasaf fidsjalkfjaldkj
       </ul>
       <br/>
 
-      <Route exact path ="/" component = {Header}/>
-      <Route path = "/create/account" component = {ConnectedUserLocation}/>
+      <Route exact path ="/" component = {Signin}/>
+      <Route path = "/create/account" component = {ConnectedSignUp}/>
+
+
+// import ConnectedSignUp from '.././containers/SignUp/index'
+import SignUp from ".././containers/SignUp/index";
+
+import ConnectedMap from ".././containers/Map/index";
+import Header from "../containers/Header";
+import UserLocation from "../containers/SignUp/location";
+
+const ReactRouter = () => (
+
+	<Router>
+		<div>
+			<Route exact path="/" component={Header} />
+			<Route exact path="/" component={ConnectedMap} />
+			<Route path="/create/account" component={SignUp} />
+			<Route path="/create/address" component={UserLocation} />
+		</div>
+	</Router>
+  
+  <Router>
+    <div>
+      <Route exact path="/" component={Header} />
+      <Route exact path="/" component={ConnectedMap} />
+      <Route path="/create/account" component={SignUp} />
+
+      <Route path="/user/login" component={Signin} />
+      <Route path="/create/address" component={UserLocation} />
     </div>
   </Router>
-)
 
+      <Route path="/create/address" component={UserLocation} />
+      <Route exact path ="/" component = {Header}/>
+      <Route exact path = "/" component = {ConnectedMap}/>
+      <Route path = "/create/account" component = {ConnectedUserLocation}/>
 
-export default ReactRouter; 
+    </div>
+  </Router>
+
+);
+
+export default ReactRouter;
