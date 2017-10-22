@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Header.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-class Header extends Component {
+class LoginHeader extends Component {
   constructor(props) {
     super(props);
   }
@@ -14,13 +14,11 @@ class Header extends Component {
         <div className="header-title">Help Me!</div>
         <div className="header-nav">
           <Link to="/"> Home </Link> /
-          <Link to="/user/login"> Login </Link> /
-          <Link to="/create/account"> Create Account </Link> /
-          <Link to="/create/account/address"> Logout</Link>
+          <Link to="/"> Logout</Link>
         </div>
       </div>
     );
   }
 }
 
-export default Header;
+export default LoginHeader;
