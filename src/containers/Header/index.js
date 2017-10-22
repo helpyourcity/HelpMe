@@ -10,6 +10,13 @@ class Header extends Component {
   render() {
     //Create account href is used for testing, to be deleted
     return (
+     <nav className=" navbar navbar-light">
+     <ul className="nav navbar-nav">
+     <li className="nav-item">
+     Sign In
+     </li>
+     </ul>
+     </nav>
       <div className="header">
         <div className="header-title">Help Me!</div>
         <div className="header-nav">
