@@ -8,7 +8,7 @@ import ConnectedSignUp from "./index";
 import Header from "../Header/index";
 
 class UserLocation extends Component {
-<<<<<<< HEAD
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -71,7 +71,7 @@ class UserLocation extends Component {
 		let newLocation = {
 			house_number: this.state.house_number,
 			street: this.state.street,
-=======
+
   constructor(props) {
     super(props);
     this.state = {
@@ -210,6 +210,15 @@ class UserLocation extends Component {
       </div>
     );
   }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    userLocation: location => {
+      dispatch(userLocation(location));
+    }
+  };
+
 
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
@@ -282,13 +291,12 @@ class UserLocation extends Component{
 		let newLocation = {
 			house_number: this.state.house_number,
 			street:this.state.street,
->>>>>>> 4ad9fd8988ee512aec801e1454bf078e0a18fce5
 			unit: this.state.unit,
 			apt_num: this.state.apt_num,
 			city: this.state.city,
 			state: this.state.state,
 			zip_code: this.state.zip_code,
-<<<<<<< HEAD
+
 			geo_point: "fadsfadss", // this needs to be changed some how
 			user_id: 32 //this needs to be changed some how
 		};
@@ -359,7 +367,7 @@ class UserLocation extends Component{
 				<button onClick={this.submitLocation.bind(this)}>Create Account</button>
 			</div>
 		);
-=======
+
 			geo_point: 'fadsfadss', // this needs to be changed some how
 			user_id: 32 //this needs to be changed some how
 		}
@@ -436,7 +444,7 @@ class UserLocation extends Component{
 					}>Create Account</button>
 			</div>
 		)
->>>>>>> 4ad9fd8988ee512aec801e1454bf078e0a18fce5
+
 	}
 }
 
