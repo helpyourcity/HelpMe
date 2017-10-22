@@ -1,46 +1,28 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Link,
   IndexRoute
-} from 'react-router-dom';  
+} from "react-router-dom";
 
 // import ConnectedSignUp from '.././containers/SignUp/index'
-import Signin from '../containers/Signin';
-import ConnectedSignUp from '.././containers/SignUp/index';
-import ConnectedMap from '.././containers/Map/index';
-import Header from '../containers/Header';
+import SignUp from ".././containers/SignUp/index";
+import Signin from ".././containers/Signin/index";
+import ConnectedMap from ".././containers/Map/index";
+import Header from "../containers/Header";
+import UserLocation from "../containers/SignUp/location";
 
-
-const ReactRouter = ()=>(   //fdasaf fidsjalkfjaldkj
-  <Router > 
+const ReactRouter = () => (
+  <Router>
     <div>
-      <ul>   
-        <li>
-
-          <Link to="/create/account">Create Account</Link>
-        </li>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <Link to="/location/map"></Link>
-      </ul>
-      <br/>
-
-      <Route exact path ="/" component = {Signin}/>
-      <Route path = "/create/account" component = {ConnectedSignUp}/>
-
-const ReactRouter = ()=>(
-  <Router> 
-    <div>
-      <Route exact path ="/" component = {Header}/>
-      <Route exact path = "/" component = {ConnectedMap}/>
-      <Route path = "/create/account" component = {ConnectedUserLocation}/>
-
+      <Route exact path="/" component={Header} />
+      <Route exact path="/" component={ConnectedMap} />
+      <Route path="/create/account" component={SignUp} />
+      <Route path="/user/login" component={Signin} />
+      <Route path="/create/address" component={UserLocation} />
     </div>
   </Router>
-)
+);
 
-
-export default ReactRouter; 
+export default ReactRouter;
