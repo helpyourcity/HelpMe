@@ -6,7 +6,8 @@ export const CREATE_USER = "CREATE_USER";
 export const LOCATION = "LOCATION";
 export const AUTH_USER = "AUTH_USER";
 export const UNAUTH_USER = "UNAUTH_USER";
-
+export const AUTH_ERROR = "AUTH_ERROR";
+export const FETCH_USER = "FETCH_USER";
 // ACTIONS
 
 export const signinUser = user => {
@@ -18,20 +19,25 @@ export const signinUser = user => {
         console.log("User data coming in from the actions", token.data.token);
         dispatch({
           type: AUTH_USER,
-          users: token.data.token
+          authenticated: true
         });
         localStorage.setItem("token", token.data.token);
         console.log("my storage", localStorage);
       })
-      .catch(err => {
+      .catch(() => {
         console.log("WRONG PASSWORD OR USER");
-        dispatch({
-          type: UNAUTH_USER
-        });
+        dispatch(authError("Bad Error Info"));
       });
   };
 };
 
+export const signoutUser = user => {
+  localStorage.removeItem("token");
+  console.log("removoce storage", localStorage);
+  return {
+    type: UNAUTH_USER
+  };
+};
 export const addUser = user => {
   console.log("my user", user);
   return dispatch => {
@@ -60,3 +66,26 @@ export const userLocation = location => {
     });
   };
 };
+
+export function authError(error) {
+  return {
+    type: AUTH_ERROR,
+    payload: error
+  };
+}
+
+export function fetchMessage() {
+  return dispatch => {
+    axios
+      .get("api/user/", {
+        headers: { authorization: localStorage.getItem("token") }
+      })
+      .then(response => {
+        console.log("resssponse", response);
+        dispatch({
+          type: FETCH_USER,
+          payload: response.data.message
+        });
+      });
+  };
+}
