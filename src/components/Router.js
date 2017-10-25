@@ -8,10 +8,13 @@ import {
 
 // import ConnectedSignUp from '.././containers/SignUp/index'
 import SignUp from ".././containers/SignUp/index";
+import Signin from ".././containers/Signin/index";
 import ConnectedMap from ".././containers/Map/index";
 import Header from "../containers/Header";
 import UserLocation from "../containers/SignUp/location";
 import Footer from "../containers/Footer";
+import Signout from "../containers/Signout";
+import RequireAuth from "./isAuth.js";
 
 const ReactRouter = () => (
   <Router>
@@ -19,7 +22,9 @@ const ReactRouter = () => (
       <Route exact path="/" component={Header} />
       <Route exact path="/" component={ConnectedMap} />
       <Route exact path="/" component={Footer} />
+      <Route path="/user/login" component={Signin} />
       <Route path="/create/account" component={SignUp} />
+      <Route path="/signout" component={Signout} />
       <Route path="/create/address" component={UserLocation} />
     </div>
   </Router>
