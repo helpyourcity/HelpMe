@@ -55,7 +55,7 @@ class Signin extends Component {
         </div>
         {this.renderAlert()}
         <button action="submit" className="ui inverted blue button ">
-          <Link to="/"> Signin</Link>
+          Signin
         </button>
       </form>
     );

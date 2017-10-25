@@ -1,6 +1,6 @@
 import qs from "querystring";
 import axios from "axios";
-
+var jwtDecode = require("jwt-decode");
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
 export const LOCATION = "LOCATION";
@@ -16,13 +16,17 @@ export const signinUser = user => {
     axios
       .post("/api/user/signin", user)
       .then(token => {
-        console.log("User data coming in from the actions", token.data.token);
+        console.log(
+          "User data coming in from the actions",
+          jwtDecode(token.data.token) //this is how we access our token
+        );
         dispatch({
           type: AUTH_USER,
           authenticated: true
         });
         localStorage.setItem("token", token.data.token);
         console.log("my storage", localStorage);
+        // be routed to home page
       })
       .catch(() => {
         console.log("WRONG PASSWORD OR USER");
@@ -74,7 +78,8 @@ export function authError(error) {
   };
 }
 
-export function fetchMessage() {
+// thinking about using but not in use, FETCH_USER
+export function fetchUser() {
   return dispatch => {
     axios
       .get("api/user/", {
