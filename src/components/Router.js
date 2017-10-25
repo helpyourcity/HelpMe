@@ -14,7 +14,7 @@ import Header from "../containers/Header";
 import UserLocation from "../containers/SignUp/location";
 import Footer from "../containers/Footer";
 import Signout from "../containers/Signout";
-import RequireAuth from "./isAuth.js";
+import RequireAuth from "./isAuth.js"; // this is so that we can protect routes if we want only authenticated users to go throguh i.e  <Route path="/signout" component={RequireAuth(Signout)}/> for reference see Advanced Redux 113
 
 const ReactRouter = () => (
   <Router>
