@@ -4,41 +4,39 @@ import jwtDecode from 'jwt-decode';
 
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
-export const LOCATION = "LOCATION";
 export const AUTH_USER = "AUTH_USER";
 export const UNAUTH_USER = "UNAUTH_USER";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const FETCH_USER = "FETCH_USER";
+export const LOCATION = "LOCATION"; // delete later?
 
 // ACTIONS
-export const signinUser = user => {
-  console.log("SIGN IN USER", user);
-  return dispatch => {
-    axios
-      .post("/api/user/signin", user)
-      .then(token => {
-        console.log(
-          "User data coming in from the actions",
-          jwtDecode(token.data.token) //this is how we access our token
-        );
+export const signInUser = (user) => {
+  return (dispatch) => {
+    axios.post("/api/user/signin", user)
+      .then((token) => {
+        // this is how we access our token
+        jwtDecode(token.data.token);
         dispatch({
           type: AUTH_USER,
           authenticated: true
         });
+        // put token in local storage
         localStorage.setItem("token", token.data.token);
-        console.log("my storage", localStorage);
-        // be routed to home page
       })
-      .catch(() => {
-        console.log("WRONG PASSWORD OR USER");
-        dispatch(authError("Bad Error Info"));
+      .catch((err) => {
+        dispatch({
+          type: AUTH_ERROR,
+          text: 'ERROR: Wrong Password or Username'
+        });
       });
   };
 };
 
-export const signoutUser = user => {
+// signs user out
+export const signOutUser = (user) => {
   localStorage.removeItem("token");
-  console.log("removoce storage", localStorage);
+
   return {
     type: UNAUTH_USER
   };
@@ -50,14 +48,13 @@ export const addUser = (user) => {
     axios.post("/api/user/new", user)
       .then((users_id) => {
         dispatch({
-          type: CREATE_USER,
-          users: users_id.data
+          type: CREATE_USER
         });
     });
   };
 };
 
-//USER_CREATED
+// delete later ?
 export const userLocation = location => {
   console.log("testing userLocation: ", location);
   return dispatch => {
