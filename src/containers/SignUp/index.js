@@ -76,41 +76,42 @@ class SignUp extends Component {
   render() {
     if (this.state.redirectAddress) {
       return <Redirect to="/create/address" />;
+    } else {
+      console.log("User C", this.state);
+      return (
+        <div>
+          <h1>User Info</h1>
+          <Header />
+          <h3>First Name</h3>
+          <input
+            type="text"
+            placeholder="John"
+            onChange={this.handleFirstName.bind(this)}
+          />
+          <h3>Last Name</h3>
+          <input
+            type="text"
+            placeholder="Doe"
+            onChange={this.handleLastName.bind(this)}
+          />
+          <h3>Email</h3>
+          <input
+            type="text"
+            placeholder="youremail@gmail.com"
+            onChange={this.handleEmail.bind(this)}
+          />
+          <h3>Password</h3>
+          <PasswordMask
+            placeholder="Enter Password"
+            value={this.state.password}
+            onChange={this.handlePassword.bind(this)}
+            useVendorStyles={false}
+          />
+          <br />
+          <button onClick={this.submitUser.bind(this)}>Create Account</button>
+        </div>
+      );
     }
-    console.log("User C", this.state);
-    return (
-      <div>
-        <h1>User Info</h1>
-        <Header />
-        <h3>First Name</h3>
-        <input
-          type="text"
-          placeholder="John"
-          onChange={this.handleFirstName.bind(this)}
-        />
-        <h3>Last Name</h3>
-        <input
-          type="text"
-          placeholder="Doe"
-          onChange={this.handleLastName.bind(this)}
-        />
-        <h3>Email</h3>
-        <input
-          type="text"
-          placeholder="youremail@gmail.com"
-          onChange={this.handleEmail.bind(this)}
-        />
-        <h3>Password</h3>
-        <PasswordMask
-          placeholder="Enter Password"
-          value={this.state.password}
-          onChange={this.handlePassword.bind(this)}
-          useVendorStyles={false}
-        />
-        <br />
-        <button onClick={this.submitUser.bind(this)}>Create Account</button>
-      </div>
-    );
   }
 }
 
