@@ -44,7 +44,7 @@ router.post("/new", function(req, res) {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             phone: req.body.phone,
-            active: req.body.active
+            active: true
           })
             .then(user => { // new user successfully created
               res.json({

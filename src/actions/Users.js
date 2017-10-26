@@ -43,22 +43,21 @@ export const signoutUser = user => {
     type: UNAUTH_USER
   };
 };
-export const addUser = user => {
-  console.log("my user", user);
-  return dispatch => {
-    console.log("DISPATCH", dispatch);
-    axios.post("/api/user/new", user).then(users_id => {
-      console.log("User data coming in from the actions", users_id);
-      dispatch({
-        type: CREATE_USER,
-        users: users_id.data
-      });
+
+// create new user in db
+export const addUser = (user) => {
+  return (dispatch) => {
+    axios.post("/api/user/new", user)
+      .then((users_id) => {
+        dispatch({
+          type: CREATE_USER,
+          users: users_id.data
+        });
     });
   };
 };
 
 //USER_CREATED
-
 export const userLocation = location => {
   console.log("testing userLocation: ", location);
   return dispatch => {
