@@ -2,6 +2,8 @@ import qs from "querystring";
 import axios from "axios";
 import jwtDecode from 'jwt-decode';
 
+
+
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
 export const LOCATION = "LOCATION";
@@ -27,6 +29,7 @@ export const signinUser = user => {
         });
         localStorage.setItem("token", token.data.token);
         console.log("my storage", localStorage);
+
         // be routed to home page
       })
       .catch(() => {
@@ -38,7 +41,7 @@ export const signinUser = user => {
 
 export const signoutUser = user => {
   localStorage.removeItem("token");
-  console.log("removoce storage", localStorage);
+  console.log("remove storage", localStorage);
   return {
     type: UNAUTH_USER
   };
@@ -79,18 +82,18 @@ export function authError(error) {
 }
 
 // thinking about using but not in use, FETCH_USER
-export function fetchUser() {
-  return dispatch => {
-    axios
-      .get("api/user/", {
-        headers: { authorization: localStorage.getItem("token") }
-      })
-      .then(response => {
-        console.log("resssponse", response);
-        dispatch({
-          type: FETCH_USER,
-          payload: response.data.message
-        });
-      });
-  };
-}
+// export function fetchUser() {
+//   return dispatch => {
+//     axios
+//       .get("api/user/", {
+//         headers: { authorization: localStorage.getItem("token") }
+//       })
+//       .then(response => {
+//         console.log("resssponse", response);
+//         dispatch({
+//           type: FETCH_USER,
+//           payload: response.data.message
+//         });
+//       });
+//   };
+// }

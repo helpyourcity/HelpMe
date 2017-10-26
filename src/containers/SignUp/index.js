@@ -83,7 +83,7 @@ class SignUp extends Component {
   render() {
     if (this.state.redirectAddress) {
       return <Redirect to="/" />;
-    }
+    }else {
     return (
       <div>
         <h1>Sign Up</h1>
@@ -126,6 +126,7 @@ class SignUp extends Component {
         <button onClick={this.handleSubmitUser}>Submit</button>
       </div>
     );
+  }
   }
 }
 

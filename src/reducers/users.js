@@ -3,8 +3,7 @@ import {
   LOCATION,
   AUTH_USER,
   UNAUTH_USER,
-  AUTH_ERROR,
-  FETCH_USER
+  AUTH_ERROR
 } from "../actions/Users.js";
 
 const initialState = {};
@@ -27,11 +26,9 @@ const users = (state = initialState, action) => {
       console.log("failed to sign in!!!", state);
       return { ...state, error: action.payload };
 
-    case FETCH_USER:
-      return { ...state, message: action.payload };
-
     case LOCATION:
       console.log("location", action);
+
       return [...state, action.users];
     default:
       return state;
