@@ -1,6 +1,7 @@
 import qs from "querystring";
 import axios from "axios";
-var jwtDecode = require("jwt-decode");
+var jwtDecode = require("jwt-decode"); //import jwtDecode from 'jwt-decode'; ??
+
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
 export const LOCATION = "LOCATION";
@@ -8,8 +9,8 @@ export const AUTH_USER = "AUTH_USER";
 export const UNAUTH_USER = "UNAUTH_USER";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const FETCH_USER = "FETCH_USER";
-// ACTIONS
 
+// ACTIONS
 export const signinUser = user => {
   console.log("SIGN IN USER", user);
   return dispatch => {

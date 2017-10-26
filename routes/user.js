@@ -1,7 +1,5 @@
 const express = require("express");
-
 const router = express.Router();
-const app = express();
 const bcrypt = require("bcrypt");
 const User = require("../models").User;
 const jwt = require("jwt-simple");
@@ -33,28 +31,31 @@ router.get("/", requireAuth, function(req, res) {
 
 router.post("/signin", requireSignIn, signin);
 
-//sign up
+// sign up
 router.post("/new", function(req, res) {
-  console.log("are we posting user data??", req.body);
-  bcrypt.genSalt(saltRounds).then(salt => {
-    bcrypt.hash(req.body.password, salt).then(hash => {
-      User.create({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: hash,
-        phone: req.body.phone,
-        active: req.body.active
-      })
-        .then(user => {
-          console.log("server user to send +++", user.id);
-          res.json({ token: tokenForUser(user) });
-        })
-        .catch(err => {
-          console.log(err);
+  bcrypt.genSalt(saltRounds)
+    .then(salt => {
+      bcrypt.hash(req.body.password, salt)
+        .then(hash => {
+          // Create new user w/ hashed password
+          User.create({
+            email: req.body.email,
+            password: hash,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            phone: req.body.phone,
+            active: req.body.active
+          })
+            .then(user => { // new user successfully created
+              res.json({
+                token: tokenForUser(user)
+              });
+            })
+            .catch(err => { // error in creating new user
+              console.log(err);
+            });
         });
     });
-  });
 });
 
 //gettin user by id for checking your profile
