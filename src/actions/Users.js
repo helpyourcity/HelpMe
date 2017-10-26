@@ -1,7 +1,8 @@
 import qs from "querystring";
 import axios from "axios";
-import { history } from "react-router";
-const jwtDecode = require("jwt-decode");
+import jwtDecode from 'jwt-decode';
+
+
 
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
@@ -10,8 +11,8 @@ export const AUTH_USER = "AUTH_USER";
 export const UNAUTH_USER = "UNAUTH_USER";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const FETCH_USER = "FETCH_USER";
-// ACTIONS
 
+// ACTIONS
 export const signinUser = user => {
   console.log("SIGN IN USER", user);
   return dispatch => {
@@ -45,22 +46,21 @@ export const signoutUser = user => {
     type: UNAUTH_USER
   };
 };
-export const addUser = user => {
-  console.log("my user", user);
-  return dispatch => {
-    console.log("DISPATCH", dispatch);
-    axios.post("/api/user/new", user).then(users_id => {
-      console.log("User data coming in from the actions", users_id);
-      dispatch({
-        type: CREATE_USER,
-        users: users_id.data
-      });
+
+// create new user in db
+export const addUser = (user) => {
+  return (dispatch) => {
+    axios.post("/api/user/new", user)
+      .then((users_id) => {
+        dispatch({
+          type: CREATE_USER,
+          users: users_id.data
+        });
     });
   };
 };
 
 //USER_CREATED
-
 export const userLocation = location => {
   console.log("testing userLocation: ", location);
   return dispatch => {
