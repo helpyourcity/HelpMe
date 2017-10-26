@@ -1,6 +1,6 @@
 import qs from "querystring";
 import axios from "axios";
-var jwtDecode = require("jwt-decode"); //import jwtDecode from 'jwt-decode'; ??
+import jwtDecode from 'jwt-decode';
 
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
