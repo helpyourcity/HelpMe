@@ -22,63 +22,62 @@ function signin(req, res, next) {
   res.send({ token: tokenForUser(req.user) });
 }
 
-// //login
-// router.get("/", requireAuth, function(req, res) {
-//   console.log("we gettin anything?");
-//   res.send({ hi: "there" });
-//   //this will be  sent if token to API goes through OAuth
-// });
-
 router.post("/signin", requireSignIn, signin);
 
 // sign up *
 router.post("/new", function(req, res) {
-  bcrypt.genSalt(saltRounds)
-    .then(salt => {
-      bcrypt.hash(req.body.password, salt)
-        .then(hash => {
-          // Create new user w/ hashed password
-          User.create({
-            email: req.body.email,
-            password: hash,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            phone: req.body.phone,
-            active: true
-          })
-            .then(user => { // new user successfully created
-              // res.json({
-              //   token: tokenForUser(user)
-              // });
-              res.end();
-            })
-            .catch(err => { // error in creating new user
-              console.log(err);
-            });
+  bcrypt.genSalt(saltRounds).then(salt => {
+    bcrypt.hash(req.body.password, salt).then(hash => {
+      // Create new user w/ hashed password
+      User.create({
+        email: req.body.email,
+        password: hash,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        phone: req.body.phone,
+        active: true
+      })
+        .then(user => {
+          res.end();
+        })
+        .catch(err => {
+          // error in creating new user
+          console.log(err);
         });
     });
+  });
 });
 
 //gettin user by id for checking your profile
-router.get("/users/:id", function(req, res) {
-  let userId = parseInt(req.params.id);
-  User.findById(userId)
-    .then(user => {
-      res.json(user);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+router.get("/users", requireAuth, function(req, res) {
+  res.json({
+    first_name: req.user.first_name,
+    last_name: req.user.last_name
+  });
 });
 
 //for users to edit their profiles.
-router.put("/users/:id/edit", function(req, res) {
+router.put("/users/edit", requireAuth, function(req, res) {
   //this is to edit or (delete) users by id
-  var userId = parseInt(req.params.id);
-  User.findById(userId).then(user => {
-    User.update(req.body).then(() => {
-      return User.findAll().then(user => {
-        res.json(user);
+  bcrypt.genSalt(saltRounds).then(salt => {
+    bcrypt.hash(req.body.password, salt).then(hash => {
+      User.update(
+        {
+          email: req.body.email,
+          phone: req.body.phone,
+          password: hash
+        },
+        {
+          where: { id: req.user.id }
+        }
+      ).then(() => {
+        return User.findById(req.user.id).then(user => {
+          res.json({
+            email: req.body.email,
+            phone: req.body.phone,
+            password: req.body.password
+          });
+        });
       });
     });
   });
