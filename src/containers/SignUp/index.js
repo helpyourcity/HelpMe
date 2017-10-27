@@ -4,6 +4,7 @@ import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import { addUser, userLocation } from "../../actions/Users.js";
+import Link from "valuelink";
 
 class SignUp extends Component {
   constructor(props) {
@@ -65,27 +66,40 @@ class SignUp extends Component {
     });
   }
 
-  handleSubmitUser(e) {
-    e.preventDefault();
-    this.handleRedirect();
-
+  submitUser(evt) {
+    //maybe take away submit function?
+    evt.preventDefault();
+    let strOnly = /^[a-zA-Z()]+$/;
     let newUser = {
-      email: this.state.email,
-      password: this.state.password,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
-      phone: this.state.phone
+      email: this.state.email,
+      password: this.state.password,
+      phone: this.state.phone,
+      active: true
     };
 
+    // if (strOnly.test(newUser.first_name) && strOnly.test(newUser.last_name)) {
     this.props.addUser(newUser);
+    this.redirectLocation();
+    console.log("newcard:", newUser);
+    // } else {
+    //   window.alert("Invalid input");
+    // }
   }
 
   render() {
     if (this.state.redirectAddress) {
-      return (
-        <Redirect to="/"></Redirect>
-      );
+      return <Redirect to="/" />;
     } else {
+      const nameLink = Link.state(this, "first_name").check(
+        x => x,
+        "First Name is required"
+      );
+      const emailLink = Link.state(this, "email").check(
+        x => x,
+        "Email is required"
+      );
       return (
         <div>
           <h1>Sign Up</h1>
@@ -95,7 +109,6 @@ class SignUp extends Component {
             placeholder="youremail@gmail.com"
             onChange={this.handleEmail}
           />
-
           <h3>Password</h3>
           <PasswordMask
             placeholder="Enter Password"
@@ -103,29 +116,28 @@ class SignUp extends Component {
             onChange={this.handlePassword}
             useVendorStyles={false}
           />
-
           <h3>First Name</h3>
           <input
             type="text"
             placeholder="John"
             onChange={this.handleFirstName}
           />
-
           <h3>Last Name</h3>
-          <input
-            type="text"
-            placeholder="Doe"
-            onChange={this.handleLastName}
-          />
-
+          <input type="text" placeholder="Doe" onChange={this.handleLastName} />
           <h3>Phone Number</h3>
           <input
             type="text"
             placeholder="808-123-4567"
             onChange={this.handlePhone}
           />
-          <br /><br />
-          <button onClick={this.handleSubmitUser}>Submit</button>
+          <br />
+          <br />
+          <button
+            disabled={nameLink.error || emailLink.error}
+            onClick={this.submitUser.bind(this)}
+          >
+            Create Account
+          </button>
         </div>
       );
     }
@@ -141,9 +153,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const ConnectedSignUp = connect(
-  null,
-  mapDispatchToProps
-)(SignUp);
+const ConnectedSignUp = connect(null, mapDispatchToProps)(SignUp);
 
 export default ConnectedSignUp;
