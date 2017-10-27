@@ -3,18 +3,22 @@ import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Redirect } from "react-router";
-import * as actions from "../../actions/Users";
+import * as actions from "../../actions/Users"; // returns all of the actions
+
+import { signInUser } from '../../actions/Users.js';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
-
+    console.log("PROPSSSSS", props);
     // initial state
     this.state = {
       email: '',
       password: '',
       redirectUser: false
     };
+
+    console.log("USER", this.props.users);
 
     // functions
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -36,13 +40,17 @@ class SignIn extends Component {
 
   handleSignIn(e) {
     e.preventDefault();
-    this.state({
-      redirectUser: true
-    });
+
+    var signIn = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    this.props.signInUser(signIn);
   }
 
   render() {
-    if(this.state.redirectUser) {
+    if(this.state.redirectUser ) {
       return (
         <Redirect to="/"></Redirect>
       );
@@ -68,14 +76,22 @@ class SignIn extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+  }
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    signInUser: (user) => {
+      dispatch(signInUser(user));
+    }
   }
 };
 
 const ConnectedSignIn = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignIn);
 

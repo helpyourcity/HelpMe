@@ -13,15 +13,17 @@ export const LOCATION = "LOCATION"; // delete later?
 
 // ACTIONS
 export const signInUser = (user) => {
+  console.log("BACKEND", user);
   return (dispatch) => {
     axios.post("/api/user/signin", user)
       .then((token) => {
         // this is how we access our token
-        jwtDecode(token.data.token);
+        // jwtDecode(token.data.token);
         dispatch({
           type: AUTH_USER,
           authenticated: true
         });
+        console.log("BACKEND TOKEN", token.data.token);
         // put token in local storage
         localStorage.setItem("token", token.data.token);
       })

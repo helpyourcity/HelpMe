@@ -66,7 +66,7 @@ class SignUp extends Component {
     });
   }
 
-  submitUser(evt) {
+  handleSubmitUser(evt) {
     //maybe take away submit function?
     evt.preventDefault();
     let strOnly = /^[a-zA-Z()]+$/;
@@ -81,7 +81,8 @@ class SignUp extends Component {
 
     // if (strOnly.test(newUser.first_name) && strOnly.test(newUser.last_name)) {
     this.props.addUser(newUser);
-    this.redirectLocation();
+    this.handleRedirect();
+    // this.redirectLocation();
     console.log("newcard:", newUser);
     // } else {
     //   window.alert("Invalid input");
@@ -134,7 +135,7 @@ class SignUp extends Component {
           <br />
           <button
             disabled={nameLink.error || emailLink.error}
-            onClick={this.submitUser.bind(this)}
+            onClick={this.handleSubmitUser}
           >
             Create Account
           </button>
