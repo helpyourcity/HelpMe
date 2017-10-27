@@ -1,6 +1,7 @@
-import qs from "querystring";
+// PACKAGES
 import axios from "axios";
 import jwtDecode from 'jwt-decode';
+import qs from "querystring";
 
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
@@ -33,7 +34,6 @@ export const signInUser = (user) => {
   };
 };
 
-// signs user out
 export const signOutUser = (user) => {
   localStorage.removeItem("token");
 
@@ -42,7 +42,6 @@ export const signOutUser = (user) => {
   };
 };
 
-// create new user in db
 export const addUser = (user) => {
   return (dispatch) => {
     axios.post("/api/user/new", user)

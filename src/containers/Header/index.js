@@ -1,8 +1,32 @@
 import React, { Component } from "react";
-import "./Header.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from "react-router-dom";
 import * as actions from "../../actions/Users.js";
+
+// CSS
+import "./Header.css";
+
+class Header extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+    // need to decode token in her.. get username etc
+  }
+
+  render() {
+    return (
+      <div className="header">
+
+      </div>
+    );
+  }
+}
 
 class Header extends Component {
   renderLinks() {

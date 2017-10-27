@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions/Users.js";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-class Signout extends Component {
-  componentWillMount() {
-    console.log("checking");
-    this.props.signoutUser();
+
+class SignOut extends Component {
+  constructor(props) {
+    super(props);
   }
+
+  componentWillMount() {
+    this.props.signOutUser();
+  }
+
   render() {
-    console.log("checking");
     return (
       <div>
         <h1>You are now logged out!</h1>
@@ -19,3 +23,4 @@ class Signout extends Component {
 }
 
 export default connect(null, actions)(Signout);
+
