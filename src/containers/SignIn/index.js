@@ -1,99 +1,83 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
-import * as actions from "../../actions/Users";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Redirect } from "react-router";
+import * as actions from "../../actions/Users";
 
-const renderInput = field => (
-  <div>
-    <input {...field.input} type={field.type} />
-    {field.meta.touched &&
-      field.meta.error && <span className="error">{field.meta.error}</span>}
-  </div>
-);
-
-class Signin extends Component {
+class SignIn extends Component {
   constructor(props) {
-    console.log("props", props);
     super(props);
+
+    // initial state
     this.state = {
-      redirectAddress: false
+      email: '',
+      password: '',
+      redirectUser: false
     };
+
+    // functions
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
   }
-  redirectLocation() {
-    // need this function to redirect user page to address
+
+  handleEmailChange(e) {
     this.setState({
-      redirectAddress: true
+      email: e.target.value
     });
   }
 
-  handleFormSubmit({ email, password }) {
-    console.log(email, password);
-    // need something to log user in
-    this.redirectLocation();
-    this.props.signinUser({ email, password });
+  handlePasswordChange(e) {
+    this.setState({
+      password: e.target.value
+    });
   }
 
-  renderAlert() {
-    if (this.props.errorMessage) {
+  handleSignIn(e) {
+    e.preventDefault();
+    this.state({
+      redirectUser: true
+    });
+  }
+
+  render() {
+    if(this.state.redirectUser) {
+      return (
+        <Redirect to="/"></Redirect>
+      );
+    } else {
       return (
         <div>
-          <strong> ERROR ERROR</strong>
+          <label>Email:</label>
+          <input
+            name="email"
+            onChange={this.handleEmailChange}
+          />
+          <br />
+          <label>Password:</label>
+          <input
+            name="password"
+            onChange={this.handlePasswordChange}
+          />
+          <br />
+          <button onClick={this.handleSignIn}>Submit</button>
         </div>
       );
     }
   }
-
-  render() {
-    //if prop happens do redirect, else continue to render
-    if (
-      this.state.redirectAddress &&
-      this.props.authenticated.authenticated === true
-    ) {
-      return <Redirect to="/" />;
-    } else {
-      const { handleSubmit } = this.props; //
-      return (
-        <form
-          className="ui form"
-          onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}
-        >
-          <div className="field">
-            <label>Email:</label>
-            <Field
-              name="email" // Specify field name
-              component={renderInput} // Specify render component above
-              type="email" // Specify "type" prop passed to renderInput
-            />
-            {/* <input {...email} placeholder="john.doe@example.com" type="email" /> */}
-          </div>
-          <div className="field">
-            <label>Password:</label>
-            <Field
-              name="password" // Specify field name
-              component={renderInput} // Specify render component above
-              type="password" // Specify "type" prop passed to renderInput
-            />
-            {/* <input {...password} placeholder="password" type="password" /> */}
-          </div>
-          {this.renderAlert()}
-          <button action="submit" className="ui inverted blue button ">
-            Signin
-          </button>
-        </form>
-      );
-    }
-  }
 }
-function mapStateToProps(state) {
-  console.log("this state", state);
+
+const mapDispatchToProps = (dispatch) => {
   return {
-    errorMessage: state.users.error,
-    authenticated: state.users
-  };
-}
 
-export default reduxForm({
-  form: "signin" // no fields array given
-})(connect(mapStateToProps, actions)(Signin));
+  }
+};
+
+const ConnectedSignIn = connect(
+  null,
+  mapDispatchToProps
+)(SignIn);
+
+export default ConnectedSignIn;
+

@@ -82,51 +82,53 @@ class SignUp extends Component {
 
   render() {
     if (this.state.redirectAddress) {
-      return <Redirect to="/" />;
-    }else {
-    return (
-      <div>
-        <h1>Sign Up</h1>
-        <h3>Email</h3>
-        <input
-          type="text"
-          placeholder="youremail@gmail.com"
-          onChange={this.handleEmail}
-        />
+      return (
+        <Redirect to="/"></Redirect>
+      );
+    } else {
+      return (
+        <div>
+          <h1>Sign Up</h1>
+          <h3>Email</h3>
+          <input
+            type="text"
+            placeholder="youremail@gmail.com"
+            onChange={this.handleEmail}
+          />
 
-        <h3>Password</h3>
-        <PasswordMask
-          placeholder="Enter Password"
-          value={this.state.password}
-          onChange={this.handlePassword}
-          useVendorStyles={false}
-        />
+          <h3>Password</h3>
+          <PasswordMask
+            placeholder="Enter Password"
+            value={this.state.password}
+            onChange={this.handlePassword}
+            useVendorStyles={false}
+          />
 
-        <h3>First Name</h3>
-        <input
-          type="text"
-          placeholder="John"
-          onChange={this.handleFirstName}
-        />
+          <h3>First Name</h3>
+          <input
+            type="text"
+            placeholder="John"
+            onChange={this.handleFirstName}
+          />
 
-        <h3>Last Name</h3>
-        <input
-          type="text"
-          placeholder="Doe"
-          onChange={this.handleLastName}
-        />
+          <h3>Last Name</h3>
+          <input
+            type="text"
+            placeholder="Doe"
+            onChange={this.handleLastName}
+          />
 
-        <h3>Phone Number</h3>
-        <input
-          type="text"
-          placeholder="808-123-4567"
-          onChange={this.handlePhone}
-        />
-        <br /><br />
-        <button onClick={this.handleSubmitUser}>Submit</button>
-      </div>
-    );
-  }
+          <h3>Phone Number</h3>
+          <input
+            type="text"
+            placeholder="808-123-4567"
+            onChange={this.handlePhone}
+          />
+          <br /><br />
+          <button onClick={this.handleSubmitUser}>Submit</button>
+        </div>
+      );
+    }
   }
 }
 
