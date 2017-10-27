@@ -30,7 +30,7 @@ class UserLocation extends Component {
 
   handleHouseNumber(e) {
     this.setState({
-      house_number: e.target.value
+      house_number: parseInt(e.target.value)
     });
   }
   handleStreetAddress(e) {
@@ -45,7 +45,7 @@ class UserLocation extends Component {
   }
   handleApt_Num(e) {
     this.setState({
-      apt_num: e.target.value
+      apt_num: parseInt(e.target.value)
     });
   }
   handleCity(e) {
@@ -60,12 +60,12 @@ class UserLocation extends Component {
   }
   handleZipcode(e) {
     this.setState({
-      zip_code: e.target.value
+      zip_code: parseInt(e.target.value)
     });
   }
   submitLocation(evt) {
     evt.preventDefault();
-    console.log("Submit Location: ", this.state);
+    let numOnly = Number.isInteger();
 
     let newLocation = {
       house_number: this.state.house_number,
@@ -79,9 +79,20 @@ class UserLocation extends Component {
       user_id: 32 //this needs to be changed some how
     };
 
-    console.log("newLocation: ", newLocation);
-    this.props.userLocation(newLocation);
-    window.location = "/";
+    if (
+      newLocation.street != "" &&
+      newLocation.city != "" &&
+      newLocation.state != "" &&
+      newLocation.house_number != "" &&
+      newLocation.zip_code != ""
+    ) {
+      console.log("newLocation: ", newLocation);
+      this.props.userLocation(newLocation);
+    } else {
+      return window.alert("Please fill in Required Field");
+    }
+
+    // window.location = "/";
   }
 
   render() {
@@ -93,8 +104,8 @@ class UserLocation extends Component {
         <h1>Address</h1>
 
         <h3>house number</h3>
-        <input
-          type="text"
+        <NumberFormat
+          format="######"
           placeholder="1234"
           onChange={this.handleHouseNumber.bind(this)}
         />
@@ -114,8 +125,8 @@ class UserLocation extends Component {
         />
 
         <h3>Apartment Number</h3>
-        <input
-          type="number"
+        <NumberFormat
+          format="######"
           placeholder="403"
           onChange={this.handleApt_Num.bind(this)}
         />
