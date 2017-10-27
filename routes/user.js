@@ -12,7 +12,7 @@ const passport = require("passport");
 const requireAuth = passport.authenticate("jwt", { session: false });
 const requireSignIn = passport.authenticate("local", { session: false });
 
-function createToken(user) {
+function tokenForUser(user) {
   const timestamp = new Date().getTime();
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 } // jwt have a sub property meaning subject is user id.
