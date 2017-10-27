@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 // import ConnectedSignUp from '.././containers/SignUp/index'
-import SignUp from ".././containers/SignUp/index";
+import SignUp from ".././containers/SignUp/index"; // change to connected sign up
 import Signin from ".././containers/Signin/index";
 import ConnectedMap from ".././containers/Map/index";
 import Header from "../containers/Header";

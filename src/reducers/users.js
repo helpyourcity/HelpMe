@@ -1,28 +1,42 @@
 import {
   CREATE_USER,
-  LOCATION,
   AUTH_USER,
   UNAUTH_USER,
+<<<<<<< HEAD
+  AUTH_ERROR,
+  LOCATION,
+  FETCH_USER
+=======
   AUTH_ERROR
+>>>>>>> 7d3768d6988785317c8240b6146526f091da48b4
 } from "../actions/Users.js";
 
-const initialState = {};
+const initialState = [];
 
 const users = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_USER:
-      console.log("action time!!!", action._id);
-      return [...action.users, action.id];
+      return state;
 
     case AUTH_USER:
-      console.log("user sign in reducer time!!!", state);
-      return { ...state, authenticated: true };
+      return {
+        state,
+        authenticated: true
+      };
 
     case UNAUTH_USER:
-      console.log("failed to sign in!!!");
-      return { ...state, authenticated: false };
+      return {
+        state,
+        authenticated: false
+      };
 
     case AUTH_ERROR:
+<<<<<<< HEAD
+      return {
+        state,
+        error: action.payload
+      };
+=======
       console.log("failed to sign in!!!", state);
       return { ...state, error: action.payload };
 
@@ -32,6 +46,7 @@ const users = (state = initialState, action) => {
       return [...state, action.users];
     default:
       return state;
+>>>>>>> 7d3768d6988785317c8240b6146526f091da48b4
   }
 };
 

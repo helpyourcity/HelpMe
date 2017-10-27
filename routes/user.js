@@ -12,7 +12,7 @@ const passport = require("passport");
 const requireAuth = passport.authenticate("jwt", { session: false });
 const requireSignIn = passport.authenticate("local", { session: false });
 
-function tokenForUser(user) {
+function createToken(user) {
   const timestamp = new Date().getTime();
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 } // jwt have a sub property meaning subject is user id.
@@ -22,16 +22,16 @@ function signin(req, res, next) {
   res.send({ token: tokenForUser(req.user) });
 }
 
-//login
-router.get("/", requireAuth, function(req, res) {
-  console.log("we gettin anything?");
-  res.send({ hi: "there" });
-  //this will be  sent if token to API goes through OAuth
-});
+// //login
+// router.get("/", requireAuth, function(req, res) {
+//   console.log("we gettin anything?");
+//   res.send({ hi: "there" });
+//   //this will be  sent if token to API goes through OAuth
+// });
 
 router.post("/signin", requireSignIn, signin);
 
-// sign up
+// sign up *
 router.post("/new", function(req, res) {
   bcrypt.genSalt(saltRounds)
     .then(salt => {
@@ -47,9 +47,10 @@ router.post("/new", function(req, res) {
             active: true
           })
             .then(user => { // new user successfully created
-              res.json({
-                token: tokenForUser(user)
-              });
+              // res.json({
+              //   token: tokenForUser(user)
+              // });
+              res.end();
             })
             .catch(err => { // error in creating new user
               console.log(err);
