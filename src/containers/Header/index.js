@@ -31,7 +31,7 @@ class Header extends Component {
 class Header extends Component {
   renderLinks() {
     console.log("this", this.props.authenticated.authenticated);
-    if (this.props.authenticated.authenticated == true) {
+    if (this.props.authenticated.authenticated === true) {
       return <Link to="/signout"> Logout</Link>;
     } else {
       return [

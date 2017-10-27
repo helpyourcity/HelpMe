@@ -3,6 +3,8 @@ import axios from "axios";
 import jwtDecode from 'jwt-decode';
 import qs from "querystring";
 
+
+
 // EXPORTS
 export const CREATE_USER = "CREATE_USER";
 export const AUTH_USER = "AUTH_USER";
@@ -75,18 +77,18 @@ export function authError(error) {
 }
 
 // thinking about using but not in use, FETCH_USER
-export function fetchUser() {
-  return dispatch => {
-    axios
-      .get("api/user/", {
-        headers: { authorization: localStorage.getItem("token") }
-      })
-      .then(response => {
-        console.log("resssponse", response);
-        dispatch({
-          type: FETCH_USER,
-          payload: response.data.message
-        });
-      });
-  };
-}
+// export function fetchUser() {
+//   return dispatch => {
+//     axios
+//       .get("api/user/", {
+//         headers: { authorization: localStorage.getItem("token") }
+//       })
+//       .then(response => {
+//         console.log("resssponse", response);
+//         dispatch({
+//           type: FETCH_USER,
+//           payload: response.data.message
+//         });
+//       });
+//   };
+// }
