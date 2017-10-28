@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import TopHeader from '../../components/TopHeader.js';
-// import * as actions from '../../actions/Users.js';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from "react-router-dom";
 
-import { signOutUser } from '../../actions/Users.js';
+// ACTION
+import { signOutUser } from '../lib/users.js';
 
 // CSS
 import "./Header.css";
@@ -17,43 +16,42 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    // initial state
     this.state = {
-      username: ''
+      userAuthenticated: this.props.userAuthenticated
     };
 
     // functions
     this.handleSignOut = this.handleSignOut.bind(this);
   }
 
-  componentWillMount() {
-    // check if token exists, save username in state
-    console.log("HEADER-CWM", this.props.user);
-    if(localStorage.getItem("token") !== null) {
-      this.setState({
-        username: this.props.user.first_name
-      });
-    }
-  }
+  // componentWillMount() {
+  //   // console.log("CWM", this.props.user[0].firstName);
+  //   // check if token exists, save username in state
+  //   if(localStorage.getItem("token") !== null) {
+  //     // update user
+  //     this.setState({
+  //       username: this.props.user.firstName
+  //     });
+  //   }
+  // }
 
   handleSignOut(e) {
     e.preventDefault();
 
-    this.props.signOutUser();
+    signOutUser();
 
     this.setState({
-      username: ''
+      userAuthenticated: false
     });
   }
 
   render() {
-
-    if(this.state.username !== '') {
+    if(this.state.userAuthenticated) {
       return (
         <div className="header">
           <div className="header-title">Help Me!</div>
           <div className="header-nav">
-            <div>Hello, {this.state.username}</div>
+            <div>Hello, {this.props.username}</div>
             <button onClick={this.handleSignOut}>Logout</button>
           </div>
         </div>
@@ -72,23 +70,4 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signOutUser: () => {
-      dispatch(signOutUser());
-    }
-  }
-};
-
-const ConnectedHeader = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
-
-export default ConnectedHeader;
+export default Header;

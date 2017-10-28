@@ -6,22 +6,18 @@ import {
   IndexRoute
 } from "react-router-dom";
 
-import ConnectedSignUp from '../containers/SignUp';
-import ConnectedSignIn from '../containers/SignIn';
-import ConnectedHeader from '../containers/Header'; // may need to change to connectedheader
-import Footer from '../containers/Footer'; // may need to change to connectedfooter
-import ConnectedMap from '../containers/Map';
+import SignUp from '../containers/SignUp';
+import SignIn from '../containers/SignIn';
+import Homepage from '../containers/Homepage';
 
 const ReactRouter = () => {
   return (
     <Router>
       <div>
-        <Route exact path="/" component={ConnectedHeader} />
-        <Route exact path="/" component={ConnectedMap} />
-        <Route exact path="/" component={Footer} />
+        <Route exact path="/" component={Homepage} />
 
-        <Route path="/user/signin" component={ConnectedSignIn} />
-        <Route path="/user/new" component={ConnectedSignUp} />
+        <Route path="/user/signin" component={SignIn} />
+        <Route path="/user/new" component={SignUp} />
       </div>
     </Router>
   );
