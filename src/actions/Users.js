@@ -13,32 +13,30 @@ export const LOCATION = "LOCATION"; // delete later?
 
 // ACTIONS
 export const signInUser = (user) => {
-  console.log("BACKEND", user);
   return (dispatch) => {
     axios.post("/api/user/signin", user)
-      .then((token) => {
-        console.log("TOKEN, RETURNSTATEMENT", token);
-        // this is how we access our token
-        // jwtDecode(token.data.token);
+      .then((user) => {
+        // put token in local storage
+        localStorage.setItem("token", user.data.token);
+
         dispatch({
           type: AUTH_USER,
-          authenticated: true
+          user: {
+            first_name: user.data.first_name,
+            authenticated: true
+          }
         });
-        console.log("BACKEND TOKEN", token.data.token);
-        // put token in local storage
-        localStorage.setItem("token", token.data.token);
+        // this is how we access our token
+        // jwtDecode(token.data.token);
       })
       .catch((err) => {
         console.log("SIGNIN", err);
-        dispatch({
-          type: AUTH_ERROR,
-          text: 'ERROR: Wrong Password or Username'
-        });
       });
   };
 };
 
-export const signOutUser = (user) => {
+export const signOutUser = () => {
+  // remove token in local storage
   localStorage.removeItem("token");
 
   return {

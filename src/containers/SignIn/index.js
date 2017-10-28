@@ -38,21 +38,23 @@ class SignIn extends Component {
 
   handleSignIn(e) {
     e.preventDefault();
+
     var user = {
       email: this.state.email,
       password: this.state.password
     };
-    var check = this.props.signInUser(user);
-    console.log("SIGNIN", check);
-    console.log("REDUX", this.props.users);
-  }
 
-  handleAuthentication() {
+    this.props.signInUser(user);
 
+    if(localStorage.getItem("token") !== null) {
+      this.setState({
+        redirectUser: true
+      });
+    }
   }
 
   render() {
-    if(this.state.redirectUser ) {
+    if(this.state.redirectUser) {
       return (
         <Redirect to="/"></Redirect>
       );

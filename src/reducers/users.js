@@ -10,31 +10,51 @@ import {
 const initialState = [];
 
 const users = (state = initialState, action) => {
-  switch (action.type) {
+  switch(action.type) {
     case CREATE_USER:
       return state;
 
     case AUTH_USER:
-      return {
-        state,
-        authenticated: true
-      };
+    console.log("AUTH_USER-REDUCER", action.user);
+      return [
+        action.user
+      ];
 
     case UNAUTH_USER:
-      return {
-        state,
-        authenticated: false
-      };
-
-    case AUTH_ERROR:
-      return {
-        state,
-        error: action.payload
-      };
+      return [
+      ];
 
     default:
       return state;
   }
 };
+
+// const users = (state = initialState, action) => {
+//   switch (action.type) {
+//     case CREATE_USER:
+//       return state;
+
+//     case AUTH_USER:
+//       return {
+//         state,
+//         authenticated: true
+//       };
+
+//     case UNAUTH_USER:
+//       return {
+//         state,
+//         authenticated: false
+//       };
+
+//     case AUTH_ERROR:
+//       return {
+//         state,
+//         error: action.payload
+//       };
+
+//     default:
+//       return state;
+//   }
+// };
 
 export default users;

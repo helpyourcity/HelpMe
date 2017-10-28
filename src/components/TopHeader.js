@@ -12,7 +12,7 @@ const TopHeader = ({ authenticated, username }) => {
         <div className="header-title">Help Me!</div>
         <div className="header-nav">
           <div>Hello, {username}</div>
-          <div><Link to="/signout">Logout</Link></div>
+          <div>Logout</div>
         </div>
       </div>
     );
