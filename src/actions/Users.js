@@ -17,6 +17,7 @@ export const signInUser = (user) => {
   return (dispatch) => {
     axios.post("/api/user/signin", user)
       .then((token) => {
+        console.log("TOKEN, RETURNSTATEMENT", token);
         // this is how we access our token
         // jwtDecode(token.data.token);
         dispatch({
@@ -28,6 +29,7 @@ export const signInUser = (user) => {
         localStorage.setItem("token", token.data.token);
       })
       .catch((err) => {
+        console.log("SIGNIN", err);
         dispatch({
           type: AUTH_ERROR,
           text: 'ERROR: Wrong Password or Username'

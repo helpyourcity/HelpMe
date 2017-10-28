@@ -10,15 +10,13 @@ import { signInUser } from '../../actions/Users.js';
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    console.log("PROPSSSSS", props);
+
     // initial state
     this.state = {
       email: '',
       password: '',
       redirectUser: false
     };
-
-    console.log("USER", this.props.users);
 
     // functions
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -40,13 +38,17 @@ class SignIn extends Component {
 
   handleSignIn(e) {
     e.preventDefault();
-
-    var signIn = {
+    var user = {
       email: this.state.email,
       password: this.state.password
     };
+    var check = this.props.signInUser(user);
+    console.log("SIGNIN", check);
+    console.log("REDUX", this.props.users);
+  }
 
-    this.props.signInUser(signIn);
+  handleAuthentication() {
+
   }
 
   render() {
