@@ -51,20 +51,15 @@ router.post("/new", function(req, res) {
   });
 });
 
-function decryptToken(token) {
-  var userId = jwtDecode(token);
-  console.log("USERS ID FROM FRONT ENDDDD", userId);
-}
-
 //gettin user by id for checking your profile
 router.get("/getuser", requireAuth, function(req, res) {
   console.log("BACKEND GET USER", req);
-  // res.send({
-  //   first_name: req.user.first_name,
-  //   last_name: req.user.last_name,
-  //   email: req.body.email,
-  //   phone: req.body.phone
-  // });
+  res.send({
+    first_name: req.user.first_name,
+    last_name: req.user.last_name,
+    email: req.user.email,
+    phone: req.user.phone
+  });
 });
 
 //for users to edit their profiles.
