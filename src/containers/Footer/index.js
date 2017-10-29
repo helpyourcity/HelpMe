@@ -3,6 +3,7 @@ import './Footer.css';
 
 import Modal from '../Modal';
 import UserProfile from '../UserProfile';
+import HelpMe from '../HelpMe';
 
 class Footer extends Component {
   constructor(props) {
@@ -36,11 +37,10 @@ class Footer extends Component {
           <button value={null} onClick={this.setActiveModal}>Close</button>
         </Modal>
         <Modal id={2} activeModal={this.state.activeModal}>
-          <h1>Modal #2</h1>
+          <HelpMe />
           <button value={null} onClick={this.setActiveModal}>Close</button>
         </Modal>
         <Modal id={3} activeModal={this.state.activeModal}>
-          <h1>Modal #3</h1>
           <UserProfile />
           <button value={null} onClick={this.setActiveModal}>Close</button>
         </Modal>

@@ -12,10 +12,11 @@ class UserProfile extends Component {
 
     this.handleEditButton = this.handleEditButton.bind(this);
     this.handleSubmitButton = this.handleSubmitButton.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePhoneChange = this.handlePhoneChange.bind(this);
   }
 
   componentWillMount() {
-    console.log("TOKOKOKONEEN", localStorage.getItem("token"));
     var token = localStorage.getItem("token");
     axios.get("/api/user/getuser", {
       headers: {
@@ -34,17 +35,40 @@ class UserProfile extends Component {
     });
   }
 
-  componentDidMount() {
-    console.log(this.props.user);
+  handleEmailChange(e) {
+    this.setState({
+      email: e.target.value
+    });
+  }
+
+  handlePhoneChange(e) {
+    this.setState({
+      phone: e.target.value
+    });
   }
 
   handleEditButton(e) {
+    // Switch to edit view
     this.setState({
       editMode: true
     });
   }
 
   handleSubmitButton(e) {
+    // Change users data and switch to users profile view
+    var token = localStorage.getItem("token");
+
+    var updatedInfo = {
+      email: this.state.email,
+      phone: this.state.phone
+    };
+
+    axios.put("/api/user/users/edit", updatedInfo, {
+      headers: {
+        authorization: token
+      }
+    });
+
     this.setState({
       editMode: false
     });
@@ -55,6 +79,18 @@ class UserProfile extends Component {
       return (
         <div>
           <h1>EDIT PROFILE</h1>
+          <p>firstname: {this.state.first_name}</p>
+          <p>lastname: {this.state.last_name}</p>
+          <p>email:</p>
+          <input
+            type="text"
+            onChange={this.handleEmailChange}
+          />
+          <p>phone:</p>
+          <input
+            type="text"
+            onChange={this.handlePhoneChange}
+          />
           <button onClick={this.handleSubmitButton}>Submit</button>
         </div>
       );
@@ -62,10 +98,10 @@ class UserProfile extends Component {
       return (
         <div>
           <h1>PROFILE</h1>
-          <p>{this.state.first_name}</p>
-          <p>{this.state.last_name}</p>
-          <p>{this.state.email}</p>
-          <p>{this.state.phone}</p>
+          <p>firstname: {this.state.first_name}</p>
+          <p>lastname: {this.state.last_name}</p>
+          <p>email: {this.state.email}</p>
+          <p>phone: {this.state.phone}</p>
           <button onClick={this.handleEditButton}>Edit</button>
         </div>
       );

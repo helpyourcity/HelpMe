@@ -62,31 +62,45 @@ router.get("/getuser", requireAuth, function(req, res) {
   });
 });
 
-//for users to edit their profiles.
 router.put("/users/edit", requireAuth, function(req, res) {
-  //this is to edit or (delete) users by id
-  bcrypt.genSalt(saltRounds).then(salt => {
-    bcrypt.hash(req.body.password, salt).then(hash => {
-      User.update(
-        {
-          email: req.body.email,
-          phone: req.body.phone,
-          password: hash
-        },
-        {
-          where: { id: req.user.id }
-        }
-      ).then(() => {
-        return User.findById(req.user.id).then(user => {
-          res.json({
-            email: req.body.email,
-            phone: req.body.phone,
-            password: req.body.password
-          });
-        });
-      });
-    });
+  User.update({
+    email: req.body.email,
+    phone: req.body.phone
+  },
+  {
+    where: {
+      id: req.user.id
+    }
+  }).then((user) => {
+
   });
 });
+
+//for users to edit their profiles.
+// router.put("/users/edit", requireAuth, function(req, res) {
+//   //this is to edit or (delete) users by id
+//   bcrypt.genSalt(saltRounds).then(salt => {
+//     bcrypt.hash(req.body.password, salt).then(hash => {
+//       User.update(
+//         {
+//           email: req.body.email,
+//           phone: req.body.phone,
+//           password: hash
+//         },
+//         {
+//           where: { id: req.user.id }
+//         }
+//       ).then(() => {
+//         return User.findById(req.user.id).then(user => {
+//           res.json({
+//             email: req.body.email,
+//             phone: req.body.phone,
+//             password: req.body.password
+//           });
+//         });
+//       });
+//     });
+//   });
+// });
 
 module.exports = router;
