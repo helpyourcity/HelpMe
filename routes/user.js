@@ -12,14 +12,17 @@ const passport = require("passport");
 const requireAuth = passport.authenticate("jwt", { session: false });
 const requireSignIn = passport.authenticate("local", { session: false });
 
-function createToken(user) {
+function tokenForUser(user) {
   const timestamp = new Date().getTime();
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 } // jwt have a sub property meaning subject is user id.
 
 function signin(req, res, next) {
   console.log("SIGNIN USER REQ:", req.user);
-  res.send({ token: tokenForUser(req.user) });
+  res.send({
+    token: tokenForUser(req.user),
+    first_name: req.user.first_name
+  });
 }
 
 router.post("/signin", requireSignIn, signin);
@@ -48,12 +51,20 @@ router.post("/new", function(req, res) {
   });
 });
 
+function decryptToken(token) {
+  var userId = jwtDecode(token);
+  console.log("USERS ID FROM FRONT ENDDDD", userId);
+}
+
 //gettin user by id for checking your profile
-router.get("/users", requireAuth, function(req, res) {
-  res.json({
-    first_name: req.user.first_name,
-    last_name: req.user.last_name
-  });
+router.get("/getuser", requireAuth, function(req, res) {
+  console.log("BACKEND GET USER", req);
+  // res.send({
+  //   first_name: req.user.first_name,
+  //   last_name: req.user.last_name,
+  //   email: req.body.email,
+  //   phone: req.body.phone
+  // });
 });
 
 //for users to edit their profiles.

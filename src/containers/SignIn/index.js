@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Redirect } from "react-router";
-import * as actions from "../../actions/Users";
+
+import { signInUser } from '../lib/users.js';
 
 class SignIn extends Component {
   constructor(props) {
@@ -35,14 +36,21 @@ class SignIn extends Component {
   }
 
   handleSignIn(e) {
-    e.preventDefault();
-    this.state({
-      redirectUser: true
-    });
+    var user = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    signInUser(user)
+      .then(() => {
+        this.setState({
+          redirectUser: true
+        });
+      });
   }
 
   render() {
-    if(this.state.redirectUser) {
+    if(localStorage.getItem("token") !== null) {
       return (
         <Redirect to="/"></Redirect>
       );
@@ -68,16 +76,5 @@ class SignIn extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-
-  }
-};
-
-const ConnectedSignIn = connect(
-  null,
-  mapDispatchToProps
-)(SignIn);
-
-export default ConnectedSignIn;
+export default SignIn;
 

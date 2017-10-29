@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Footer.css';
 
 import Modal from '../Modal';
+import UserProfile from '../UserProfile';
 
 class Footer extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class Footer extends Component {
         </Modal>
         <Modal id={3} activeModal={this.state.activeModal}>
           <h1>Modal #3</h1>
+          <UserProfile />
           <button value={null} onClick={this.setActiveModal}>Close</button>
         </Modal>
       </footer>

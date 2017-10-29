@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
-import { addUser, userLocation } from "../../actions/Users.js";
 import Link from "valuelink";
+
+import { createNewUser } from '../lib/users.js';
 
 class SignUp extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class SignUp extends Component {
     this.handleLastName = this.handleLastName.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
     this.handleSubmitUser = this.handleSubmitUser.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
   handleEmail(e) {
@@ -59,14 +59,7 @@ class SignUp extends Component {
     });
   }
 
-  handleRedirect() {
-    // need this function to redirect user page to address
-    this.setState({
-      redirectAddress: true
-    });
-  }
-
-  submitUser(evt) {
+  handleSubmitUser(evt) {
     //maybe take away submit function?
     evt.preventDefault();
     let strOnly = /^[a-zA-Z()]+$/;
@@ -79,13 +72,12 @@ class SignUp extends Component {
       active: true
     };
 
-    // if (strOnly.test(newUser.first_name) && strOnly.test(newUser.last_name)) {
-    this.props.addUser(newUser);
-    this.redirectLocation();
-    console.log("newcard:", newUser);
-    // } else {
-    //   window.alert("Invalid input");
-    // }
+    createNewUser(newUser)
+      .then(() => {
+        this.setState({
+          redirectAddress: true
+        });
+      });
   }
 
   render() {
@@ -134,7 +126,7 @@ class SignUp extends Component {
           <br />
           <button
             disabled={nameLink.error || emailLink.error}
-            onClick={this.submitUser.bind(this)}
+            onClick={this.handleSubmitUser}
           >
             Create Account
           </button>
@@ -144,15 +136,4 @@ class SignUp extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    //whatever the action is
-    addUser: text => {
-      dispatch(addUser(text));
-    }
-  };
-};
-
-const ConnectedSignUp = connect(null, mapDispatchToProps)(SignUp);
-
-export default ConnectedSignUp;
+export default SignUp;
