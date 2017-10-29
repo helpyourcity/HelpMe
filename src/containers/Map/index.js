@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import GoogleMapReact from 'google-map-react';
-import Marker from '../Marker';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import GoogleMapReact from "google-map-react";
+import Marker from "../Marker";
 
 // CSS
-import './Map.css';
+import "./Map.css";
 
 // ACTIONS
-import { addMarker } from '../../actions/Markers.js';
+import { addMarker } from "../../actions/Markers.js";
 
 // REDUCER
-import reducers from '../../reducers';
-
+import reducers from "../../reducers";
+import io from "socket.io-client";
+const socket = io();
+var chat = io.connect("http://localhost/chat");
 // const Marker = ({ text }) => <div>{text}</div>;
 
 class Map extends Component {
@@ -23,17 +25,33 @@ class Map extends Component {
       zoom: 15
     };
   }
-
+  componentDidMount() {}
   componentWillMount() {
     // Get users current position: lat, lng
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
-        this.props.addMarker({id: '1', lat: lat, lng: lng, text: 'your location'});
-        this.props.addMarker({id: '2', lat: 21.3996, lng: -157.7974, text: 'helper'});
-        this.props.addMarker({id: '3', lat: 21.4360, lng: -158.1849, text: 'ur mom'});
+        this.props.addMarker({
+          id: "1",
+          lat: lat,
+          lng: lng,
+          text: "your location"
+        });
+        this.props.addMarker({
+          id: "2",
+          lat: 21.3996,
+          lng: -157.7974,
+          text: "helper"
+        });
+        this.props.addMarker({
+          id: "3",
+          lat: 21.436,
+          lng: -158.1849,
+          text: "ur mom"
+        });
         // gets center points for map
         this.setState({
           lat,
@@ -44,15 +62,16 @@ class Map extends Component {
   }
 
   render() {
-    const bunchOfMarkers = this.props.markers &&
-    this.props.markers.map((marker) => (
-      <Marker
-        id={marker.id}
-        lat={marker.lat}
-        lng={marker.lng}
-        text={marker.text}
-      />
-    ));
+    const bunchOfMarkers =
+      this.props.markers &&
+      this.props.markers.map(marker => (
+        <Marker
+          id={marker.id}
+          lat={marker.lat}
+          lng={marker.lng}
+          text={marker.text}
+        />
+      ));
     return (
       <div className="map">
         <GoogleMapReact
@@ -67,23 +86,20 @@ class Map extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     markers: state.markers
-  }
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    addMarker: (marker) => {
-      dispatch(addMarker(marker))
+    addMarker: marker => {
+      dispatch(addMarker(marker));
     }
-  }
-}
+  };
+};
 
-const ConnectedMap = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+const ConnectedMap = connect(mapStateToProps, mapDispatchToProps)(Map);
 
 export default ConnectedMap;
