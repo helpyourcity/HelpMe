@@ -25,16 +25,28 @@ class Homepage extends Component {
   }
 
   render() {
-    return(
-      <div>
-        <Header
-          username={this.state.username}
-          userAuthenticated={this.state.userAuthenticated}
-        />
-        <ConnectedMap />
-        <Footer />
-      </div>
-    );
+    if(this.state.userAuthenticated) {
+      return (
+        <div>
+          <Header
+            username={this.state.username}
+            userAuthenticated={this.state.userAuthenticated}
+          />
+          <ConnectedMap />
+          <Footer />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Header
+            username={this.state.username}
+            userAuthenticated={this.state.userAuthenticated}
+          />
+          <ConnectedMap />
+        </div>
+      );
+    }
   }
 }
 
