@@ -51,47 +51,56 @@ router.post("/new", function(req, res) {
   });
 });
 
-function decryptToken(token) {
-  var userId = jwtDecode(token);
-  console.log("USERS ID FROM FRONT ENDDDD", userId);
-}
-
 //gettin user by id for checking your profile
 router.get("/getuser", requireAuth, function(req, res) {
   console.log("BACKEND GET USER", req);
-  // res.send({
-  //   first_name: req.user.first_name,
-  //   last_name: req.user.last_name,
-  //   email: req.body.email,
-  //   phone: req.body.phone
-  // });
+  res.send({
+    first_name: req.user.first_name,
+    last_name: req.user.last_name,
+    email: req.user.email,
+    phone: req.user.phone
+  });
+});
+
+router.put("/users/edit", requireAuth, function(req, res) {
+  User.update({
+    email: req.body.email,
+    phone: req.body.phone
+  },
+  {
+    where: {
+      id: req.user.id
+    }
+  }).then((user) => {
+
+  });
 });
 
 //for users to edit their profiles.
-router.put("/users/edit", requireAuth, function(req, res) {
-  //this is to edit or (delete) users by id
-  bcrypt.genSalt(saltRounds).then(salt => {
-    bcrypt.hash(req.body.password, salt).then(hash => {
-      User.update(
-        {
-          email: req.body.email,
-          phone: req.body.phone,
-          password: hash
-        },
-        {
-          where: { id: req.user.id }
-        }
-      ).then(() => {
-        return User.findById(req.user.id).then(user => {
-          res.json({
-            email: req.body.email,
-            phone: req.body.phone,
-            password: req.body.password
-          });
-        });
-      });
-    });
-  });
-});
+// router.put("/users/edit", requireAuth, function(req, res) {
+//   //this is to edit or (delete) users by id
+//   bcrypt.genSalt(saltRounds).then(salt => {
+//     bcrypt.hash(req.body.password, salt).then(hash => {
+//       User.update(
+//         {
+//           email: req.body.email,
+//           phone: req.body.phone,
+//           password: hash
+//         },
+//         {
+//           where: { id: req.user.id }
+//         }
+//       ).then(() => {
+//         return User.findById(req.user.id).then(user => {
+//           res.json({
+//             email: req.body.email,
+//             phone: req.body.phone,
+//             password: req.body.password
+//           });
+//         });
+//       });
+//     });
+//   });
+// });
 
 module.exports = router;
