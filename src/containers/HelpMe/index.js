@@ -43,7 +43,8 @@ class HelpMe extends Component {
   handleSubmitButton(e) {
     e.preventDefault();
     var checkInputsOutput = this.checkInputs();
-    if(checkInputsOutput) {
+    console.log("CHECKSINPUTOUTPUT", checkInputsOutput);
+    if(checkInputsOutput === true) {
       // could cause error but:
       navigator.geolocation.getCurrentPosition((position) => {
         let lat = position.coords.latitude;
