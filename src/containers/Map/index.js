@@ -9,11 +9,6 @@ import './Map.css';
 // ACTIONS
 import { addMarker } from '../../actions/Markers.js';
 
-// REDUCER
-import reducers from '../../reducers';
-
-// const Marker = ({ text }) => <div>{text}</div>;
-
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +27,6 @@ class Map extends Component {
         let lng = position.coords.longitude;
 
         this.props.addMarker({id: '1', lat: lat, lng: lng, text: 'your location'});
-        this.props.addMarker({id: '2', lat: 21.3996, lng: -157.7974, text: 'helper'});
-        this.props.addMarker({id: '3', lat: 21.4360, lng: -158.1849, text: 'ur mom'});
         // gets center points for map
         this.setState({
           lat,
@@ -56,7 +49,10 @@ class Map extends Component {
     return (
       <div className="map">
         <GoogleMapReact
-          defaultCenter={[0, 0]}
+          bootstrapURLKeys={{
+            key: 'AIzaSyBvd9vz5uOQ_lUxKULh3_L1RfP1x8T2gL0',
+            language: 'en'
+          }}
           center={[this.state.lat, this.state.lng]}
           defaultZoom={this.state.zoom}
         >

@@ -1,12 +1,8 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import ReactToolTip from 'react-tooltip';
 import { markerStyle, markerStyleHover} from './marker_styles.js';
 
 class Marker extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const style = this.props.$hover ? markerStyleHover : markerStyle;
     return (
