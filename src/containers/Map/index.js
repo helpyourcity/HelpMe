@@ -40,6 +40,7 @@ class Map extends Component {
     const bunchOfMarkers = this.props.markers &&
     this.props.markers.map((marker) => (
       <Marker
+        key={marker.id}
         id={marker.id}
         lat={marker.lat}
         lng={marker.lng}
