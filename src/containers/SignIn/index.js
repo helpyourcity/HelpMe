@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Redirect } from "react-router";
 
 import { signInUser } from '../lib/users.js';

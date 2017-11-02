@@ -1,6 +1,5 @@
 // PACKAGES
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
 // FUNCTIONS
 export const signInUser = (user) => {
