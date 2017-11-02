@@ -63,16 +63,18 @@ router.get("/getuser", requireAuth, function(req, res) {
 });
 
 router.put("/users/edit", requireAuth, function(req, res) {
-  User.update({
-    email: req.body.email,
-    phone: req.body.phone
-  },
-  {
-    where: {
-      id: req.user.id
+  User.update(
+    {
+      email: req.body.email,
+      phone: req.body.phone
+    },
+    {
+      where: {
+        id: req.user.id
+      }
     }
-  }).then((user) => {
-
+  ).then(user => {
+    res.end();
   });
 });
 
