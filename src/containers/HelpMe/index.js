@@ -56,7 +56,7 @@ class HelpMe extends Component {
           lng: lng
         };
 
-        axios.post("/api/location/map", coordinates, {
+        axios.put("/api/user/map", coordinates, {
           headers: {
             authorization: token
           }
