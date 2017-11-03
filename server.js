@@ -36,6 +36,6 @@ app.use('/api/user', user);
 // })
 
 const server = app.listen(PORT, () => {
-  //db.sequelize.sync();
+  db.sequelize.sync();
   console.log(`SERVER: helpme running on ${PORT}`);
 });
