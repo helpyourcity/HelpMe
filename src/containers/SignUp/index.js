@@ -1,3 +1,4 @@
+//to push up adding random commetn to be delted
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NumberFormat from "react-number-format";
