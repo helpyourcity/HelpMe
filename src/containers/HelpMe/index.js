@@ -76,11 +76,11 @@ class HelpMe extends Component {
       let lat = position.coords.latitude;
       let lng = position.coords.longitude;
 
-      // make xhr request here
-      axios.post("/api/location/map", coordinates, {
-        headers: {
-          authorization: token
-        }
+        axios.put("/api/user/map", coordinates, {
+          headers: {
+            authorization: token
+          }
+        });
       });
       console.log("GOOD");
       this.setState({

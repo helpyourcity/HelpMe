@@ -52,6 +52,27 @@ router.post("/new", function(req, res) {
     });
   });
 });
+router.put("/map", requireAuth, function(req, res) {
+  console.log("REQS", req.user.id);
+  User.update(
+    {
+      lat: req.body.lat,
+      lng: req.body.lng
+    },
+    {
+      where: {
+        id: req.user.id
+      }
+    }
+  )
+    .then(location => {
+      console.log("locations", location);
+      res.end();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 
 //gettin user by id for checking your profile
 router.get("/getuser", requireAuth, function(req, res) {
@@ -65,6 +86,20 @@ router.get("/getuser", requireAuth, function(req, res) {
   });
 });
 
+router.get("/helper", function(req, res) {
+  console.log("BACKEND GET HELPER", req);
+  User.findAll({
+    where: {
+      status: "helper"
+    }
+  });
+  res.send({
+    first_name: req.user.first_name,
+    phone: req.user.phone,
+    lat: req.user.lat,
+    lng: req.user.lng
+  });
+});
 router.put("/users/edit", requireAuth, function(req, res) {
   console.log("checking status: ", req.body.status);
   User.update(
