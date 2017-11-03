@@ -29,6 +29,7 @@ router.post("/signin", requireSignIn, signin);
 
 // sign up *
 router.post("/new", function(req, res) {
+  console.log(req.body);
   bcrypt.genSalt(saltRounds).then(salt => {
     bcrypt.hash(req.body.password, salt).then(hash => {
       // Create new user w/ hashed password
@@ -38,7 +39,8 @@ router.post("/new", function(req, res) {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         phone: req.body.phone,
-        active: true
+        active: true,
+        status: "user"
       })
         .then(user => {
           res.end();
@@ -58,22 +60,25 @@ router.get("/getuser", requireAuth, function(req, res) {
     first_name: req.user.first_name,
     last_name: req.user.last_name,
     email: req.user.email,
-    phone: req.user.phone
+    phone: req.user.phone,
+    status: req.user.status
   });
 });
 
 router.put("/users/edit", requireAuth, function(req, res) {
-  User.update({
-    email: req.body.email,
-    phone: req.body.phone
-  },
-  {
-    where: {
-      id: req.user.id
+  console.log("checking status: ", req.body.status);
+  User.update(
+    {
+      email: req.body.email,
+      phone: req.body.phone,
+      status: req.body.status
+    },
+    {
+      where: {
+        id: req.user.id
+      }
     }
-  }).then((user) => {
-
-  });
+  ).then(user => {});
 });
 
 //for users to edit their profiles.
