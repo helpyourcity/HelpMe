@@ -15,9 +15,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
-    active: DataTypes.BOOLEAN,
     lat: DataTypes.STRING,
-    lng: DataTypes.STRING
+    lng: DataTypes.STRING,
+    status: {
+      type: DataTypes.ENUM,
+      values: ["user", "helper", "helpee"]
+    }
   });
 
   User.associate = function(models) {
