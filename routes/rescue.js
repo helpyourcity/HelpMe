@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const app = express();
-
+// const config = require(`./config/${process.env.NODE_ENV}.js`)
 const Rescue = require("../models").Rescue;
 
 const passportService = require("../services/passport.js");
@@ -9,6 +9,36 @@ const passport = require("passport");
 
 const requireAuth = passport.authenticate("jwt", { session: false });
 const requireSignIn = passport.authenticate("local", { session: false });
+
+// const {
+//   ACCOUNT_SID,
+//   AUTH_TOKEN,
+//   ADMINS,
+//   RESCUERS,
+//   API_KEY
+// } = require("../config/sms");
+const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
+
+router.post("/sms/rescue", (req, res) => {
+  let helpee = req.headers.helpee;
+  let location = req.headers.location;
+
+  console.log("helpee and location", helpee + location);
+  //console.log("client", client);
+  for (let i = 0; i < RESCUERS.length; i++) {
+    client.messages
+      .create({
+        to: RESCUERS[i],
+        from: "+18082014699",
+        body: `${new Date(new Date().getTime()).toLocaleTimeString()}: ${req
+          .headers.helpee} is at ${req.headers.location} and needs help!`
+      })
+      .then(message => {
+        console.log(`sent a rescue message to ${RESCUERS}`);
+      });
+    res.end();
+  }
+});
 
 router.post("/help_requests", function(req, res) {
   console.log("are we posting resque??", req.body);

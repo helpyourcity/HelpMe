@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import './Modal.css';
 
 class Modal extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     // if modal is open render
-    if(this.props.id === parseInt(this.props.activeModal)) {
+    if(this.props.id === parseInt(this.props.activeModal, 10)) {
       return (
         <div className="backdrop">
           <div className="modal">

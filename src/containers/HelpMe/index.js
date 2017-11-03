@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import axios from "axios";
 
 class HelpMe extends Component {
   constructor(props) {
@@ -6,36 +7,115 @@ class HelpMe extends Component {
 
     // initial state
     this.state = {
-      title: ''
+      title: '',
+      phoneNumber: '',
+      errors: {
+        title: '',
+        phoneNumber: ''
+      },
+      titleValid: false,
+      phoneNumberValid: false,
+      formValid: false
     };
 
     // functions
-    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.validateField = this.validateField.bind(this);
+    this.validateForm = this.validateForm.bind(this);
     this.handleSubmitButton = this.handleSubmitButton.bind(this);
   }
 
-  handleTitleChange(e) {
+  handleChange(e) {
+    let target = e.target;
     this.setState({
-      title: e.target.value
+      [target.name]: target.value
+    }, () => {
+      this.validateField(target.name, target.value);
     });
+  }
+
+  validateField(fieldName, value) {
+    let errors = this.state.errors;
+    let titleValid = this.state.titleValid;
+    let phoneNumberValid = this.state.phoneNumberValid;
+
+    switch(fieldName) {
+      case 'title':
+        titleValid = value.length >= 5;
+        errors.title = titleValid ? '' : 'Title must be longer than five characters.';
+        break;
+      case 'phoneNumber':
+        phoneNumberValid = value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
+        errors.phoneNumber = phoneNumberValid ? '' : 'Phone number must be a valid number.';
+        break;
+      default:
+        break;
+    }
+
+    this.setState({
+      errors,
+      titleValid,
+      phoneNumberValid
+    }, this.validateForm);
+  }
+
+  validateForm() {
+    this.setState({
+      formValid: this.state.titleValid && this.state.phoneNumberValid
+    });
+  }
+  
+  handleError(error) {
+    return (error.length === 0 ? '' : 'has-error');
   }
 
   handleSubmitButton(e) {
     e.preventDefault();
-    console.log("HELP ME REQUEST SUBMITTED");
+    navigator.geolocation.getCurrentPosition((position) => {
+      let lat = position.coords.latitude;
+      let lng = position.coords.longitude;
+
+        axios.put("/api/user/map", coordinates, {
+          headers: {
+            authorization: token
+          }
+        });
+      });
+      console.log("GOOD");
+      this.setState({
+        title: '',
+        phoneNumber: '',
+        formValid: false
+      });  
+    });
   }
 
   render() {
     return (
-      <div>
-        <h1>Create a help request</h1>
-        <p>Enter a title for your request:</p>
+      <form onSubmit={this.handleSubmitButton}>
+        <div>
+          <input
+            name="title"
+            value={this.state.title}
+            onChange={this.handleChange}
+          />
+          <span>{this.state.errors.title || 'No errrors'}</span>
+        </div>
+        <div>
+          <input
+            name="phoneNumber"
+            value={this.state.phoneNumber}
+            onChange={this.handleChange}
+          />
+          <span>{this.state.errors.phoneNumber || 'No errors'}</span>
+        </div>
         <input
-          type="text"
-          onChange={this.handleTitleChange}
+          name="submit"
+          type="submit"
+          disabled={!this.state.formValid}
         />
-        <button onClick={this.handleSubmitButton}>Submit</button>
-      </div>
+      </form>
     );
   }
 }

@@ -1,7 +1,5 @@
 //to push up adding random commetn to be delted
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import Link from "valuelink";
@@ -75,7 +73,6 @@ class SignUp extends Component {
   handleSubmitUser(evt) {
     //maybe take away submit function?
     evt.preventDefault();
-    let strOnly = /^[a-zA-Z()]+$/;
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,

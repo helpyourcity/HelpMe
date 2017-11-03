@@ -1,9 +1,7 @@
 import React from "react";
 import {
   BrowserRouter as Router,
-  Route,
-  Link,
-  IndexRoute
+  Route
 } from "react-router-dom";
 
 import SignUp from '../containers/SignUp';

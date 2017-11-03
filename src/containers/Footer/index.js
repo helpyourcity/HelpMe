@@ -25,7 +25,6 @@ class Footer extends Component {
   }
 
   render() {
-    console.log("render", this.state.activeModal);
     return (
       <footer>
         <button value={1} onClick={this.setActiveModal}>Help Requests</button>
