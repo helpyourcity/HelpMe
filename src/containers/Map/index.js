@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import GoogleMapReact from 'google-map-react';
-import Marker from '../Marker';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import GoogleMapReact from "google-map-react";
+import Marker from "../Marker";
 
 // CSS
-import './Map.css';
+import "./Map.css";
 
 // ACTIONS
-import { addMarker } from '../../actions/Markers.js';
+import { addMarker } from "../../actions/Markers.js";
 
 class Map extends Component {
   constructor(props) {
@@ -20,13 +20,19 @@ class Map extends Component {
   }
 
   componentWillMount() {
+    console.log("token", localStorage.getItem("token"));
     // Get users current position: lat, lng
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
-        this.props.addMarker({id: '1', lat: lat, lng: lng, text: 'your location'});
+        this.props.addMarker({
+          id: "1",
+          lat: lat,
+          lng: lng,
+          text: "your location"
+        });
         // gets center points for map
         this.setState({
           lat,
@@ -37,22 +43,23 @@ class Map extends Component {
   }
 
   render() {
-    const bunchOfMarkers = this.props.markers &&
-    this.props.markers.map((marker) => (
-      <Marker
-        key={marker.id}
-        id={marker.id}
-        lat={marker.lat}
-        lng={marker.lng}
-        text={marker.text}
-      />
-    ));
+    const bunchOfMarkers =
+      this.props.markers &&
+      this.props.markers.map(marker => (
+        <Marker
+          key={marker.id}
+          id={marker.id}
+          lat={marker.lat}
+          lng={marker.lng}
+          text={marker.text}
+        />
+      ));
     return (
       <div className="map">
         <GoogleMapReact
           bootstrapURLKeys={{
-            key: 'AIzaSyBvd9vz5uOQ_lUxKULh3_L1RfP1x8T2gL0',
-            language: 'en'
+            key: "AIzaSyBvd9vz5uOQ_lUxKULh3_L1RfP1x8T2gL0",
+            language: "en"
           }}
           center={[this.state.lat, this.state.lng]}
           defaultZoom={this.state.zoom}
@@ -64,23 +71,20 @@ class Map extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     markers: state.markers
-  }
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    addMarker: (marker) => {
-      dispatch(addMarker(marker))
+    addMarker: marker => {
+      dispatch(addMarker(marker));
     }
-  }
-}
+  };
+};
 
-const ConnectedMap = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+const ConnectedMap = connect(mapStateToProps, mapDispatchToProps)(Map);
 
 export default ConnectedMap;

@@ -47,13 +47,19 @@ class HelpMe extends Component {
     if (checkInputsOutput === true) {
       // could cause error but:
       return navigator.geolocation.getCurrentPosition(position => {
+        var token = localStorage.getItem("token");
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
         console.log("lat/lng", lat + " " + lng);
-        axios.post("/api/location/map", {
+        let coordinates = {
           lat: lat,
-          lng: lng,
-          user_id: "1"
+          lng: lng
+        };
+
+        axios.post("/api/location/map", coordinates, {
+          headers: {
+            authorization: token
+          }
         });
       });
     } else {

@@ -2,12 +2,17 @@ const express = require("express");
 const Location = require("../models").Location;
 const router = express.Router();
 
-router.post("/map", function(req, res) {
-  console.log("REQS", req.body);
+const passportService = require("../services/passport.js");
+const passport = require("passport");
+
+const requireAuth = passport.authenticate("jwt", { session: false });
+
+router.post("/map", requireAuth, function(req, res) {
+  console.log("REQS", req.user.id);
   Location.create({
     lat: req.body.lat,
     lng: req.body.lng,
-    user_id: req.body.user_id
+    user_id: req.user.id
   })
     .then(location => {
       console.log("locations", location);
@@ -57,3 +62,5 @@ router.put("/update", function(req, res) {
     res.end();
   });
 });
+
+module.exports = router;
