@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
+import axios from "axios";
 class HelpMe extends Component {
   constructor(props) {
     super(props);
 
     // initial state
     this.state = {
-      title: '',
-      phoneNumber: '',
-      address: ''
+      title: "",
+      phoneNumber: "",
+      address: ""
     };
 
     // functions
@@ -32,9 +32,9 @@ class HelpMe extends Component {
 
   checkInputs() {
     var phoneNumberValidation = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    if(this.state.title === "") {
+    if (this.state.title === "") {
       return "ERROR: The title cannot be empty!";
-    } else if(!this.state.phoneNumber.match(phoneNumberValidation)) {
+    } else if (!this.state.phoneNumber.match(phoneNumberValidation)) {
       return "ERROR: That is not a valid phone number";
     }
     return true;
@@ -44,14 +44,17 @@ class HelpMe extends Component {
     e.preventDefault();
     var checkInputsOutput = this.checkInputs();
     console.log("CHECKSINPUTOUTPUT", checkInputsOutput);
-    if(checkInputsOutput === true) {
+    if (checkInputsOutput === true) {
       // could cause error but:
-      navigator.geolocation.getCurrentPosition((position) => {
+      return navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
-
-        // make xhr request here
         console.log("lat/lng", lat + " " + lng);
+        axios.post("/api/location/map", {
+          lat: lat,
+          lng: lng,
+          user_id: "1"
+        });
       });
     } else {
       // alert w/ message from checkInputsOutput
@@ -63,15 +66,9 @@ class HelpMe extends Component {
       <div>
         <h1>Create a help request</h1>
         <p>Enter a title for your request:</p>
-        <input
-          type="text"
-          onChange={this.handleTitleChange}
-        />
+        <input type="text" onChange={this.handleTitleChange} />
         <p>Phone Number:</p>
-        <input
-          type="text"
-          onChange={this.handlePhoneNumberChange}
-        />
+        <input type="text" onChange={this.handlePhoneNumberChange} />
         <br />
         <button onClick={this.handleSubmitButton}>Submit</button>
       </div>
