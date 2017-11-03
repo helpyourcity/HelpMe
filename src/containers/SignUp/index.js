@@ -5,7 +5,17 @@ import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import Link from "valuelink";
 
-import { createNewUser } from '../lib/users.js';
+import { createNewUser } from "../lib/users.js";
+
+function validateName(name) {
+  if (parseInt(name) == name) {
+    return window.alert("valid"); // error out if there is a number insert
+  } else {
+    return this.setState({
+      validateFirst_name: true
+    });
+  }
+}
 
 class SignUp extends Component {
   constructor(props) {
@@ -17,7 +27,9 @@ class SignUp extends Component {
       last_name: "",
       email: "",
       password: "",
-      redirectAddress: false
+      redirectAddress: false,
+      validFirst_name: false,
+      status: ["user"]
     };
 
     // functions
@@ -69,15 +81,15 @@ class SignUp extends Component {
       email: this.state.email,
       password: this.state.password,
       phone: this.state.phone,
-      active: true
+      active: true,
+      status: "user"
     };
 
-    createNewUser(newUser)
-      .then(() => {
-        this.setState({
-          redirectAddress: true
-        });
+    createNewUser(newUser).then(() => {
+      this.setState({
+        redirectAddress: true
       });
+    });
   }
 
   render() {
@@ -116,9 +128,10 @@ class SignUp extends Component {
           />
           <h3>Last Name</h3>
           <input type="text" placeholder="Doe" onChange={this.handleLastName} />
+
           <h3>Phone Number</h3>
-          <input
-            type="text"
+          <NumberFormat
+            format="##########"
             placeholder="808-123-4567"
             onChange={this.handlePhone}
           />
