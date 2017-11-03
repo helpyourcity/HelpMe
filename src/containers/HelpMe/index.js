@@ -7,11 +7,11 @@ class HelpMe extends Component {
 
     // initial state
     this.state = {
-      title: '',
-      phoneNumber: '',
+      title: "",
+      phoneNumber: "",
       errors: {
-        title: '',
-        phoneNumber: ''
+        title: "",
+        phoneNumber: ""
       },
       titleValid: false,
       phoneNumberValid: false,
@@ -28,11 +28,14 @@ class HelpMe extends Component {
 
   handleChange(e) {
     let target = e.target;
-    this.setState({
-      [target.name]: target.value
-    }, () => {
-      this.validateField(target.name, target.value);
-    });
+    this.setState(
+      {
+        [target.name]: target.value
+      },
+      () => {
+        this.validateField(target.name, target.value);
+      }
+    );
   }
 
   validateField(fieldName, value) {
@@ -40,24 +43,33 @@ class HelpMe extends Component {
     let titleValid = this.state.titleValid;
     let phoneNumberValid = this.state.phoneNumberValid;
 
-    switch(fieldName) {
-      case 'title':
+    switch (fieldName) {
+      case "title":
         titleValid = value.length >= 5;
-        errors.title = titleValid ? '' : 'Title must be longer than five characters.';
+        errors.title = titleValid
+          ? ""
+          : "Title must be longer than five characters.";
         break;
-      case 'phoneNumber':
-        phoneNumberValid = value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
-        errors.phoneNumber = phoneNumberValid ? '' : 'Phone number must be a valid number.';
+      case "phoneNumber":
+        phoneNumberValid = value.match(
+          /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+        );
+        errors.phoneNumber = phoneNumberValid
+          ? ""
+          : "Phone number must be a valid number.";
         break;
       default:
         break;
     }
 
-    this.setState({
-      errors,
-      titleValid,
-      phoneNumberValid
-    }, this.validateForm);
+    this.setState(
+      {
+        errors,
+        titleValid,
+        phoneNumberValid
+      },
+      this.validateForm
+    );
   }
 
   validateForm() {
@@ -65,29 +77,33 @@ class HelpMe extends Component {
       formValid: this.state.titleValid && this.state.phoneNumberValid
     });
   }
-  
+
   handleError(error) {
-    return (error.length === 0 ? '' : 'has-error');
+    return error.length === 0 ? "" : "has-error";
   }
 
   handleSubmitButton(e) {
     e.preventDefault();
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(position => {
       let lat = position.coords.latitude;
       let lng = position.coords.longitude;
 
-        axios.put("/api/user/map", coordinates, {
-          headers: {
-            authorization: token
-          }
-        });
+      var token = localStorage.getItem("token");
+      let coordinates = {
+        lat: lat,
+        lng: lng
+      };
+      axios.put("/api/user/map", coordinates, {
+        headers: {
+          authorization: token
+        }
       });
-      console.log("GOOD");
-      this.setState({
-        title: '',
-        phoneNumber: '',
-        formValid: false
-      });  
+    });
+    console.log("GOOD");
+    this.setState({
+      title: "",
+      phoneNumber: "",
+      formValid: false
     });
   }
 
@@ -100,7 +116,7 @@ class HelpMe extends Component {
             value={this.state.title}
             onChange={this.handleChange}
           />
-          <span>{this.state.errors.title || 'No errrors'}</span>
+          <span>{this.state.errors.title || "No errrors"}</span>
         </div>
         <div>
           <input
@@ -108,13 +124,9 @@ class HelpMe extends Component {
             value={this.state.phoneNumber}
             onChange={this.handleChange}
           />
-          <span>{this.state.errors.phoneNumber || 'No errors'}</span>
+          <span>{this.state.errors.phoneNumber || "No errors"}</span>
         </div>
-        <input
-          name="submit"
-          type="submit"
-          disabled={!this.state.formValid}
-        />
+        <input name="submit" type="submit" disabled={!this.state.formValid} />
       </form>
     );
   }
