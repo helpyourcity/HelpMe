@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import ErrorModal from '../ErrorModal';
+import React, { Component } from "react";
+import axios from "axios";
 
 class HelpMe extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class HelpMe extends Component {
       formValid: this.state.titleValid && this.state.phoneNumberValid
     });
   }
-
+  
   handleError(error) {
     return (error.length === 0 ? '' : 'has-error');
   }
@@ -77,12 +77,17 @@ class HelpMe extends Component {
       let lng = position.coords.longitude;
 
       // make xhr request here
+      axios.post("/api/location/map", coordinates, {
+        headers: {
+          authorization: token
+        }
+      });
       console.log("GOOD");
       this.setState({
         title: '',
         phoneNumber: '',
         formValid: false
-      });
+      });  
     });
   }
 
