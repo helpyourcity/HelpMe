@@ -78,7 +78,9 @@ router.put("/users/edit", requireAuth, function(req, res) {
         id: req.user.id
       }
     }
-  ).then(user => {});
+  ).then(user => {
+    res.end();
+  });
 });
 
 //for users to edit their profiles.
