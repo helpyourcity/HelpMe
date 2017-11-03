@@ -1,5 +1,6 @@
 node_modules
 config/config.json
+config/sms.js
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
