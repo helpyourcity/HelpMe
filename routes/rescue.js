@@ -10,13 +10,13 @@ const passport = require("passport");
 const requireAuth = passport.authenticate("jwt", { session: false });
 const requireSignIn = passport.authenticate("local", { session: false });
 
-// const {
-//   ACCOUNT_SID,
-//   AUTH_TOKEN,
-//   ADMINS,
-//   RESCUERS,
-//   API_KEY
-// } = require("../config/sms");
+const {
+  ACCOUNT_SID,
+  AUTH_TOKEN,
+  ADMINS,
+  RESCUERS,
+  API_KEY
+} = require("../config/sms");
 const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
 
 router.post("/sms/rescue", (req, res) => {

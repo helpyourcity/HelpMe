@@ -52,6 +52,8 @@ router.post("/new", function(req, res) {
     });
   });
 });
+
+//this is for updating user location
 router.put("/map", requireAuth, function(req, res) {
   console.log("REQS", req.user.id);
   User.update(
@@ -74,7 +76,7 @@ router.put("/map", requireAuth, function(req, res) {
     });
 });
 
-//gettin user by id for checking your profile
+//getting user by id for checking your profile
 router.get("/getuser", requireAuth, function(req, res) {
   console.log("BACKEND GET USER", req);
   res.send({
@@ -86,20 +88,19 @@ router.get("/getuser", requireAuth, function(req, res) {
   });
 });
 
+//for finding the three closest helpers
 router.get("/helper", function(req, res) {
-  console.log("BACKEND GET HELPER", req);
+  console.log("BACKEND GET HELPER");
   User.findAll({
     where: {
       status: "helper"
     }
-  });
-  res.send({
-    first_name: req.user.first_name,
-    phone: req.user.phone,
-    lat: req.user.lat,
-    lng: req.user.lng
+  }).then(helper => {
+    console.log("user", req.user);
+    res.send(helper);
   });
 });
+
 router.put("/users/edit", requireAuth, function(req, res) {
   console.log("checking status: ", req.body.status);
   User.update(
@@ -117,32 +118,5 @@ router.put("/users/edit", requireAuth, function(req, res) {
     res.end();
   });
 });
-
-//for users to edit their profiles.
-// router.put("/users/edit", requireAuth, function(req, res) {
-//   //this is to edit or (delete) users by id
-//   bcrypt.genSalt(saltRounds).then(salt => {
-//     bcrypt.hash(req.body.password, salt).then(hash => {
-//       User.update(
-//         {
-//           email: req.body.email,
-//           phone: req.body.phone,
-//           password: hash
-//         },
-//         {
-//           where: { id: req.user.id }
-//         }
-//       ).then(() => {
-//         return User.findById(req.user.id).then(user => {
-//           res.json({
-//             email: req.body.email,
-//             phone: req.body.phone,
-//             password: req.body.password
-//           });
-//         });
-//       });
-//     });
-//   });
-// });
 
 module.exports = router;
