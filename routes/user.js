@@ -66,10 +66,13 @@ router.put("/map", requireAuth, function(req, res) {
         id: req.user.id
       }
     }
-  )
+  );
+  User.findById(req.user.id, {
+    attributes: ["lat", "lng"]
+  })
     .then(location => {
       console.log("locations", location);
-      res.end();
+      res.send(location);
     })
     .catch(err => {
       console.log(err);
@@ -94,7 +97,8 @@ router.get("/helper", function(req, res) {
   User.findAll({
     where: {
       status: "helper"
-    }
+    },
+    attributes: ["first_name", "phone", "lat", "lng"]
   }).then(helper => {
     console.log("user", req.user);
     res.send(helper);

@@ -93,11 +93,28 @@ class HelpMe extends Component {
         lat: lat,
         lng: lng
       };
-      axios.put("/api/user/map", coordinates, {
-        headers: {
-          authorization: token
-        }
-      });
+      axios
+        .put("/api/user/map", coordinates, {
+          headers: {
+            authorization: token
+          }
+        })
+        .then(location => {
+          console.log("LOWCATS", location);
+          var token = localStorage.getItem("token");
+
+          let rescueRequest = {
+            coordinates: `${location.data.lat}, ${location.data.lng}`,
+            phoneNumber:this.state.phoneNumber,
+            title: this.state.title
+          };
+          console.log("POSITION", rescueRequest);
+          axios.post("/api/rescue/sms/rescue", rescueRequest, {
+            headers: {
+              authorization: token
+            }
+          });
+        });
     });
     console.log("GOOD");
     this.setState({

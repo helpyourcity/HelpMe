@@ -19,23 +19,25 @@ const {
 } = require("../config/sms");
 const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
 
-router.post("/sms/rescue", (req, res) => {
-  let helpee = req.headers.helpee;
-  let location = req.headers.location;
+router.post("/sms/rescue", requireAuth, (req, res) => {
+  console.log("ZZZ", req.body.coordinates, req.user);
 
-  console.log("helpee and location", helpee + location);
+  let location = req.body.coordinates;
+
+  console.log("helpee and location", location, req.user.phone);
   //console.log("client", client);
-  for (let i = 0; i < RESCUERS.length; i++) {
+  for (let i = 0; i < 1; i++) {
+    console.log("TESTING!")
     client.messages
       .create({
-        to: RESCUERS[i],
+        to: "+1"+ req.body.phone,
         from: "+18082014699",
-        body: `${new Date(new Date().getTime()).toLocaleTimeString()}: ${req
-          .headers.helpee} is at ${req.headers.location} and needs help!`
+        body: "poop"
       })
       .then(message => {
         console.log(`sent a rescue message to ${RESCUERS}`);
       });
+      console.log("ENDING?")
     res.end();
   }
 });
@@ -89,5 +91,39 @@ router.put("/help_requests/:id", function(req, res) {
       console.log("fail");
     });
 });
+
+// function distance(lat1, lon1, lat2, lon2) {
+//   var p = 0.017453292519943295;    // Math.PI / 180
+//   var c = Math.cos;
+//   var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+//           c(lat1 * p) * c(lat2 * p) * 
+//           (1 - c((lon2 - lon1) * p))/2;
+
+//   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+// }
+
+// function compareLocation(user){
+//     console.log('comparing location', user)
+//     db.User.query("SELECT phone, lat, lon FROM `users`", { type: db.sequelize.QueryTypes.SELECT})
+//         .then(users => {
+//         //users is an array of phone,lat,lon
+//         let distances = []
+//         for (let val of users){
+//             distances.push([val.phone, distance(user.location.lat, user.location.lon, val.lat, val.lon)])
+//         }
+//         distances.sort()//might be lucky and it'll work
+//         return distances;
+//     })
+// }
+
+// let james = {'phone': '8319150199',
+// 'location': {
+//     'lat': '21.3069',
+//     'lon': '157.8583'
+// }};
+// console.log('james is==============================', james)
+
+// compareLocation(james)
+
 
 module.exports = router;
