@@ -19,23 +19,25 @@ const {
 } = require("../config/sms");
 const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
 
-router.post("/sms/rescue", (req, res) => {
-  let helpee = req.headers.helpee;
-  let location = req.headers.location;
+router.post("/sms/rescue", requireAuth, (req, res) => {
+  console.log("ZZZ", req.body.coordinates, req.user);
 
-  console.log("helpee and location", helpee + location);
+  let location = req.body.coordinates;
+
+  console.log("helpee and location", location, req.user.phone);
   //console.log("client", client);
-  for (let i = 0; i < RESCUERS.length; i++) {
+  for (let i = 0; i < 1; i++) {
+    console.log("TESTING!")
     client.messages
       .create({
-        to: RESCUERS[i],
+        to: "+1"+ req.body.phone,
         from: "+18082014699",
-        body: `${new Date(new Date().getTime()).toLocaleTimeString()}: ${req
-          .headers.helpee} is at ${req.headers.location} and needs help!`
+        body: "poop"
       })
       .then(message => {
         console.log(`sent a rescue message to ${RESCUERS}`);
       });
+      console.log("ENDING?")
     res.end();
   }
 });

@@ -4,7 +4,7 @@ import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import Link from "valuelink";
-import NumberFormat from "react-number-format";
+
 import { createNewUser } from "../lib/users.js";
 
 function validateName(name) {

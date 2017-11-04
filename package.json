@@ -21,7 +21,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-number-format": "^3.0.0",
-    "react-password-mask": "^3.0.0",
+    "react-password-mask": "^3.1.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -29,11 +29,11 @@
     "react-tooltip": "^3.4.0",
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
-    "redux-form": "^7.1.1",
+    "redux-form": "^7.1.2",
     "redux-thunk": "^2.2.0",
-    "sequelize": "^4.22.1",
+    "sequelize": "^4.22.4",
     "sequelize-cli": "^3.0.0",
-    "twilio": "^3.9.1",
+    "twilio": "^3.9.2",
     "valuelink": "^1.5.4"
   },
   "scripts": {
