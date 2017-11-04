@@ -6,7 +6,7 @@ import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
 
 function validateName(name) {
-  if (parseInt(name) == name) {
+  if (parseInt(name) === name) {
     return window.alert("valid"); // error out if there is a number insert
   } else {
     return this.setState({
