@@ -92,4 +92,38 @@ router.put("/help_requests/:id", function(req, res) {
     });
 });
 
+// function distance(lat1, lon1, lat2, lon2) {
+//   var p = 0.017453292519943295;    // Math.PI / 180
+//   var c = Math.cos;
+//   var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+//           c(lat1 * p) * c(lat2 * p) * 
+//           (1 - c((lon2 - lon1) * p))/2;
+
+//   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+// }
+
+// function compareLocation(user){
+//     console.log('comparing location', user)
+//     db.User.query("SELECT phone, lat, lon FROM `users`", { type: db.sequelize.QueryTypes.SELECT})
+//         .then(users => {
+//         //users is an array of phone,lat,lon
+//         let distances = []
+//         for (let val of users){
+//             distances.push([val.phone, distance(user.location.lat, user.location.lon, val.lat, val.lon)])
+//         }
+//         distances.sort()//might be lucky and it'll work
+//         return distances;
+//     })
+// }
+
+// let james = {'phone': '8319150199',
+// 'location': {
+//     'lat': '21.3069',
+//     'lon': '157.8583'
+// }};
+// console.log('james is==============================', james)
+
+// compareLocation(james)
+
+
 module.exports = router;
