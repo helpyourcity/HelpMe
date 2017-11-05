@@ -59,7 +59,8 @@ router.put("/map", requireAuth, function(req, res) {
   User.update(
     {
       lat: req.body.lat,
-      lng: req.body.lng
+      lng: req.body.lng,
+      status: req.body.status
     },
     {
       where: {

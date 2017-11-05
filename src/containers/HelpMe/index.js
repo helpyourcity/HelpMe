@@ -91,7 +91,8 @@ class HelpMe extends Component {
       var token = localStorage.getItem("token");
       let coordinates = {
         lat: lat,
-        lng: lng
+        lng: lng, 
+        status: "helpee"
       };
       axios
         .put("/api/user/map", coordinates, {
@@ -104,11 +105,11 @@ class HelpMe extends Component {
           var token = localStorage.getItem("token");
 
           let rescueRequest = {
-            coordinates: `${location.data.lat}, ${location.data.lng}`,
-            phoneNumber:this.state.phoneNumber,
+            coordinates: `${location.data.lat},${location.data.lng}`,
+           phoneNumber:this.state.phoneNumber,
             title: this.state.title
           };
-          console.log("POSITION", rescueRequest);
+          console.log("POSITION", this.state);
           axios.post("/api/rescue/sms/rescue", rescueRequest, {
             headers: {
               authorization: token
@@ -117,11 +118,7 @@ class HelpMe extends Component {
         });
     });
     console.log("GOOD");
-    this.setState({
-      title: "",
-      phoneNumber: "",
-      formValid: false
-    });
+
   }
 
   render() {
