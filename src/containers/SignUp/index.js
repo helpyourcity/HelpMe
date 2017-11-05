@@ -5,6 +5,9 @@ import Link from "valuelink";
 
 import { createNewUser } from '../lib/users.js';
 
+// CSS
+import './SignUp.css';
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -90,43 +93,67 @@ class SignUp extends Component {
         "Email is required"
       );
       return (
-        <div>
-          <h1>Sign Up</h1>
-          <h3>Email</h3>
-          <input
-            type="text"
-            placeholder="youremail@gmail.com"
-            onChange={this.handleEmail}
-          />
-          <h3>Password</h3>
-          <PasswordMask
-            placeholder="Enter Password"
-            value={this.state.password}
-            onChange={this.handlePassword}
-            useVendorStyles={false}
-          />
-          <h3>First Name</h3>
-          <input
-            type="text"
-            placeholder="John"
-            onChange={this.handleFirstName}
-          />
-          <h3>Last Name</h3>
-          <input type="text" placeholder="Doe" onChange={this.handleLastName} />
-          <h3>Phone Number</h3>
-          <input
-            type="text"
-            placeholder="808-123-4567"
-            onChange={this.handlePhone}
-          />
-          <br />
-          <br />
-          <button
-            disabled={nameLink.error || emailLink.error}
-            onClick={this.handleSubmitUser}
-          >
-            Create Account
-          </button>
+        <div className="background align">
+          <div className="main-cont-su align">
+            <div className="title-cont">
+              <h1>JOIN <strong>HELP ME.</strong></h1>
+            </div>
+            <div className="info-cont align">
+              <div className="align align-left">
+                <label for="email">Email:</label>
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="youremail@gmail.com"
+                  onChange={this.handleEmail}
+                />
+              </div>
+              <div className="align align-left">
+                <label for="firstName">First name:</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="John"
+                  onChange={this.handleFirstName}
+                />
+              </div>
+              <div className="align align-left">
+                <label for="lastName">Last name:</label>
+                <input
+                  name="lastName"
+                  type="text"
+                  placeholder="Doe"
+                  onChange={this.handleLastName}
+                />
+              </div>
+              <div className="align align-left">
+                <label for="phoneNumber">Phone number:</label>
+                <input
+                  name="phoneNumber"
+                  type="text"
+                  placeholder="808-123-4567"
+                  onChange={this.handlePhone}
+                />
+              </div>
+              <div className="align align-left">
+                <label for="password">Password:</label>
+                <PasswordMask
+                  name="password"
+                  placeholder="Enter Password"
+                  value={this.state.password}
+                  onChange={this.handlePassword}
+                  useVendorStyles={false}
+                />
+              </div>
+              <button
+                disabled={nameLink.error || emailLink.error}
+                onClick={this.handleSubmitUser}
+              >Create an account</button>
+            </div>
+          </div>
+          <div className="footer">
+            <p>Already have an account? <strong>Sign in here.</strong></p>
+          </div>
         </div>
       );
     }
