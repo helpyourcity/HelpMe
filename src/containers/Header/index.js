@@ -25,7 +25,6 @@ class Header extends Component {
             <div className="header-title">Help Me!</div>
             <div className="header-nav" />
           </div>
-          <div className="footer">{/* <Footer /> */}</div>
         </div>
       );
     } else {
