@@ -1,9 +1,20 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import Link from "valuelink";
+import { createNewUser } from "../lib/users.js";
 
-import { createNewUser } from '../lib/users.js';
+function validateName(name) {
+  if (parseInt(name) === name) {
+    return window.alert("valid"); // error out if there is a number insert
+  } else {
+    return this.setState({
+      validateFirst_name: true
+    });
+  }
+}
 
 // CSS
 import './SignUp.css';
@@ -18,7 +29,9 @@ class SignUp extends Component {
       last_name: "",
       email: "",
       password: "",
-      redirectAddress: false
+      redirectAddress: false,
+      validFirst_name: false,
+      status: ["user"]
     };
 
     // functions
@@ -63,21 +76,22 @@ class SignUp extends Component {
   handleSubmitUser(evt) {
     //maybe take away submit function?
     evt.preventDefault();
+    let strOnly = /^[a-zA-Z()]+$/;
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       email: this.state.email,
       password: this.state.password,
       phone: this.state.phone,
-      active: true
+      active: true,
+      status: "user"
     };
 
-    createNewUser(newUser)
-      .then(() => {
-        this.setState({
-          redirectAddress: true
-        });
+    createNewUser(newUser).then(() => {
+      this.setState({
+        redirectAddress: true
       });
+    });
   }
 
   render() {
@@ -93,6 +107,7 @@ class SignUp extends Component {
         "Email is required"
       );
       return (
+
         <div className="background align">
           <div className="main-cont-su align">
             <div className="title-cont">
@@ -154,6 +169,7 @@ class SignUp extends Component {
           <div className="footer">
             <p>Already have an account? <strong>Sign in here.</strong></p>
           </div>
+
         </div>
       );
     }
