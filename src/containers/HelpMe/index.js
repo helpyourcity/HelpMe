@@ -91,7 +91,8 @@ class HelpMe extends Component {
       var token = localStorage.getItem("token");
       let coordinates = {
         lat: lat,
-        lng: lng
+        lng: lng, 
+        status: "helpee"
       };
       axios
         .put("/api/user/map", coordinates, {

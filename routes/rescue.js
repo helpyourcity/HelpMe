@@ -25,7 +25,7 @@ router.post("/sms/rescue", requireAuth, (req, res) => {
 
 console.log('COOR', req.body.coordinates)
   //console.log("client", client);
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 2; i++) {
     console.log("TESTING!")
     client.messages
       .create({
