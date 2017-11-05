@@ -20,22 +20,26 @@ const {
 const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
 
 router.post("/sms/rescue", requireAuth, (req, res) => {
-  console.log("ZZZ", req.body.coordinates, req.user);
-
+  console.log("helpee and location", req.body);
   let location = req.body.coordinates;
 
-  console.log("helpee and location", location, req.user.phone);
+console.log('COOR', req.body.coordinates)
   //console.log("client", client);
   for (let i = 0; i < 1; i++) {
     console.log("TESTING!")
     client.messages
       .create({
-        to: "+1"+ req.body.phone,
+        to: "+1"+ req.body.phoneNumber, // to req.body.helperNumber[i]
         from: "+18082014699",
-        body: "poop"
+        body: `Emergency Message from ${req.user.first_name} phone number:${req.body.phoneNumber} :${req.body.title} `
       })
+
       .then(message => {
-        console.log(`sent a rescue message to ${RESCUERS}`);
+         client.messages.create({
+        to: "+1"+ req.body.phoneNumber,
+        from: "+18082014699",
+        body: `This is their location https://www.google.com/maps/search/?api=1&query=${req.body.coordinates}`
+      })
       });
       console.log("ENDING?")
     res.end();
