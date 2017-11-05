@@ -105,7 +105,8 @@ class HelpMe extends Component {
           var token = localStorage.getItem("token");
 
           let rescueRequest = {
-            coordinates: `${location.data.lat},${location.data.lng}`,
+            lat: location.data.lat,
+            lng: location.data.lng,
            phoneNumber:this.state.phoneNumber,
             title: this.state.title
           };
