@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import GoogleMapReact from "google-map-react";
 import Marker from "../Marker";
+import axios from "axios";   
 
 // CSS
 import "./Map.css";
@@ -22,8 +23,11 @@ class Map extends Component {
   componentWillMount() {
     console.log("token", localStorage.getItem("token"));
     // Get users current position: lat, lng
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+    axios.get("/api/user/helpee")
+    .then(users =>{
+      console.log(users)
+
+       navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
@@ -33,13 +37,30 @@ class Map extends Component {
           lng: lng,
           text: "your location"
         });
-        // gets center points for map
-        this.setState({
-          lat,
-          lng
-        });
-      });
-    }
+      
+      })
+    })
+    
+    
+    
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(position => {
+    //     let lat = position.coords.latitude;
+    //     let lng = position.coords.longitude;
+
+    //     this.props.addMarker({
+    //       id: "1",
+    //       lat: lat,
+    //       lng: lng,
+    //       text: "your location"
+    //     });
+    //     // gets center points for map
+    //     this.setState({
+    //       lat,
+    //       lng
+    //     });
+    //   });
+    // }
   }
 
   render() {

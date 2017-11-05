@@ -93,15 +93,15 @@ router.get("/getuser", requireAuth, function(req, res) {
 });
 
 //for finding the three closest helpers
-router.get("/helper", function(req, res) {
+router.get("/helpee", function(req, res) {
   console.log("BACKEND GET HELPER");
   User.findAll({
     where: {
-      status: "helper"
+      status: "helpee"
     },
     attributes: ["first_name", "phone", "lat", "lng"]
   }).then(helper => {
-    console.log("user", req.user);
+    console.log("user", req.helper);
     res.send(helper);
   });
 });
