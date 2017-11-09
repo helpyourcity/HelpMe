@@ -24,15 +24,22 @@ const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
 
 router.post("/sms/rescue", requireAuth, (req, res) => {
   console.log("helpee and location", req.body);
-  let location = req.body.coordinates;
-
-console.log('COOR', req.body.coordinates)
-  //console.log("client", client);
+console.log('REQ.BODY', req.body)
+let helpee = {phone: req.body.phoneNumber,
+location: {
+    lat: req.body.lat,
+    lon: req.body.lng
+}};
+let coordinates = `${req.body.lat},${req.body.lng}`
+console.log("HELPEEE",coordinates)
+ compareLocation(helpee)
+ .then( closestHelpers =>{
+   console.log("closestHelpers",closestHelpers[0][0])
   for (let i = 0; i < 2; i++) {
     console.log("TESTING!")
     client.messages
       .create({
-        to: "+1"+ req.body.phoneNumber, // to req.body.helperNumber[i]
+        to: "+1"+ closestHelpers[i][i], // to req.body.helperNumber[i]
         from: "+18082014699",
         body: `Emergency Message from ${req.user.first_name} phone number:${req.body.phoneNumber} :${req.body.title} `
       })
@@ -41,12 +48,13 @@ console.log('COOR', req.body.coordinates)
          client.messages.create({
         to: "+1"+ req.body.phoneNumber,
         from: "+18082014699",
-        body: `This is their location https://www.google.com/maps/search/?api=1&query=${req.body.coordinates}`
+        body: `This is their location https://www.google.com/maps/search/?api=1&query=${coordinates}`
       })
       });
       console.log("ENDING?")
     res.end();
   }
+   })
 });
 
 router.post("/help_requests", function(req, res) {
@@ -113,7 +121,7 @@ function compareLocation(user){
     console.log('comparing location', user)
     //sequelize.query("SELECT 'phone', 'lat', 'lng' FROM User", { type: sequelize.QueryTypes.SELECT})
     //sequelize.query('SELECT * FROM User', { type: sequelize.QueryTypes.SELECT})
-    User.findAll({
+     return User.findAll({
       attributes: ['phone', 'lat', 'lng']
     })
         .then(data => {

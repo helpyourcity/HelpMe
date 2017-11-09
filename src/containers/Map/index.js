@@ -24,6 +24,7 @@ class Map extends Component {
     // Get users current position: lat, lng
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
+        console.log("+++ ", position)
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
@@ -47,11 +48,11 @@ class Map extends Component {
       this.props.markers &&
       this.props.markers.map(marker => (
         <Marker
-          key={marker.id}
+          key={marker.lat + marker.lng} //TODO we need to make ids for each marker 
           id={marker.id}
           lat={marker.lat}
           lng={marker.lng}
-          text={marker.text}
+          text="monkey"
         />
       ));
     return (
