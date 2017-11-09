@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import { Link as redirectLink } from "react-router-dom";
 import Link from "valuelink";
+import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
 
 // CSS
@@ -44,6 +43,15 @@ class SignUp extends Component {
     this.handleSubmitUser = this.handleSubmitUser.bind(this);
   }
 
+  validateName(name) {
+  if (parseInt(name) === name) {
+    return window.alert("valid"); // error out if there is a number insert
+  } else {
+    return this.setState({
+      validateFirst_name: true
+    });
+  }
+}
   handleEmail(e) {
     this.setState({
       email: e.target.value
@@ -74,10 +82,26 @@ class SignUp extends Component {
     });
   }
 
+  isEmpty(e) {
+    if (!e.target.value || /^\s*$/.test(e.target.value)) {
+      console.log("checking if empty:", "nope");
+    } else {
+      console.log("checking if empty: ", "alright");
+    }
+  }
+
+  isInteger(e) {
+    if (typeof e.target.value === "number" && e.target.value % 1 === 0) {
+      console.log("checking if int: ", "nope");
+    } else {
+      console.log("checking if int: ", "alright");
+    }
+  }
+
   handleSubmitUser(evt) {
     //maybe take away submit function?
     evt.preventDefault();
-    let strOnly = /^[a-zA-Z()]+$/;
+    // let strOnly = /^[a-zA-Z()]+$/;
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -99,16 +123,7 @@ class SignUp extends Component {
     if (this.state.redirectAddress) {
       return <Redirect to="/" />;
     } else {
-      const nameLink = Link.state(this, "first_name").check(
-        x => x,
-        "First Name is required"
-      );
-      const emailLink = Link.state(this, "email").check(
-        x => x,
-        "Email is required"
-      );
       return (
-
         <div className="background align">
           <redirectLink to="/"><i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true"></i></redirectLink>
           <div className="main-cont-su align">
@@ -121,6 +136,8 @@ class SignUp extends Component {
                 <input
                   type="text"
                   name="email"
+                  onBlur={this.isEmpty}
+                  onBlur={this.isInteger}
                   placeholder="youremail@gmail.com"
                   onChange={this.handleEmail}
                 />
@@ -130,6 +147,8 @@ class SignUp extends Component {
                 <input
                   type="text"
                   name="firstName"
+                  onBlur={this.isEmpty}
+                  onBlur={this.isinteger}
                   placeholder="John"
                   onChange={this.handleFirstName}
                 />
@@ -139,6 +158,8 @@ class SignUp extends Component {
                 <input
                   name="lastName"
                   type="text"
+                  onBlur={this.isEmpty}
+                  onBlur={this.isinteger}
                   placeholder="Doe"
                   onChange={this.handleLastName}
                 />
@@ -148,6 +169,8 @@ class SignUp extends Component {
                 <input
                   name="phoneNumber"
                   type="text"
+                  format="##########"
+                  onBlur={this.isEmpty}
                   placeholder="808-123-4567"
                   onChange={this.handlePhone}
                 />
@@ -158,6 +181,7 @@ class SignUp extends Component {
                   name="password"
                   placeholder="Enter Password"
                   value={this.state.password}
+                  onBlur={this.isEmpty}
                   onChange={this.handlePassword}
                   useVendorStyles={false}
                 />
@@ -167,15 +191,14 @@ class SignUp extends Component {
                 disabled={nameLink.error || emailLink.error}
                 onClick={this.handleSubmitUser}
               >Create an account</button>
-            </div>
           </div>
           <div className="footer">
             Already have an account? <strong><redirectLink to="/user/signin">Sign in here.</redirectLink></strong>
           </div>
-
         </div>
-      );
-    }
+      </div>
+    );
+    // }
   }
 }
 
