@@ -76,3 +76,27 @@ a, a:visited {
   font-weight: 300;
   width: 200px;
 }
+
+@media only screen and (max-width: 500px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+
+  .header-title {
+    flex-direction: column;
+  }
+
+  h2 {
+    line-height: 0;
+  }
+
+  p {
+    display: none;
+  }
+
+  .header-nav {
+    padding-bottom: 0.5rem;
+  }
+}
