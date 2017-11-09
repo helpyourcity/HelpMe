@@ -7,7 +7,7 @@ import Marker from "../Marker";
 import "./Map.css";
 
 // ACTIONS
-import { addMarker } from "../../actions/Markers.js";
+import { addMarker} from "../../actions/Markers.js";
 
 class Map extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Map extends Component {
         let lng = position.coords.longitude;
 
         this.props.addMarker({
-          id: "1",
+          id: "",
           lat: lat,
           lng: lng,
           text: "your location"
@@ -44,15 +44,16 @@ class Map extends Component {
   }
 
   render() {
+    console.log("ZZZ", this.props.markers)
     const bunchOfMarkers =
       this.props.markers &&
       this.props.markers.map(marker => (
         <Marker
           key={marker.lat + marker.lng} //TODO we need to make ids for each marker 
-          id={marker.id}
+         
           lat={marker.lat}
           lng={marker.lng}
-          text="monkey"
+          text={marker.first_name}
         />
       ));
     return (
