@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import Link from "valuelink";
+import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
-import './SignUp.css';
 
 
-
+// CSS
+import "./SignUp.css";
 
 class SignUp extends Component {
   constructor(props) {
@@ -73,10 +72,26 @@ class SignUp extends Component {
     });
   }
 
+  isEmpty(e) {
+    if (!e.target.value || /^\s*$/.test(e.target.value)) {
+      console.log("checking if empty:", "nope");
+    } else {
+      console.log("checking if empty: ", "alright");
+    }
+  }
+
+  isInteger(e) {
+    if (typeof e.target.value === "number" && e.target.value % 1 === 0) {
+      console.log("checking if int: ", "nope");
+    } else {
+      console.log("checking if int: ", "alright");
+    }
+  }
+
   handleSubmitUser(evt) {
     //maybe take away submit function?
     evt.preventDefault();
-    let strOnly = /^[a-zA-Z()]+$/;
+    // let strOnly = /^[a-zA-Z()]+$/;
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -97,82 +112,95 @@ class SignUp extends Component {
   render() {
     if (this.state.redirectAddress) {
       return <Redirect to="/" />;
-    } else {
-      const nameLink = Link.state(this, "first_name").check(
-        x => x,
-        "First Name is required"
-      );
-      const emailLink = Link.state(this, "email").check(
-        x => x,
-        "Email is required"
-      );
-      return (
+    } //else {
+    //   const nameLink = Link.state(this, "first_name").check(
+    //     x => x,
+    //     "First Name is required"
+    //   );
+    //   const emailLink = Link.state(this, "email").check(
+    //     x => x,
+    //     "Email is required"
+    //   );
 
-        <div className="background align">
-          <div className="main-cont-su align">
-            <div className="title-cont">
-              <h1>JOIN <strong>HELP ME.</strong></h1>
-            </div>
-            <div className="info-cont align">
-              <div className="align align-left">
-                <label for="email">Email:</label>
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="youremail@gmail.com"
-                  onChange={this.handleEmail}
-                />
-              </div>
-              <div className="align align-left">
-                <label for="firstName">First name:</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="John"
-                  onChange={this.handleFirstName}
-                />
-              </div>
-              <div className="align align-left">
-                <label for="lastName">Last name:</label>
-                <input
-                  name="lastName"
-                  type="text"
-                  placeholder="Doe"
-                  onChange={this.handleLastName}
-                />
-              </div>
-              <div className="align align-left">
-                <label for="phoneNumber">Phone number:</label>
-                <input
-                  name="phoneNumber"
-                  type="text"
-                  placeholder="808-123-4567"
-                  onChange={this.handlePhone}
-                />
-              </div>
-              <div className="align align-left">
-                <label for="password">Password:</label>
-                <PasswordMask
-                  name="password"
-                  placeholder="Enter Password"
-                  value={this.state.password}
-                  onChange={this.handlePassword}
-                  useVendorStyles={false}
-                />
-              </div>
-              <button
-                disabled={nameLink.error || emailLink.error}
-                onClick={this.handleSubmitUser}
-              >Create an account</button>
-            </div>
+    return (
+      <div className="background align">
+        <div className="main-cont-su align">
+          <div className="title-cont">
+            <h1>
+              JOIN <strong>HELP ME.</strong>
+            </h1>
           </div>
-          <div className="footer">
-            <p>Already have an account? <strong>Sign in here.</strong></p>
+          <div className="info-cont align">
+            <div className="align align-left">
+              <label for="email">Email:</label>
+              <input
+                type="text"
+                name="email"
+                onBlur={this.isEmpty}
+                onBlur={this.isInteger}
+                placeholder="youremail@gmail.com"
+                onChange={this.handleEmail}
+              />
+            </div>
+            <div className="align align-left">
+              <label for="firstName">First name:</label>
+              <input
+                type="text"
+                name="firstName"
+                onBlur={this.isEmpty}
+                onBlur={this.isinteger}
+                placeholder="John"
+                onChange={this.handleFirstName}
+              />
+            </div>
+            <div className="align align-left">
+              <label for="lastName">Last name:</label>
+              <input
+                name="lastName"
+                type="text"
+                onBlur={this.isEmpty}
+                onBlur={this.isInteger}
+                placeholder="Doe"
+                onChange={this.handleLastName}
+              />
+            </div>
+            <div className="align align-left">
+              <label for="phoneNumber">Phone number:</label>
+              <NumberFormat
+                name="phoneNumber"
+                format="##########"
+                onBlur={this.isEmpty}
+                placeholder="8081234567"
+                onChange={this.handlePhone}
+              />
+            </div>
+            <div className="align align-left">
+              <label for="password">Password:</label>
+              <PasswordMask
+                name="password"
+                placeholder="Enter Password"
+                value={this.state.password}
+                onBlur={this.isEmpty}
+                onChange={this.handlePassword}
+                useVendorStyles={false}
+              />
+            </div>
+            <button
+              /* disabled={nameLink.error || emailLink.error} */
+              onClick={this.handleSubmitUser}
+            >
+              Create an account
+            </button>
           </div>
-
         </div>
-      );
-    }
+        <div className="footer">
+          <p>
+            Already have an account? <strong>Sign in here.</strong>
+          </p>
+        </div>
+      </div>
+    );
+    // }
   }
 }
 
