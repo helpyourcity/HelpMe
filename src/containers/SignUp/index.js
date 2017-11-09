@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import Link from "valuelink";
 import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
+import './SignUp.css';
 
 // CSS
 import "./SignUp.css";
@@ -32,6 +33,15 @@ class SignUp extends Component {
     this.handleSubmitUser = this.handleSubmitUser.bind(this);
   }
 
+  validateName(name) {
+  if (parseInt(name) === name) {
+    return window.alert("valid"); // error out if there is a number insert
+  } else {
+    return this.setState({
+      validateFirst_name: true
+    });
+  }
+}
   handleEmail(e) {
     this.setState({
       email: e.target.value
