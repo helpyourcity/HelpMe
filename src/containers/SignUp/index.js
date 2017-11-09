@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
+import { Link as redirectLink } from "react-router-dom";
 import Link from "valuelink";
 
 import { createNewUser } from '../lib/users.js';
@@ -94,6 +95,7 @@ class SignUp extends Component {
       );
       return (
         <div className="background align">
+          <redirectLink to="/"><i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true"></i></redirectLink>
           <div className="main-cont-su align">
             <div className="title-cont">
               <h1>JOIN <strong>HELP ME.</strong></h1>
@@ -146,13 +148,14 @@ class SignUp extends Component {
                 />
               </div>
               <button
+                className="btn"
                 disabled={nameLink.error || emailLink.error}
                 onClick={this.handleSubmitUser}
               >Create an account</button>
             </div>
           </div>
           <div className="footer">
-            <p>Already have an account? <strong>Sign in here.</strong></p>
+            Already have an account? <strong><redirectLink to="/user/signin">Sign in here.</redirectLink></strong>
           </div>
         </div>
       );

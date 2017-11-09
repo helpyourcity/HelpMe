@@ -1,8 +1,24 @@
-footer {
+.footer-align {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-content: center;
-  height: 35px; /*temp value*/
   text-align: center;
+}
+
+footer {
+  height: 36px;
+  background-color: #d6463c;
+}
+
+.footer-btn {
+  font: 600 1rem system-ui;
+  background-color: transparent;
+  border: 0;
+  color: white;
+  text-decoration: none;
+}
+
+.footer-btn:hover {
+  color: #79261f;
 }
