@@ -1,13 +1,24 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import NumberFormat from "react-number-format";
 import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import { Link as redirectLink } from "react-router-dom";
 import Link from "valuelink";
-
-import { createNewUser } from '../lib/users.js';
+import { createNewUser } from "../lib/users.js";
 
 // CSS
 import './SignUp.css';
+
+function validateName(name) {
+  if (parseInt(name) === name) {
+    return window.alert("valid"); // error out if there is a number insert
+  } else {
+    return this.setState({
+      validateFirst_name: true
+    });
+  }
+}
 
 class SignUp extends Component {
   constructor(props) {
@@ -19,7 +30,9 @@ class SignUp extends Component {
       last_name: "",
       email: "",
       password: "",
-      redirectAddress: false
+      redirectAddress: false,
+      validFirst_name: false,
+      status: ["user"]
     };
 
     // functions
@@ -64,21 +77,22 @@ class SignUp extends Component {
   handleSubmitUser(evt) {
     //maybe take away submit function?
     evt.preventDefault();
+    let strOnly = /^[a-zA-Z()]+$/;
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       email: this.state.email,
       password: this.state.password,
       phone: this.state.phone,
-      active: true
+      active: true,
+      status: "user"
     };
 
-    createNewUser(newUser)
-      .then(() => {
-        this.setState({
-          redirectAddress: true
-        });
+    createNewUser(newUser).then(() => {
+      this.setState({
+        redirectAddress: true
       });
+    });
   }
 
   render() {
@@ -94,6 +108,7 @@ class SignUp extends Component {
         "Email is required"
       );
       return (
+
         <div className="background align">
           <redirectLink to="/"><i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true"></i></redirectLink>
           <div className="main-cont-su align">
@@ -157,6 +172,7 @@ class SignUp extends Component {
           <div className="footer">
             Already have an account? <strong><redirectLink to="/user/signin">Sign in here.</redirectLink></strong>
           </div>
+
         </div>
       );
     }

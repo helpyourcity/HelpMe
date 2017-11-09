@@ -29,6 +29,7 @@ router.post("/signin", requireSignIn, signin);
 
 // sign up *
 router.post("/new", function(req, res) {
+  console.log(req.body);
   bcrypt.genSalt(saltRounds).then(salt => {
     bcrypt.hash(req.body.password, salt).then(hash => {
       // Create new user w/ hashed password
@@ -38,7 +39,8 @@ router.post("/new", function(req, res) {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         phone: req.body.phone,
-        active: true
+        active: true,
+        status: "user"
       })
         .then(user => {
           res.end();
@@ -51,56 +53,75 @@ router.post("/new", function(req, res) {
   });
 });
 
-//gettin user by id for checking your profile
+//this is for updating user location
+router.put("/map", requireAuth, function(req, res) {
+  console.log("REQS", req.user.id);
+  User.update(
+    {
+      lat: req.body.lat,
+      lng: req.body.lng,
+      status: req.body.status
+    },
+    {
+      where: {
+        id: req.user.id
+      }
+    }
+  );
+  User.findById(req.user.id, {
+    attributes: ["lat", "lng"]
+  })
+    .then(location => {
+      console.log("locations", location);
+      res.send(location);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+//getting user by id for checking your profile
 router.get("/getuser", requireAuth, function(req, res) {
   console.log("BACKEND GET USER", req);
   res.send({
     first_name: req.user.first_name,
     last_name: req.user.last_name,
     email: req.user.email,
-    phone: req.user.phone
+    phone: req.user.phone,
+    status: req.user.status
+  });
+});
+
+//for finding the three closest helpers
+router.get("/helper", function(req, res) {
+  console.log("BACKEND GET HELPER");
+  User.findAll({
+    where: {
+      status: "helper"
+    },
+    attributes: ["first_name", "phone", "lat", "lng"]
+  }).then(helper => {
+    console.log("user", req.user);
+    res.send(helper);
   });
 });
 
 router.put("/users/edit", requireAuth, function(req, res) {
-  User.update({
-    email: req.body.email,
-    phone: req.body.phone
-  },
-  {
-    where: {
-      id: req.user.id
+  console.log("checking status: ", req.body.status);
+  User.update(
+    {
+      email: req.body.email,
+      phone: req.body.phone,
+      status: req.body.status
+    },
+    {
+      where: {
+        id: req.user.id
+      }
     }
-  }).then((user) => {
-
+  ).then(user => {
+    res.end();
   });
 });
-
-//for users to edit their profiles.
-// router.put("/users/edit", requireAuth, function(req, res) {
-//   //this is to edit or (delete) users by id
-//   bcrypt.genSalt(saltRounds).then(salt => {
-//     bcrypt.hash(req.body.password, salt).then(hash => {
-//       User.update(
-//         {
-//           email: req.body.email,
-//           phone: req.body.phone,
-//           password: hash
-//         },
-//         {
-//           where: { id: req.user.id }
-//         }
-//       ).then(() => {
-//         return User.findById(req.user.id).then(user => {
-//           res.json({
-//             email: req.body.email,
-//             phone: req.body.phone,
-//             password: req.body.password
-//           });
-//         });
-//       });
-//     });
-//   });
-// });
 
 module.exports = router;
