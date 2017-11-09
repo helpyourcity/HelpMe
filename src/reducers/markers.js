@@ -1,16 +1,13 @@
-import {
-  ADD_MARKER
-} from '../actions/Markers.js';
+import { ADD_MARKER, ADD_MARKERS } from "../actions/Markers.js";
 
 const initialState = [];
 
 const markers = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ADD_MARKER:
-      return [
-        ...state,
-        action.marker
-      ];
+      let markers = [...state, action.marker];
+      return markers;
+
     default:
       return state;
   }

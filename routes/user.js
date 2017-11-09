@@ -99,9 +99,9 @@ router.get("/helper", function(req, res) {
     where: {
       status: "helper"
     },
-    attributes: ["first_name", "phone", "lat", "lng"]
+    attributes: ["id","first_name", "phone", "lat", "lng",]
   }).then(helper => {
-    console.log("user", req.user);
+    console.log("user", helper);
     res.send(helper);
   });
 });

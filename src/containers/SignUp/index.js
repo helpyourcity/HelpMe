@@ -7,7 +7,7 @@ import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
 
 // CSS
-import './SignUp.css';
+import "./SignUp.css";
 
 function validateName(name) {
   if (parseInt(name) === name) {
@@ -44,14 +44,14 @@ class SignUp extends Component {
   }
 
   validateName(name) {
-  if (parseInt(name) === name) {
-    return window.alert("valid"); // error out if there is a number insert
-  } else {
-    return this.setState({
-      validateFirst_name: true
-    });
+    if (parseInt(name) === name) {
+      return window.alert("valid"); // error out if there is a number insert
+    } else {
+      return this.setState({
+        validateFirst_name: true
+      });
+    }
   }
-}
   handleEmail(e) {
     this.setState({
       email: e.target.value
@@ -125,10 +125,14 @@ class SignUp extends Component {
     } else {
       return (
         <div className="background align">
-          <redirectLink to="/"><i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true"></i></redirectLink>
+          <redirectLink to="/">
+            <i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true" />
+          </redirectLink>
           <div className="main-cont-su align">
             <div className="title-cont">
-              <h1>JOIN <strong>HELP ME.</strong></h1>
+              <h1>
+                JOIN <strong>HELP ME.</strong>
+              </h1>
             </div>
             <div className="info-cont align">
               <div className="align align-left">
@@ -186,19 +190,21 @@ class SignUp extends Component {
                   useVendorStyles={false}
                 />
               </div>
-              <button
-                className="btn"
-                disabled={nameLink.error || emailLink.error}
-                onClick={this.handleSubmitUser}
-              >Create an account</button>
-          </div>
-          <div className="footer">
-            Already have an account? <strong><redirectLink to="/user/signin">Sign in here.</redirectLink></strong>
+              <button className="btn" onClick={this.handleSubmitUser}>
+                Create an account
+              </button>
+            </div>
+            <div className="footer">
+              Already have an account?{" "}
+              <strong>
+                <redirectLink to="/user/signin">Sign in here.</redirectLink>
+              </strong>
+            </div>
           </div>
         </div>
-      </div>
-    );
-    // }
+      );
+      // }
+    }
   }
 }
 
