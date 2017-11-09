@@ -1,23 +1,11 @@
 import React, { Component } from "react";
-import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import { Link as redirectLink } from "react-router-dom";
-import Link from "valuelink";
 import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
 
 // CSS
 import "./SignUp.css";
-
-function validateName(name) {
-  if (parseInt(name) === name) {
-    return window.alert("valid"); // error out if there is a number insert
-  } else {
-    return this.setState({
-      validateFirst_name: true
-    });
-  }
-}
 
 class SignUp extends Component {
   constructor(props) {
@@ -43,15 +31,6 @@ class SignUp extends Component {
     this.handleSubmitUser = this.handleSubmitUser.bind(this);
   }
 
-  validateName(name) {
-    if (parseInt(name) === name) {
-      return window.alert("valid"); // error out if there is a number insert
-    } else {
-      return this.setState({
-        validateFirst_name: true
-      });
-    }
-  }
   handleEmail(e) {
     this.setState({
       email: e.target.value
@@ -82,17 +61,9 @@ class SignUp extends Component {
     });
   }
 
-  isEmpty(e) {
-    if (!e.target.value || /^\s*$/.test(e.target.value)) {
-      console.log("checking if empty:", "nope");
-    } else {
-      console.log("checking if empty: ", "alright");
-    }
-  }
-
-  isInteger(e) {
-    if (typeof e.target.value === "number" && e.target.value % 1 === 0) {
-      console.log("checking if int: ", "nope");
+  isInteger(newState) {
+    if (typeof newState === "number" || (newState % 1 === 0 && newState)) {
+      return "inline";
     } else {
       console.log("checking if int: ", "alright");
     }
@@ -100,8 +71,10 @@ class SignUp extends Component {
 
   handleSubmitUser(evt) {
     //maybe take away submit function?
+    let vaildEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     evt.preventDefault();
-    // let strOnly = /^[a-zA-Z()]+$/;
+
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -112,11 +85,14 @@ class SignUp extends Component {
       status: "user"
     };
 
-    createNewUser(newUser).then(() => {
-      this.setState({
-        redirectAddress: true
+    if (vaildEmail.test(newUser.email)) {
+      createNewUser(newUser).then(() => {
+        this.setState({
+          redirectAddress: true
+        });
       });
-    });
+    }
+    console.log("enter vaild email");
   }
 
   render() {
@@ -140,57 +116,83 @@ class SignUp extends Component {
                 <input
                   type="text"
                   name="email"
-                  onBlur={this.isEmpty}
-                  onBlur={this.isInteger}
                   placeholder="youremail@gmail.com"
                   onChange={this.handleEmail}
+                  required
                 />
               </div>
+
               <div className="align align-left">
                 <label for="firstName">First name:</label>
+                <div
+                  id="firstname"
+                  style={{
+                    display: this.isInteger(this.state.first_name)
+                  }}
+                >
+                  *please enter a vaild name*
+                </div>
                 <input
                   type="text"
                   name="firstName"
-                  onBlur={this.isEmpty}
-                  onBlur={this.isinteger}
+                  onBlur={this.isInteger}
                   placeholder="John"
                   onChange={this.handleFirstName}
+                  required
                 />
               </div>
+
               <div className="align align-left">
                 <label for="lastName">Last name:</label>
+                <div
+                  id="lastname"
+                  style={{
+                    display: this.isInteger(this.state.last_name)
+                  }}
+                >
+                  *please enter a vaild name*
+                </div>
                 <input
                   name="lastName"
                   type="text"
-                  onBlur={this.isEmpty}
-                  onBlur={this.isinteger}
+                  onBlur={this.isInteger}
                   placeholder="Doe"
                   onChange={this.handleLastName}
+                  required
                 />
               </div>
+
               <div className="align align-left">
                 <label for="phoneNumber">Phone number:</label>
-                <input
+                <NumberFormat
                   name="phoneNumber"
-                  type="text"
                   format="##########"
-                  onBlur={this.isEmpty}
-                  placeholder="808-123-4567"
+                  placeholder="8081234567"
                   onChange={this.handlePhone}
+                  required
                 />
               </div>
+
               <div className="align align-left">
                 <label for="password">Password:</label>
-                <PasswordMask
-                  name="password"
+                <input
+                  type="password"
                   placeholder="Enter Password"
-                  value={this.state.password}
-                  onBlur={this.isEmpty}
                   onChange={this.handlePassword}
-                  useVendorStyles={false}
+                  required
                 />
               </div>
-              <button className="btn" onClick={this.handleSubmitUser}>
+              <button
+                disabled={
+                  !this.state.first_name ||
+                  !this.state.last_name ||
+                  !this.state.email ||
+                  !this.state.phone ||
+                  !this.state.password
+                }
+                className="btn"
+                onClick={this.handleSubmitUser}
+              >
                 Create an account
               </button>
             </div>
