@@ -5,11 +5,10 @@ import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
 import Link from "valuelink";
 import { createNewUser } from "../lib/users.js";
-
-
-
-// CSS
 import './SignUp.css';
+
+
+
 
 class SignUp extends Component {
   constructor(props) {
