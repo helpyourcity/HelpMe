@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 
 import { signInUser } from '../lib/users.js';
 
@@ -57,9 +58,7 @@ class SignIn extends Component {
     } else {
       return (
         <div className="background align">
-          <div className="back-btn">
-            <p>back</p>
-          </div>
+          <Link to="/"><i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true"></i></Link>
           <div className="main-cont align">
 
             <div className="title-cont">
@@ -80,17 +79,17 @@ class SignIn extends Component {
                 <label for="password">Password:</label>
                 <input
                   name="password"
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   onChange={this.handlePasswordChange}
                 />
               </div>
-              <button onClick={this.handleSignIn}>SUBMIT</button>
+              <button className="btn" onClick={this.handleSignIn}>SUBMIT</button>
             </div>
 
           </div>
           <div className="footer">
-            <p>New to Help Me? <strong>Create an account.</strong></p>
+            New to Help Me? <strong><Link to="/user/new">Create an account.</Link></strong>
           </div>
 
         </div>

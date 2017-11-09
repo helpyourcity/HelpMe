@@ -20,25 +20,46 @@ class Header extends Component {
   render() {
     if (this.state.userAuthenticated) {
       return (
-        <div id="container">
+        <div>
           <div className="header">
-            <div className="header-title">Help Me!</div>
-            <div className="header-nav" />
+            <div className="header-title align-row">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x logo"></i>
+                <i class="fa fa-medkit fa-stack-1x fa-inverse"></i>
+              </span>
+              <h2>Help Me!</h2>
+              <p>a social rescue service.</p>
+            </div>
+            <div className="header-nav align-row">
+              <div className="hello-user">Hello, {this.props.username}</div>
+              <div className="hello-user"> | </div>
+              <button className="logout-btn" onClick={this.handleSignOut}>Logout</button>
+            </div>
           </div>
+          <div className="dark-red" />
+          <div className="darker-red" />
         </div>
       );
     } else {
       return (
-        <div className="header">
-          <div className="header-title">Help Me!</div>
-          <div className="header-nav">
-            <div>
-              <Link to="/user/signin">Sign-In</Link>
+        <div>
+          <div className="header">
+            <div className="header-title align-row">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x logo"></i>
+                <i class="fa fa-medkit fa-stack-1x fa-inverse"></i>
+              </span>
+              <h2>Help Me!</h2>
+              <p>a social rescue service.</p>
             </div>
-            <div>
-              <Link to="/user/new">Sign-Up</Link>
+            <div className="header-nav align-row">
+              <div className="hello-user"><Link to="/user/signin">Sign-In</Link></div>
+              <div className="hello-user"> | </div>
+              <div className="hello-user"><Link to="/user/new">Sign-Up</Link></div>
             </div>
           </div>
+          <div className="dark-red" />
+          <div className="darker-red" />
         </div>
       );
     }

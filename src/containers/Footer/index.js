@@ -45,23 +45,13 @@ class Footer extends Component {
 
   render() {
     return (
-      <footer>
-        <button value={1} onClick={this.setActiveModal}>
-          Help Requests
-        </button>
-        <button value={2} onClick={this.setActiveModal}>
-          Help Me!
-        </button>
-        <button value={3} onClick={this.setActiveModal}>
-          Your Profile
-        </button>
+      <div>
+      <div className="darker-red" />
+      <div className="dark-red" />
+      <footer className="footer-align">
+        <button className="footer-btn" value={2} onClick={this.setActiveModal}>Help Me!</button>
+        <button className="footer-btn" value={3} onClick={this.setActiveModal}>Your Profile</button>
 
-        <Modal id={1} activeModal={this.state.activeModal}>
-          <h1>Modal #1</h1>
-          <button value={null} onClick={this.setActiveModal}>
-            Close
-          </button>
-        </Modal>
         <Modal id={2} activeModal={this.state.activeModal}>
           <HelpMe />
           <button value={null} onClick={this.setActiveModal}>
@@ -75,6 +65,7 @@ class Footer extends Component {
           </button>
         </Modal>
       </footer>
+      </div>
     );
   }
 }
