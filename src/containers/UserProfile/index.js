@@ -134,7 +134,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    console.log("status: ", this.state.status);
+    console.log("status: ", this.state);
     if (this.state.editMode) {
       return (
         <div>

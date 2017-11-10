@@ -17,6 +17,21 @@ class Header extends Component {
     };
   }
 
+  componentWillMount() {
+    if (localStorage.getItem("token") !== null) {
+      this.setState({
+        username: localStorage.getItem("username"),
+        userAuthenticated: true
+      });
+    }
+  }
+
+  handleSignOut(e) {
+    e.preventDefault();
+
+    signOutUser();
+  }
+
   render() {
     if (this.state.userAuthenticated) {
       return (
@@ -24,16 +39,18 @@ class Header extends Component {
           <div className="header">
             <div className="header-title align-row">
               <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x logo"></i>
-                <i class="fa fa-medkit fa-stack-1x fa-inverse"></i>
+                <i class="fa fa-circle fa-stack-2x logo" />
+                <i class="fa fa-medkit fa-stack-1x fa-inverse" />
               </span>
               <h2>Help Me!</h2>
               <p>a social rescue service.</p>
             </div>
             <div className="header-nav align-row">
-              <div className="hello-user">Hello, {this.props.username}</div>
+              <div className="hello-user">Hello, {this.state.username}</div>
               <div className="hello-user"> | </div>
-              <button className="logout-btn" onClick={this.handleSignOut}>Logout</button>
+              <button className="logout-btn" onClick={this.handleSignOut}>
+                Logout
+              </button>
             </div>
           </div>
           <div className="dark-red" />
@@ -46,16 +63,20 @@ class Header extends Component {
           <div className="header">
             <div className="header-title align-row">
               <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x logo"></i>
-                <i class="fa fa-medkit fa-stack-1x fa-inverse"></i>
+                <i class="fa fa-circle fa-stack-2x logo" />
+                <i class="fa fa-medkit fa-stack-1x fa-inverse" />
               </span>
               <h2>Help Me!</h2>
               <p>a social rescue service.</p>
             </div>
             <div className="header-nav align-row">
-              <div className="hello-user"><Link to="/user/signin">Sign-In</Link></div>
+              <div className="hello-user">
+                <Link to="/user/signin">Sign-In</Link>
+              </div>
               <div className="hello-user"> | </div>
-              <div className="hello-user"><Link to="/user/new">Sign-Up</Link></div>
+              <div className="hello-user">
+                <Link to="/user/new">Sign-Up</Link>
+              </div>
             </div>
           </div>
           <div className="dark-red" />
