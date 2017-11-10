@@ -28,37 +28,31 @@ class Footer extends Component {
   render() {
     return (
       <div>
-        <div className="darker-red" />
-        <div className="dark-red" />
-        <footer className="footer-align">
-          <button
-            className="footer-btn"
-            value={2}
-            onClick={this.setActiveModal}
-          >
-            Help Me!
-          </button>
-          <button
-            className="footer-btn"
-            value={3}
-            onClick={this.setActiveModal}
-          >
-            Your Profile
-          </button>
+      <div className="darker-red" />
+      <div className="dark-red" />
+      <footer className="footer-align">
+        <button className="footer-btn" value={2} onClick={this.setActiveModal}>Help Me!</button>
+        <button className="footer-btn" value={3} onClick={this.setActiveModal}>Your Profile</button>
 
-          <Modal id={2} activeModal={this.state.activeModal}>
-            <HelpMe />
-            <button value={null} onClick={this.setActiveModal}>
-              Close
-            </button>
-          </Modal>
-          <Modal id={3} activeModal={this.state.activeModal}>
-            <UserProfile />
-            <button value={null} onClick={this.setActiveModal}>
-              Close
-            </button>
-          </Modal>
-        </footer>
+        <Modal id={2} activeModal={this.state.activeModal}>
+          <button
+            className="close-btn"
+            value={null}
+            onClick={this.setActiveModal}>
+            <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+          </button>
+          <HelpMe />
+        </Modal>
+        <Modal id={3} activeModal={this.state.activeModal}>
+          <button
+            className="close-btn"
+            value={null}
+            onClick={this.setActiveModal}>
+            <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+          </button>
+          <UserProfile />
+        </Modal>
+      </footer>
       </div>
     );
   }

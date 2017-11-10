@@ -3,14 +3,12 @@ import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
-
 // CSS
 import "./SignUp.css";
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
     // initial state
     this.state = {
       first_name: "",
@@ -21,7 +19,6 @@ class SignUp extends Component {
       validFirst_name: false,
       status: ["user"]
     };
-
     // functions
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -36,19 +33,16 @@ class SignUp extends Component {
       email: e.target.value
     });
   }
-
   handlePassword(e) {
     this.setState({
       password: e.target.value
     });
   }
-
   handleFirstName(e) {
     this.setState({
       first_name: e.target.value
     });
   }
-
   handleLastName(e) {
     this.setState({
       last_name: e.target.value
@@ -63,9 +57,7 @@ class SignUp extends Component {
 
   isInteger(newState) {
     if (typeof newState === "number" || (newState % 1 === 0 && newState)) {
-      return "inline";
-    } else {
-      console.log("checking if int: ", "alright");
+      return 'inline';
     }
   }
 
@@ -94,7 +86,6 @@ class SignUp extends Component {
     }
     console.log("enter vaild email");
   }
-
   render() {
     if (this.state.redirectAddress) {
       return <Redirect to="/" />;
@@ -133,6 +124,7 @@ class SignUp extends Component {
                   *please enter a vaild name*
                 </div>
                 <input
+                  id="first_name"
                   type="text"
                   name="firstName"
                   onBlur={this.isInteger}
@@ -140,6 +132,16 @@ class SignUp extends Component {
                   onChange={this.handleFirstName}
                   required
                 />
+                <div
+                  id="firstname"
+                  style={{
+                    display: this.isInteger(this.state.first_name),
+                    font: '400 0.5rem system-ui',
+                    color: '#d6463c'
+                  }}
+                >
+                  Error: Please enter a vaild name!
+                </div>
               </div>
 
               <div className="align align-left">
@@ -160,6 +162,16 @@ class SignUp extends Component {
                   onChange={this.handleLastName}
                   required
                 />
+                <div
+                  id="lastname"
+                  style={{
+                    display: this.isInteger(this.state.last_name),
+                    font: '400 0.5rem system-ui',
+                    color: '#d6463c'
+                  }}
+                >
+                  Error: Please enter a valid name!
+                </div>
               </div>
 
               <div className="align align-left">
@@ -196,14 +208,12 @@ class SignUp extends Component {
                 Create an account
               </button>
             </div>
-            <div className="footer">
-              Already have an account?{" "}
-              <strong>
-                <span>
-                  <Link to="/user/signin">Sign in here.</Link>
-                </span>
-              </strong>
-            </div>
+          </div>
+          <div className="footer">
+            Already have an account?{" "}
+            <strong>
+              <Link to="/user/signin">Sign in here.</Link>
+            </strong>
           </div>
         </div>
       );

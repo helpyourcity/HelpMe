@@ -151,46 +151,51 @@ class UserProfile extends Component {
     console.log("status: ", this.state);
     if (this.state.editMode) {
       return (
-        <div>
+        <div className="modal-cont align">
           <h1>EDIT PROFILE</h1>
-          <p>firstname: {this.state.first_name}</p>
-          <p>lastname: {this.state.last_name}</p>
-          <p>email:</p>
+          <div className="profile-txt">
+          First Name: {this.state.first_name}<br />
+          Last Name: {this.state.last_name}<br />
+          </div>
+          <div className="align-left align">
+          <label>Email:</label>
           <input type="text" onChange={this.handleEmailChange} />
-          <p>phone:</p>
+          </div>
+          <br />
+          <div className="align-left align">
+          <label>Phone:</label>
           <input type="text" onChange={this.handlePhoneChange} />
+          </div>
           <button onClick={this.handleSubmitButton}>Submit</button>
           <br />
           <h3>Status</h3>
-          <label>
-            Helper
+          <label>Helper:</label>
             <input
               id="helper"
               type="radio"
               checked={this.state.status === "helper"}
               onChange={this.handleStatusButton}
             />
-          </label>
-          <label>
-            User
+          <label>User:</label>
             <input
               id="user"
               type="radio"
               checked={this.state.status === "user"}
               onChange={this.handleStatusButton}
             />
-          </label>
         </div>
       );
     } else {
       return (
-        <div>
-          <h1>PROFILE</h1>
-          <p>firstname: {this.state.first_name}</p>
-          <p>lastname: {this.state.last_name}</p>
-          <p>email: {this.state.email}</p>
-          <p>phone: {this.state.phone}</p>
-          <button onClick={this.handleEditButton}>Edit</button>
+        <div className="modal-cont align">
+          <h1>Profile</h1>
+          <div className="profile-txt">
+          First Name: {this.state.first_name}<br />
+          Last Name: {this.state.last_name}<br />
+          Email: {this.state.email}<br />
+          Phone Number: {this.state.phone}<br />
+          </div>
+          <button className="modal-btn" onClick={this.handleEditButton}>Edit</button>
         </div>
       );
     }

@@ -1,0 +1,51 @@
+.modal-cont {
+  width: 400px;
+  height: 350px;
+  justify-content: space-around;
+}
+
+.close-btn {
+  border: 0;
+  float: right;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+span {
+  font: 400 0.5rem system-ui;
+  color: red;
+}
+
+#modal-btn {
+  background-color: #d6463c;
+  color: white;
+}
+
+#modal-btn:hover {
+  background-color: #a1352d;
+}
+
+.modal-btn {
+  background-color: #d6463c;
+  border-radius: 3px;
+  color: white;
+  padding: 1rem;
+  width: 17rem;
+  border: 0;
+}
+
+.modal-btn:hover {
+  background-color: #a1352d;
+  outline: 0;
+}
+
+.profile-txt {
+  color: black;
+}
+
+.align-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
