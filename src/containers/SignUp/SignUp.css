@@ -1,6 +1,22 @@
 .main-cont-su {
-  box-shadow: 15px 15px 0px -5px rgba(0,0,0,0.1);
+  box-shadow: 15px 15px 0px -5px rgba(0, 0, 0, 0.1);
   width: 400px;
   height: 625px;
   margin-bottom: 0.5rem;
+}
+
+input:placeholder-shown {
+  border: 1px solid red;
+}
+
+#firstname {
+  display: none;
+}
+
+#lastname {
+  display: none;
+}
+
+#email: {
+  display: none;
 }
