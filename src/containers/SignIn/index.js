@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
-import { signInUser } from '../lib/users.js';
+import { signInUser } from "../lib/users.js";
 
 // CSS
-import './SignIn.css';
+import "./SignIn.css";
 
 class SignIn extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ class SignIn extends Component {
 
     // initial state
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       redirectUser: false
     };
 
@@ -42,32 +42,30 @@ class SignIn extends Component {
       password: this.state.password
     };
 
-    signInUser(user)
-      .then(() => {
-        this.setState({
-          redirectUser: true
-        });
+    signInUser(user).then(() => {
+      this.setState({
+        redirectUser: true
       });
+    });
   }
 
   render() {
-    if(localStorage.getItem("token") !== null) {
-      return (
-        <Redirect to="/"></Redirect>
-      );
+    if (localStorage.getItem("token") !== null) {
+      return <Redirect to="/" />;
     } else {
       return (
         <div className="background align">
-          <Link to="/"><i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true"></i></Link>
+          <Link to="/">
+            <i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true" />
+          </Link>
           <div className="main-cont align">
-
             <div className="title-cont">
               <h1>SIGN-IN</h1>
             </div>
 
             <div className="info-cont align">
               <div className="align align-left">
-                <label for="email">Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input
                   name="email"
                   type="text"
@@ -76,7 +74,7 @@ class SignIn extends Component {
                 />
               </div>
               <div className="align align-left">
-                <label for="password">Password:</label>
+                <label htmlFor="password">Password:</label>
                 <input
                   name="password"
                   type="password"
@@ -84,14 +82,17 @@ class SignIn extends Component {
                   onChange={this.handlePasswordChange}
                 />
               </div>
-              <button className="btn" onClick={this.handleSignIn}>SUBMIT</button>
+              <button className="btn" onClick={this.handleSignIn}>
+                SUBMIT
+              </button>
             </div>
-
           </div>
           <div className="footer">
-            New to Help Me? <strong><Link to="/user/new">Create an account.</Link></strong>
+            New to Help Me?{" "}
+            <strong>
+              <Link to="/user/new">Create an account.</Link>
+            </strong>
           </div>
-
         </div>
       );
     }
@@ -99,4 +100,3 @@ class SignIn extends Component {
 }
 
 export default SignIn;
-
