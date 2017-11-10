@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+// CSS
+import './HelpMe.css';
+
 class HelpMe extends Component {
   constructor(props) {
     super(props);
@@ -91,7 +94,7 @@ class HelpMe extends Component {
       var token = localStorage.getItem("token");
       let coordinates = {
         lat: lat,
-        lng: lng, 
+        lng: lng,
         status: "helpee"
       };
       axios
@@ -125,23 +128,28 @@ class HelpMe extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmitButton}>
-        <div>
-          <input
-            name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-          <span>{this.state.errors.title || "No errrors"}</span>
+        <div className="modal-cont align">
+          <h1>Create a Help Me Request!</h1>
+            <div className="align-left align">
+              <label for="title">Title:</label>
+              <input
+                name="title"
+                value={this.state.title}
+                onChange={this.handleChange}
+              />
+              <span>{this.state.errors.title || ""}</span>
+            </div>
+            <div className="align-left align">
+              <label for="phoneNumber">Phone number:</label>
+              <input
+                name="phoneNumber"
+                value={this.state.phoneNumber}
+                onChange={this.handleChange}
+              />
+              <span>{this.state.errors.phoneNumber || ""}</span>
+            </div>
+            <input id="modal-btn" name="submit" type="submit" disabled={!this.state.formValid} />
         </div>
-        <div>
-          <input
-            name="phoneNumber"
-            value={this.state.phoneNumber}
-            onChange={this.handleChange}
-          />
-          <span>{this.state.errors.phoneNumber || "No errors"}</span>
-        </div>
-        <input name="submit" type="submit" disabled={!this.state.formValid} />
       </form>
     );
   }

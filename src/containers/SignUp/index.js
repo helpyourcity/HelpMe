@@ -1,28 +1,13 @@
 import React, { Component } from "react";
-import PasswordMask from "react-password-mask";
 import { Redirect } from "react-router";
-import { Link as redirectLink } from "react-router-dom";
-import Link from "valuelink";
+import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
-
 // CSS
 import "./SignUp.css";
-
-function validateName(name) {
-  if (parseInt(name) === name) {
-    return window.alert("valid"); // error out if there is a number insert
-  } else {
-    return this.setState({
-      validateFirst_name: true
-    });
-  }
-}
-
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
     // initial state
     this.state = {
       first_name: "",
@@ -33,7 +18,6 @@ class SignUp extends Component {
       validFirst_name: false,
       status: ["user"]
     };
-
     // functions
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -42,66 +26,40 @@ class SignUp extends Component {
     this.handlePhone = this.handlePhone.bind(this);
     this.handleSubmitUser = this.handleSubmitUser.bind(this);
   }
-
-  validateName(name) {
-    if (parseInt(name) === name) {
-      return window.alert("valid"); // error out if there is a number insert
-    } else {
-      return this.setState({
-        validateFirst_name: true
-      });
-    }
-  }
   handleEmail(e) {
     this.setState({
       email: e.target.value
     });
   }
-
   handlePassword(e) {
     this.setState({
       password: e.target.value
     });
   }
-
   handleFirstName(e) {
     this.setState({
       first_name: e.target.value
     });
   }
-
   handleLastName(e) {
     this.setState({
       last_name: e.target.value
     });
   }
-
   handlePhone(e) {
     this.setState({
       phone: e.target.value
     });
   }
-
-  isEmpty(e) {
-    if (!e.target.value || /^\s*$/.test(e.target.value)) {
-      console.log("checking if empty:", "nope");
-    } else {
-      console.log("checking if empty: ", "alright");
+  isInteger(newState) {
+    if (typeof newState === "number" || (newState % 1 === 0 && newState)) {
+      return 'inline';
     }
   }
-
-  isInteger(e) {
-    if (typeof e.target.value === "number" && e.target.value % 1 === 0) {
-      console.log("checking if int: ", "nope");
-    } else {
-      console.log("checking if int: ", "alright");
-    }
-  }
-
   handleSubmitUser(evt) {
     //maybe take away submit function?
+    let vaildEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     evt.preventDefault();
-    // let strOnly = /^[a-zA-Z()]+$/;
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -111,23 +69,24 @@ class SignUp extends Component {
       active: true,
       status: "user"
     };
-
-    createNewUser(newUser).then(() => {
-      this.setState({
-        redirectAddress: true
+    if (vaildEmail.test(newUser.email)) {
+      createNewUser(newUser).then(() => {
+        this.setState({
+          redirectAddress: true
+        });
       });
-    });
+    }
+    console.log("enter vaild email");
   }
-
   render() {
     if (this.state.redirectAddress) {
       return <Redirect to="/" />;
     } else {
       return (
         <div className="background align">
-          <redirectLink to="/">
+          <Link to="/">
             <i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true" />
-          </redirectLink>
+          </Link>
           <div className="main-cont-su align">
             <div className="title-cont">
               <h1>
@@ -140,66 +99,93 @@ class SignUp extends Component {
                 <input
                   type="text"
                   name="email"
-                  onBlur={this.isEmpty}
-                  onBlur={this.isInteger}
                   placeholder="youremail@gmail.com"
                   onChange={this.handleEmail}
+                  required
                 />
               </div>
               <div className="align align-left">
                 <label for="firstName">First name:</label>
                 <input
+                  id="first_name"
                   type="text"
                   name="firstName"
-                  onBlur={this.isEmpty}
-                  onBlur={this.isinteger}
+                  onBlur={this.isInteger}
                   placeholder="John"
                   onChange={this.handleFirstName}
+                  required
                 />
+                <div
+                  id="firstname"
+                  style={{
+                    display: this.isInteger(this.state.first_name),
+                    font: '400 0.5rem system-ui',
+                    color: '#d6463c'
+                  }}
+                >
+                  Error: Please enter a vaild name!
+                </div>
               </div>
               <div className="align align-left">
                 <label for="lastName">Last name:</label>
                 <input
                   name="lastName"
                   type="text"
-                  onBlur={this.isEmpty}
-                  onBlur={this.isinteger}
+                  onBlur={this.isInteger}
                   placeholder="Doe"
                   onChange={this.handleLastName}
+                  required
                 />
+                <div
+                  id="lastname"
+                  style={{
+                    display: this.isInteger(this.state.last_name),
+                    font: '400 0.5rem system-ui',
+                    color: '#d6463c'
+                  }}
+                >
+                  Error: Please enter a valid name!
+                </div>
               </div>
               <div className="align align-left">
                 <label for="phoneNumber">Phone number:</label>
-                <input
+                <NumberFormat
                   name="phoneNumber"
-                  type="text"
                   format="##########"
-                  onBlur={this.isEmpty}
-                  placeholder="808-123-4567"
+                  placeholder="8081234567"
                   onChange={this.handlePhone}
+                  required
                 />
               </div>
               <div className="align align-left">
                 <label for="password">Password:</label>
-                <PasswordMask
-                  name="password"
+                <input
+                  type="password"
                   placeholder="Enter Password"
-                  value={this.state.password}
-                  onBlur={this.isEmpty}
                   onChange={this.handlePassword}
-                  useVendorStyles={false}
+                  required
                 />
               </div>
-              <button className="btn" onClick={this.handleSubmitUser}>
+              <button
+                disabled={
+                  !this.state.first_name ||
+                  !this.state.last_name ||
+                  !this.state.email ||
+                  !this.state.phone ||
+                  !this.state.password
+                }
+                className="btn"
+                onClick={this.handleSubmitUser}
+              >
                 Create an account
               </button>
             </div>
-            <div className="footer">
-              Already have an account?{" "}
-              <strong>
-                <redirectLink to="/user/signin">Sign in here.</redirectLink>
-              </strong>
-            </div>
+          </div>
+          <div className="footer">
+            Already have an account?{" "}
+            <strong>
+              <Link to="/user/signin">Sign in here.</Link>
+            </strong>
           </div>
         </div>
       );
