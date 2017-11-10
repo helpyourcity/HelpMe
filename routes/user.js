@@ -99,7 +99,7 @@ router.get("/helper", function(req, res) {
     where: {
       status: "helper"
     },
-    attributes: ["id","first_name", "phone", "lat", "lng",]
+    attributes: ["id", "first_name", "phone", "lat", "lng"]
   }).then(helper => {
     console.log("user", helper);
     res.send(helper);
@@ -107,12 +107,14 @@ router.get("/helper", function(req, res) {
 });
 
 router.put("/users/edit", requireAuth, function(req, res) {
-  console.log("checking status: ", req.body.status);
+  console.log("checking status: ", req.body);
   User.update(
     {
       email: req.body.email,
       phone: req.body.phone,
-      status: req.body.status
+      status: req.body.status,
+      lat: req.body.lat,
+      lng: req.body.lng
     },
     {
       where: {

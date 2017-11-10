@@ -5,6 +5,7 @@ import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
 // CSS
 import "./SignUp.css";
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,7 @@ class SignUp extends Component {
     this.handlePhone = this.handlePhone.bind(this);
     this.handleSubmitUser = this.handleSubmitUser.bind(this);
   }
+
   handleEmail(e) {
     this.setState({
       email: e.target.value
@@ -46,20 +48,25 @@ class SignUp extends Component {
       last_name: e.target.value
     });
   }
+
   handlePhone(e) {
     this.setState({
       phone: e.target.value
     });
   }
+
   isInteger(newState) {
     if (typeof newState === "number" || (newState % 1 === 0 && newState)) {
       return 'inline';
     }
   }
+
   handleSubmitUser(evt) {
     //maybe take away submit function?
     let vaildEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     evt.preventDefault();
+
     let newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
@@ -69,6 +76,7 @@ class SignUp extends Component {
       active: true,
       status: "user"
     };
+
     if (vaildEmail.test(newUser.email)) {
       createNewUser(newUser).then(() => {
         this.setState({
@@ -95,7 +103,7 @@ class SignUp extends Component {
             </div>
             <div className="info-cont align">
               <div className="align align-left">
-                <label for="email">Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input
                   type="text"
                   name="email"
@@ -104,8 +112,17 @@ class SignUp extends Component {
                   required
                 />
               </div>
+
               <div className="align align-left">
-                <label for="firstName">First name:</label>
+                <label htmlFor="firstName">First name:</label>
+                <div
+                  id="firstname"
+                  style={{
+                    display: this.isInteger(this.state.first_name)
+                  }}
+                >
+                  *please enter a vaild name*
+                </div>
                 <input
                   id="first_name"
                   type="text"
@@ -126,8 +143,17 @@ class SignUp extends Component {
                   Error: Please enter a vaild name!
                 </div>
               </div>
+
               <div className="align align-left">
-                <label for="lastName">Last name:</label>
+                <label htmlFor="lastName">Last name:</label>
+                <div
+                  id="lastname"
+                  style={{
+                    display: this.isInteger(this.state.last_name)
+                  }}
+                >
+                  *please enter a vaild name*
+                </div>
                 <input
                   name="lastName"
                   type="text"
@@ -147,8 +173,9 @@ class SignUp extends Component {
                   Error: Please enter a valid name!
                 </div>
               </div>
+
               <div className="align align-left">
-                <label for="phoneNumber">Phone number:</label>
+                <label htmlFor="phoneNumber">Phone number:</label>
                 <NumberFormat
                   name="phoneNumber"
                   format="##########"
@@ -157,8 +184,9 @@ class SignUp extends Component {
                   required
                 />
               </div>
+
               <div className="align align-left">
-                <label for="password">Password:</label>
+                <label htmlFor="password">Password:</label>
                 <input
                   type="password"
                   placeholder="Enter Password"

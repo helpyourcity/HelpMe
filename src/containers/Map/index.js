@@ -7,7 +7,7 @@ import Marker from "../Marker";
 import "./Map.css";
 
 // ACTIONS
-import { addMarker} from "../../actions/Markers.js";
+import { addMarker } from "../../actions/Markers.js";
 
 class Map extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Map extends Component {
     // Get users current position: lat, lng
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        console.log("+++ ", position)
+        console.log("+++ ", position);
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
 
@@ -44,13 +44,14 @@ class Map extends Component {
   }
 
   render() {
-    console.log("ZZZ", this.props.markers)
+    console.log("ZZZ", this.props.markers);
+    console.log("ZZZ", this.props.markers);
     const bunchOfMarkers =
       this.props.markers &&
       this.props.markers.map(marker => (
         <Marker
-          key={marker.lat + marker.lng} //TODO we need to make ids for each marker 
-         
+          key={marker.id} //TODO we need to make ids for each marker
+          // id={this.props.markers[0].id}
           lat={marker.lat}
           lng={marker.lng}
           text={marker.first_name}

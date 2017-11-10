@@ -1,4 +1,4 @@
-import { ADD_MARKER, ADD_MARKERS } from "../actions/Markers.js";
+import { ADD_MARKER } from "../actions/Markers.js";
 
 const initialState = [];
 

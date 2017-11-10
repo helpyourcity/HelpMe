@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+
 import axios from "axios";
 
 class UserProfile extends Component {
@@ -79,33 +79,47 @@ class UserProfile extends Component {
         status: this.state.status.replace("helper", "user")
       });
     } else if (this.state.status === "user") {
-      let updatedStatus = {
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        email: this.state.email,
-        phone: this.state.phone,
-        status: "helper"
-      };
-      axios.put("/api/user/users/edit", updatedStatus, {
-        headers: {
-          authorization: token
-        }
+      navigator.geolocation.getCurrentPosition(position => {
+        let newLat = position.coords.latitude;
+        let newLng = position.coords.longitude;
+        console.log("lat", newLat);
+        let updatedStatus = {
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          email: this.state.email,
+          phone: this.state.phone,
+          status: "helper",
+          lat: newLat,
+          lng: newLng
+        };
+
+        axios.put("/api/user/users/edit", updatedStatus, {
+          headers: {
+            authorization: token
+          }
+        });
       });
       this.setState({
         status: this.state.status.replace("user", "helper")
       });
     } else {
-      let updatedStatus = {
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        email: this.state.email,
-        phone: this.state.phone,
-        status: "user"
-      };
-      axios.put("/api/user/users/edit", updatedStatus, {
-        headers: {
-          authorization: token
-        }
+      navigator.geolocation.getCurrentPosition(position => {
+        let newLat = position.coords.latitude;
+        let newLng = position.coords.longitude;
+        let updatedStatus = {
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          email: this.state.email,
+          phone: this.state.phone,
+          status: "user",
+          lat: newLat,
+          lng: newLng
+        };
+        axios.put("/api/user/users/edit", updatedStatus, {
+          headers: {
+            authorization: token
+          }
+        });
       });
       // this.setState({
       //   status: this.state.status.replace("user", "helper")
@@ -134,7 +148,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    console.log("status: ", this.state.status);
+    console.log("status: ", this.state);
     if (this.state.editMode) {
       return (
         <div className="modal-cont align">

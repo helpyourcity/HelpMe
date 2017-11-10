@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 
 import Footer from "../Footer";
-import Header from "../Header";
 import ConnectedMap from "../Map";
+import HomepageFooter from "../Footer/HomePageFooter";
 import { signOutUser } from "../lib/users.js";
 import { Link } from "react-router-dom";
 
 //css
-import "./Header.css";
+import "./Homepage.css";
+
 class Homepage extends Component {
   constructor(props) {
     super(props);
@@ -46,9 +47,9 @@ class Homepage extends Component {
         <div>
           <div className="header">
             <div className="header-title align-row">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x logo"></i>
-                <i class="fa fa-medkit fa-stack-1x fa-inverse"></i>
+              <span className="fa-stack fa-lg">
+                <i className="fa fa-circle fa-stack-2x logo" />
+                <i className="fa fa-medkit fa-stack-1x fa-inverse" />
               </span>
               <h2>Help Me!</h2>
               <p>a social rescue service.</p>
@@ -56,7 +57,9 @@ class Homepage extends Component {
             <div className="header-nav align-row">
               <div className="hello-user">Hello, {this.state.username}</div>
               <div className="hello-user"> | </div>
-              <button className="logout-btn" onClick={this.handleSignOut}>Logout</button>
+              <button className="logout-btn" onClick={this.handleSignOut}>
+                Logout
+              </button>
             </div>
           </div>
           <div className="dark-red" />
@@ -86,6 +89,7 @@ class Homepage extends Component {
           <div className="dark-red" />
           <div className="darker-red" />
           <ConnectedMap />
+          <HomepageFooter />
         </div>
       );
     }

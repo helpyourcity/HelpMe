@@ -25,24 +25,6 @@ class Footer extends Component {
     });
   }
 
-  // handleClick() {
-  //   if (!this.state.clickIgnore) {
-  //     window.addEventListener("click", this.handleOutsideClick, false);
-  //   } else {
-  //     window.removeEventListener("click", this.handleClick, false);
-  //   }
-  //   this.setState(prevState => ({
-  //     clickIgnore: !prevState.clickIgnore
-  //   }));
-  // }
-
-  // handleOutsideClick(e) {
-  //   if (this.setActiveModal.contains(e.target)) {
-  //     return;
-  //   }
-  //   this.handleClick();
-  // }
-
   render() {
     return (
       <div>
