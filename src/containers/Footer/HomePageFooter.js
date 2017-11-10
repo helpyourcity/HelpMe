@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import "./Footer.css";
 
-import Modal from "../Modal";
-import UserProfile from "../UserProfile";
-import HelpMe from "../HelpMe";
-
 class Footer extends Component {
   constructor(props) {
     super(props);

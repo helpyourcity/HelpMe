@@ -112,7 +112,7 @@ class SignUp extends Component {
             </div>
             <div className="info-cont align">
               <div className="align align-left">
-                <label for="email">Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input
                   type="text"
                   name="email"
@@ -123,7 +123,7 @@ class SignUp extends Component {
               </div>
 
               <div className="align align-left">
-                <label for="firstName">First name:</label>
+                <label htmlFor="firstName">First name:</label>
                 <div
                   id="firstname"
                   style={{
@@ -143,7 +143,7 @@ class SignUp extends Component {
               </div>
 
               <div className="align align-left">
-                <label for="lastName">Last name:</label>
+                <label htmlFor="lastName">Last name:</label>
                 <div
                   id="lastname"
                   style={{
@@ -163,7 +163,7 @@ class SignUp extends Component {
               </div>
 
               <div className="align align-left">
-                <label for="phoneNumber">Phone number:</label>
+                <label htmlFor="phoneNumber">Phone number:</label>
                 <NumberFormat
                   name="phoneNumber"
                   format="##########"
@@ -174,7 +174,7 @@ class SignUp extends Component {
               </div>
 
               <div className="align align-left">
-                <label for="password">Password:</label>
+                <label htmlFor="password">Password:</label>
                 <input
                   type="password"
                   placeholder="Enter Password"

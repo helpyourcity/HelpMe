@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Footer from "../Footer/";
 
 // ACTION
 import { signOutUser } from "../lib/users.js";
@@ -38,9 +37,9 @@ class Header extends Component {
         <div>
           <div className="header">
             <div className="header-title align-row">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x logo" />
-                <i class="fa fa-medkit fa-stack-1x fa-inverse" />
+              <span className="fa-stack fa-lg">
+                <i className="fa fa-circle fa-stack-2x logo" />
+                <i className="fa fa-medkit fa-stack-1x fa-inverse" />
               </span>
               <h2>Help Me!</h2>
               <p>a social rescue service.</p>
@@ -62,9 +61,9 @@ class Header extends Component {
         <div>
           <div className="header">
             <div className="header-title align-row">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x logo" />
-                <i class="fa fa-medkit fa-stack-1x fa-inverse" />
+              <span className="fa-stack fa-lg">
+                <i className="fa fa-circle fa-stack-2x logo" />
+                <i className="fa fa-medkit fa-stack-1x fa-inverse" />
               </span>
               <h2>Help Me!</h2>
               <p>a social rescue service.</p>
