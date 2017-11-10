@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
-import { Link as redirectLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { createNewUser } from "../lib/users.js";
 
@@ -101,9 +101,9 @@ class SignUp extends Component {
     } else {
       return (
         <div className="background align">
-          <redirectLink to="/">
+          <Link to="/">
             <i className="fa fa-angle-left fa-3x back-btn" aria-hidden="true" />
-          </redirectLink>
+          </Link>
           <div className="main-cont-su align">
             <div className="title-cont">
               <h1>
@@ -199,7 +199,9 @@ class SignUp extends Component {
             <div className="footer">
               Already have an account?{" "}
               <strong>
-                <redirectLink to="/user/signin">Sign in here.</redirectLink>
+                <span>
+                  <Link to="/user/signin">Sign in here.</Link>
+                </span>
               </strong>
             </div>
           </div>
